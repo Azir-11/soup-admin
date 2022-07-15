@@ -21,14 +21,17 @@
             <div class="leo-core-2"></div>
           </div>
         </div>
+        <h3>加载中...</h3>
         <style>
           .loadingAnimation {
             height: 100vh;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
           }
-          .spinner-box{
+          .spinner-box {
             width: 150px;
             height: 150px;
           }
@@ -88,6 +91,9 @@
             to {
               transform: rotate3d(0deg);
             }
+          }
+          h3 {
+            margin-top: 30px;
           }
         </style>
       </div>
