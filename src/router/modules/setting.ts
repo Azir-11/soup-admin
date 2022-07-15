@@ -12,8 +12,9 @@ import { renderIcon } from '@/utils/index';
  * @param meta.icon 菜单图标
  * @param meta.keepAlive 缓存该路由
  * @param meta.sort 排序越小越排前
- *
+ * @param meta.hidden 隐藏这个菜单项
  * */
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/setting',
