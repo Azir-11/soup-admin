@@ -1,36 +1,3 @@
-// {
-//   "extends": "@vue/tsconfig/tsconfig.web.json",
-//   "include": [
-//     "src/**/*.ts",
-//     "src/**/*.d.ts",
-//     "src/**/*.tsx",
-//     "src/**/*.vue",
-//     "types/**/*.d.ts",
-//     "types/**/*.ts",
-//     "build/**/*.ts",
-//     "build/**/*.d.ts",
-//     "mock/**/*.ts",
-//     "components.d.ts",
-//     "vite.config.ts"
-//   ],
-//   "compilerOptions": {
-//     "baseUrl": ".",
-//     "paths": {
-//       "@/*": ["./src/*"]
-//     },
-//     "types": ["naive-ui/volar"],
-//     "typeRoots": [
-//       "./node_modules/@types/",
-//       "./types"
-//     ],
-//   },
-
-//   "references": [
-//     {
-//       "path": "./tsconfig.vite-config.json"
-//     }
-//   ]
-// }
 {
   "compilerOptions": {
     "target": "esnext",
