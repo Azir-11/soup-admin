@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link href="/favicon.ico" rel="icon" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="naive-ui-style" />
+    <title>Vite App</title>
+    <!-- loading Style -->
+  </head>
+  <body>
+    <div id="appProvider" style="display: none"></div>
+    <div id="app">
+      <!-- 首屏加载动画，app挂载完成后会被内容自动覆盖 -->
+      <div class="loadingAnimation">
+        <div class="spinner-box">
+          <div class="leo-border-1">
+            <div class="leo-core-1"></div>
+          </div>
+          <div class="leo-border-2">
+            <div class="leo-core-2"></div>
+          </div>
+        </div>
+        <style>
+          .loadingAnimation {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+          }
+          .spinner-box{
+            width: 150px;
+            height: 150px;
+          }
+          .leo-border-1 {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            padding: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background: rgb(63, 249, 220);
+            background: linear-gradient(
+              0deg,
+              rgba(63, 249, 220, 0.1) 33%,
+              rgba(63, 249, 220, 1) 100%
+            );
+            animation: spin3D 1.8s linear 0s infinite;
+          }
+
+          .leo-core-1 {
+            width: 100%;
+            height: 100%;
+            background-color: #37474faa;
+            border-radius: 50%;
+          }
+
+          .leo-border-2 {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            padding: 3px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background: rgb(251, 91, 83);
+            background: linear-gradient(
+              0deg,
+              rgba(251, 91, 83, 0.1) 33%,
+              rgba(251, 91, 83, 1) 100%
+            );
+            animation: spin3D 2.2s linear 0s infinite;
+          }
+
+          .leo-core-2 {
+            width: 100%;
+            height: 100%;
+            background-color: #1d2630aa;
+            border-radius: 50%;
+          }
+          @keyframes spin3D {
+            from {
+              transform: rotate3d(0.5, 0.5, 0.5, 360deg);
+            }
+            to {
+              transform: rotate3d(0deg);
+            }
+          }
+        </style>
+      </div>
+    </div>
+    <script src="/src/main.ts" type="module"></script>
+  </body>
+</html>
