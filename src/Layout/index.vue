@@ -31,11 +31,14 @@
       </n-layout-header>
       <n-layout-content
         position="absolute"
-        style="top: 64px; bottom: 64px"
-        class="h-auto"
+        style="
+          top: 64px;
+          bottom: 64px;
+          background-color: rgba(246, 249, 248, 1);
+        "
+        class="h-auto p-4"
       >
         <n-scrollbar style="max-height: 100%">
-          <!-- <button @click="showSideDrawder = !showSideDrawder">显隐</button> -->
           <MainView />
         </n-scrollbar>
       </n-layout-content>
