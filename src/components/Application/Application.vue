@@ -3,8 +3,7 @@
     <n-dialog-provider>
       <n-notification-provider>
         <n-message-provider>
-          <slot slot="default"></slot>
-          <feedbackContent />
+          <slot />
         </n-message-provider>
       </n-notification-provider>
     </n-dialog-provider>

@@ -16,7 +16,7 @@ const LOGIN_PATH = PageEnum.BASE_LOGIN;
 const whitePathList = [LOGIN_PATH];
 
 export function createRouterGuards(router: Router) {
-  const asyncRouteStore = useAsyncRouteStoreWidthOut();
+  // const asyncRouteStore = useAsyncRouteStoreWidthOut();
 
   router.beforeEach((to, _from, next) => {
     //开启loading
@@ -62,7 +62,7 @@ export function createRouterGuards(router: Router) {
       return;
     }
 
-    const routes = asyncRouteStore.generateRoutes("userInfo");
+    // const routes = asyncRouteStore.generateRoutes("userInfo");
 
     next();
     // loading完成

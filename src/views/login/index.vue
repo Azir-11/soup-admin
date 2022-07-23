@@ -18,11 +18,7 @@
           size="large"
         >
           <n-form-item path="username">
-            <n-input
-              v-model:value="formInline.username"
-              clearable
-              placeholder="请输入用户名"
-            >
+            <n-input v-model:value="formInline.username" clearable placeholder="请输入用户名">
               <template #prefix>
                 <n-icon color="#808695" size="18">
                   <PersonOutline />
@@ -75,13 +71,7 @@
             </div>
           </n-form-item>
           <n-form-item>
-            <n-button
-              :loading="loading"
-              block
-              size="large"
-              type="primary"
-              @click="handleSubmit"
-            >
+            <n-button :loading="loading" block size="large" type="primary" @click="handleSubmit">
               登录
             </n-button>
           </n-form-item>
@@ -100,9 +90,7 @@
                   </n-icon>
                 </a>
               </div>
-              <a class="text-green-600 no-underline" href="javascript:"
-                >注册账号</a
-              >
+              <a class="text-green-600 no-underline" href="javascript:">注册账号</a>
             </div>
           </n-form-item>
         </n-form>
@@ -217,8 +205,8 @@ const handleSubmit = (e: { preventDefault: () => void }) => {
       //   showModal.value = true;
       //   return;
       // }
-      storage.set(CURRENT_USER, {userName: "admin"});
-      storage.set(ACCESS_TOKEN, { value: "token"});
+      storage.set(CURRENT_USER, { userName: "admin" });
+      storage.set(ACCESS_TOKEN, { value: "token" });
       message.success("登录成功，即将进入系统");
       handleSuccess();
       loading.value = false;

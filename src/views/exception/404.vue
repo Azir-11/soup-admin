@@ -1,9 +1,7 @@
 <template>
-  <div
-    class="flex flex-col justify-center page-container w-full rounded-2xl py-12"
-  >
+  <div class="flex flex-col justify-center page-container w-full rounded-2xl py-12">
     <div class="text-center">
-      <img src="~@/assets/images/exception/404.svg" alt="" class="w-1/3"/>
+      <img src="~@/assets/images/exception/404.svg" alt="" class="w-1/3" />
     </div>
     <div class="text-center">
       <h1 class="text-2xl text-gray-500">抱歉，你访问的页面不存在</h1>

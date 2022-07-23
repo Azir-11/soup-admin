@@ -1,4 +1,3 @@
-<template></template>
 <script setup lang="ts">
 import { useLoadingBar, useMessage, useDialog } from "naive-ui";
 

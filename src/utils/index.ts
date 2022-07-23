@@ -25,7 +25,7 @@ export const renderLabel = (path: string, name: string, params: any = {}) => {
           params: params,
         },
       },
-      { default: () => name }
+      { default: () => name },
     );
 };
 
@@ -33,11 +33,7 @@ export const renderLabel = (path: string, name: string, params: any = {}) => {
  * render new Tag
  * */
 const newTagColors = { color: "#f90", textColor: "#fff", borderColor: "#f90" };
-export function renderNew(
-  type = "warning",
-  text = "New",
-  color: object = newTagColors
-) {
+export function renderNew(type = "warning", text = "New", color: object = newTagColors) {
   return () =>
     h(
       NTag as any,
@@ -47,7 +43,7 @@ export function renderNew(
         size: "small",
         color,
       },
-      { default: () => text }
+      { default: () => text },
     );
 }
 
@@ -77,11 +73,7 @@ export function generatorMenu(routerMap: Array<any>) {
 /**
  * 混合菜单
  * */
-export function generatorMenuMix(
-  routerMap: Array<any>,
-  routerName: string,
-  location: string
-) {
+export function generatorMenuMix(routerMap: Array<any>, routerName: string, location: string) {
   const cloneRouterMap = cloneDeep(routerMap);
   const newRouter = filterRouter(cloneRouterMap);
   if (location === "header") {
@@ -100,9 +92,7 @@ export function generatorMenuMix(
     });
     return firstRouter;
   } else {
-    return getChildrenRouter(
-      newRouter.filter((item) => item.name === routerName)
-    );
+    return getChildrenRouter(newRouter.filter((item) => item.name === routerName));
   }
 }
 
@@ -142,9 +132,7 @@ export function filterRouter(routerMap: Array<any>) {
   return routerMap.filter((item) => {
     return (
       (item.meta?.hidden || false) != true &&
-      !["/:path(.*)*", "/", PageEnum.REDIRECT, PageEnum.BASE_LOGIN].includes(
-        item.path
-      )
+      !["/:path(.*)*", "/", PageEnum.REDIRECT, PageEnum.BASE_LOGIN].includes(item.path)
     );
   });
 }
@@ -186,9 +174,7 @@ export function getTreeAll(data: any[]): any[] {
 export function deepMerge<T = any>(src: any = {}, target: any = {}): T {
   let key: string;
   for (key in target) {
-    src[key] = isObject(src[key])
-      ? deepMerge(src[key], target[key])
-      : (src[key] = target[key]);
+    src[key] = isObject(src[key]) ? deepMerge(src[key], target[key]) : (src[key] = target[key]);
   }
   return src;
 }

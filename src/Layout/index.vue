@@ -22,7 +22,7 @@
       :native-scrollbar="true"
     >
       <!-- 当点击菜单进行跳转之后隐藏drawer -->
-      <AsideMenu @clickMenuItem="changeCollapsed" />
+      <AsideMenu @click-menu-item="changeCollapsed" />
     </n-drawer>
     <n-layout style="height: 100vh">
       <n-layout-header position="absolute" style="height: 64px">
@@ -31,20 +31,16 @@
       </n-layout-header>
       <n-layout-content
         position="absolute"
-        style="
-          top: 64px;
-          bottom: 64px;
-          background-color: rgba(246, 249, 248, 1);
-        "
+        style="top: 64px; background-color: rgba(246, 249, 248, 1)"
         class="h-auto p-4"
       >
         <n-scrollbar style="max-height: 100%">
-          <MainView />
+          <MainView id="MainView" />
+          <n-layout-footer style="border-top: #efeff5 1px solid" class="bg-white mt-10"
+            ><PageFooter
+          /></n-layout-footer>
         </n-scrollbar>
       </n-layout-content>
-      <n-layout-footer position="absolute" style="border-top: #efeff5 1px solid"
-        ><PageFooter
-      /></n-layout-footer>
     </n-layout>
   </n-layout>
 </template>
@@ -54,7 +50,7 @@ import { MainView } from "./components/Main";
 import { AsideMenu } from "./components/Menu";
 import { PageHeader } from "./components/Header";
 import { PageFooter } from "./components/Footer";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 
 const collapsed = ref<boolean>();
 const mobile = ref<boolean>(false);
@@ -100,6 +96,10 @@ onMounted(() => {
   checkMobileMode();
   watchWidth();
   window.addEventListener("resize", watchWidth);
+  console.log(
+    'document.getElementById("MainView").clientWidth',
+    document.getElementById("MainView").clientHeight + 64,
+  );
   // window["$loading"].finish();
 });
 </script>

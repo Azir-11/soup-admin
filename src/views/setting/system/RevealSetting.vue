@@ -1,12 +1,7 @@
 <template>
   <n-grid cols="2 s:2 m:2 l:3 xl:3 2xl:3" responsive="screen">
     <n-grid-item>
-      <n-form
-        :label-width="120"
-        :model="formValue"
-        :rules="rules"
-        ref="formRef"
-      >
+      <n-form ref="formRef" :label-width="120" :model="formValue" :rules="rules">
         <n-form-item label="商品图片(大)">
           <n-space align="center">
             <span>宽度：</span>
@@ -57,30 +52,30 @@
 
         <n-form-item label="水印位置" path="watermarkPlace">
           <n-select
+            v-model:value="formValue.watermarkPlace"
             placeholder="请选择价格精确方式"
             :options="watermarkPlaceList"
-            v-model:value="formValue.watermarkPlace"
           />
         </n-form-item>
 
         <n-form-item label="价格精确位数" path="pricePreciseNum">
           <n-select
+            v-model:value="formValue.pricePreciseNum"
             placeholder="请选择价格精确位数"
             :options="pricePreciseNumList"
-            v-model:value="formValue.pricePreciseNum"
           />
         </n-form-item>
 
         <n-form-item label="价格精确方式" path="pricePrecise">
           <n-select
+            v-model:value="formValue.pricePrecise"
             placeholder="请选择价格精确方式"
             :options="pricePreciseList"
-            v-model:value="formValue.pricePrecise"
           />
         </n-form-item>
 
         <n-form-item label="前台显示市场价" path="isMarketPrice">
-          <n-switch size="large" v-model:value="formValue.isMarketPrice" />
+          <n-switch v-model:value="formValue.isMarketPrice" size="large" />
         </n-form-item>
 
         <div>
@@ -159,7 +154,7 @@ const pricePreciseList = [
 
 export default defineComponent({
   setup() {
-    const formRef: any = ref(null);
+    const formRef = ref(null);
     const message = useMessage();
     const dialog = useDialog();
 

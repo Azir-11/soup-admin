@@ -23,33 +23,33 @@
   </n-card>
 </template>
 <script lang="ts" setup>
-  import { computed } from 'vue';
-  import { useRouter } from 'vue-router';
-  import { useThemeVars } from 'naive-ui';
+import { computed } from "vue";
+import { useRouter } from "vue-router";
+import { useThemeVars } from "naive-ui";
 
-  const router = useRouter();
-  const themeVars = useThemeVars();
+const router = useRouter();
+const themeVars = useThemeVars();
 
-  const getTableHeaderColor = computed(() => {
-    return themeVars.value.tableHeaderColor;
-  });
+const getTableHeaderColor = computed(() => {
+  return themeVars.value.tableHeaderColor;
+});
 
-  function goHome() {
-    router.push('/');
-  }
+function goHome() {
+  router.push("/");
+}
 </script>
 <style lang="less" scoped>
-  .result-box {
-    width: 72%;
-    margin: 0 auto;
-    text-align: center;
-    padding-top: 5px;
+.result-box {
+  width: 72%;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 5px;
 
-    &-extra {
-      padding: 24px 40px;
-      text-align: left;
-      background: v-bind(getTableHeaderColor);
-      border-radius: 4px;
-    }
+  &-extra {
+    padding: 24px 40px;
+    text-align: left;
+    background: v-bind(getTableHeaderColor);
+    border-radius: 4px;
   }
+}
 </style>

@@ -1,3 +1,3 @@
-import MainView from './Main.vue';
+import MainView from "./layoutMain.vue";
 
 export { MainView };

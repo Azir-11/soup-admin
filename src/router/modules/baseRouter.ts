@@ -36,27 +36,26 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
   {
-      path: "/Home",
-      name: "Home",
-      component: Layout,
-      meta: {
-        sort: 1,
-        title: "首页",
-        icon: renderIcon(BarChart),
-        permissions: ["index"],
-      },
-      children: [
-        {
-          path: "index",
-          name: `index`,
-          meta: {
-            title: "首页",
-          },
-          component: () =>
-            import("@/views/index.vue"),
-        },
-      ],
+    path: "/Home",
+    name: "Home",
+    component: Layout,
+    meta: {
+      sort: 1,
+      title: "首页",
+      icon: renderIcon(BarChart),
+      permissions: ["index"],
     },
+    children: [
+      {
+        path: "index",
+        name: `index`,
+        meta: {
+          title: "首页",
+        },
+        component: () => import("@/views/index.vue"),
+      },
+    ],
+  },
 ];
 
 export default routes;

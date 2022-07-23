@@ -16,8 +16,7 @@ const DEFAULT_CONFIG: TreeHelperConfig = {
   pid: "pid",
 };
 
-const getConfig = (config: Partial<TreeHelperConfig>) =>
-  Object.assign({}, DEFAULT_CONFIG, config);
+const getConfig = (config: Partial<TreeHelperConfig>) => Object.assign({}, DEFAULT_CONFIG, config);
 
 export interface IAsyncRouteState {
   menus: RouteRecordRaw[];
@@ -27,24 +26,24 @@ export interface IAsyncRouteState {
   isDynamicAddedRoute: boolean;
 }
 
-function filter<T = any>(
-  tree: T[],
-  func: (n: T) => boolean,
-  config: Partial<TreeHelperConfig> = {}
-): T[] {
-  config = getConfig(config);
-  const children = config.children as string;
-  function listFilter(list: T[]) {
-    return list
-      .map((node: any) => ({ ...node }))
-      .filter((node) => {
-        node[children] = node[children] && listFilter(node[children]);
-        return func(node) || (node[children] && node[children].length);
-      });
-  }
+// function filter<T = any>(
+//   tree: T[],
+//   func: (n: T) => boolean,
+//   config: Partial<TreeHelperConfig> = {},
+// ): T[] {
+//   config = getConfig(config);
+//   const children = config.children as string;
+//   function listFilter(list: T[]) {
+//     return list
+//       .map((node: any) => ({ ...node }))
+//       .filter((node) => {
+//         node[children] = node[children] && listFilter(node[children]);
+//         return func(node) || (node[children] && node[children].length);
+//       });
+//   }
 
-  return listFilter(tree);
-}
+//   return listFilter(tree);
+// }
 
 export const useAsyncRouteStore = defineStore({
   id: "app-async-route",
@@ -85,7 +84,7 @@ export const useAsyncRouteStore = defineStore({
       this.keepAliveComponents = compNames;
     },
     async generateRoutes(_data: any) {
-      let accessedRouters = asyncRoutes;
+      const accessedRouters = asyncRoutes;
       this.setRouters(accessedRouters);
       this.setMenus(accessedRouters);
       return toRaw(accessedRouters);

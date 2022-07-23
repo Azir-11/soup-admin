@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onMounted, watch, computed, unref, toRefs } from "vue";
+import { ref, onMounted, watch, unref } from "vue";
 import type { MenuOption } from "naive-ui";
 import { useAsyncRouteStore } from "@/stores/modules/asyncRoute";
 import { generatorMenu } from "@/utils";
@@ -32,9 +32,7 @@ const emit = defineEmits(["update:collapsed", "clickMenuItem"]);
 const matched = currentRoute.matched;
 
 let openKeys = ref(
-  (matched && matched.length
-    ? matched.map((item) => item.name)
-    : []) as Array<string>
+  (matched && matched.length ? matched.map((item) => item.name) : []) as Array<string>,
 );
 
 const selectedKeys = ref<string>(currentRoute.name as string);
@@ -55,10 +53,8 @@ watch(
     const matched = currentRoute.matched;
     openKeys.value = matched.map((item) => item.name) as Array<string>;
     const activeMenu: string = (currentRoute.meta?.activeMenu as string) || "";
-    selectedKeys.value = unref(
-      activeMenu ? (activeMenu as string) : (currentRoute.name as string)
-    );
-  }
+    selectedKeys.value = unref(activeMenu ? (activeMenu as string) : (currentRoute.name as string));
+  },
 );
 
 // 点击菜单
@@ -78,15 +74,9 @@ const handleUpdateValue = (key: string, _item: MenuOption) => {
  */
 const menuExpanded = (thisOpenKeys: string[]) => {
   if (!thisOpenKeys) return;
-  const latestOpenKey = thisOpenKeys.find(
-    (key) => openKeys.value.indexOf(key) === -1
-  );
+  const latestOpenKey = thisOpenKeys.find((key) => openKeys.value.indexOf(key) === -1);
   const isExistChildren = findChildrenLen(latestOpenKey as string);
-  openKeys.value = isExistChildren
-    ? latestOpenKey
-      ? [latestOpenKey]
-      : []
-    : thisOpenKeys;
+  openKeys.value = isExistChildren ? (latestOpenKey ? [latestOpenKey] : []) : thisOpenKeys;
 };
 //查找是否存在子路由
 const findChildrenLen = (key: string) => {

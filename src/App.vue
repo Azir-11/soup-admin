@@ -1,8 +1,5 @@
 <template>
-  <n-config-provider
-    :locale="zhCN"
-    :theme="undefined"
-    :date-locale="dateZhCN">
+  <n-config-provider :locale="zhCN" :theme="theme" :date-locale="dateZhCN">
     <AppProvider>
       <RouterView />
     </AppProvider>
@@ -10,9 +7,12 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from "vue";
 import { AppProvider } from "@/components/Application";
 import { RouterView } from "vue-router";
-  import { zhCN, dateZhCN, darkTheme } from 'naive-ui';
+import { zhCN, dateZhCN } from "naive-ui";
+
+const theme = ref(null);
 </script>
 
 <style>

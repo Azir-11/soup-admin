@@ -1,34 +1,21 @@
 <template>
   <n-grid cols="2 s:2 m:2 l:3 xl:3 2xl:3" responsive="screen">
     <n-grid-item>
-      <n-form :label-width="80" :model="formValue" :rules="rules" ref="formRef">
+      <n-form ref="formRef" :label-width="80" :model="formValue" :rules="rules">
         <n-form-item label="网站名称" path="name">
-          <n-input
-            v-model:value="formValue.name"
-            placeholder="请输入网站名称"
-          />
+          <n-input v-model:value="formValue.name" placeholder="请输入网站名称" />
         </n-form-item>
 
         <n-form-item label="备案编号" path="icpCode">
-          <n-input
-            placeholder="请输入备案编号"
-            v-model:value="formValue.icpCode"
-          />
+          <n-input v-model:value="formValue.icpCode" placeholder="请输入备案编号" />
         </n-form-item>
 
         <n-form-item label="联系电话" path="mobile">
-          <n-input
-            placeholder="请输入联系电话"
-            v-model:value="formValue.mobile"
-          />
+          <n-input v-model:value="formValue.mobile" placeholder="请输入联系电话" />
         </n-form-item>
 
         <n-form-item label="联系地址" path="address">
-          <n-input
-            v-model:value="formValue.address"
-            type="textarea"
-            placeholder="请输入联系地址"
-          />
+          <n-input v-model:value="formValue.address" type="textarea" placeholder="请输入联系地址" />
         </n-form-item>
 
         <n-form-item label="登录验证码" path="loginCode">
@@ -42,8 +29,8 @@
 
         <n-form-item label="网站开启访问" path="systemOpen">
           <n-switch
-            size="large"
             v-model:value="formValue.systemOpen"
+            size="large"
             @update:value="systemOpenChange"
           />
         </n-form-item>

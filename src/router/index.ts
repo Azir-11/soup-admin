@@ -1,11 +1,10 @@
-import type { App } from 'vue';
+import type { App } from "vue";
 import { createRouter, createWebHistory } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
 import { createRouterGuards } from "./router-guards";
 
 // 导入模块内的所有路由 star
 const modules = (import.meta as any).globEager("./modules/**/*.ts");
-
 
 const routeModuleList: RouteRecordRaw[] = [];
 
@@ -15,9 +14,9 @@ Object.keys(modules).forEach((key) => {
   routeModuleList.push(...modList);
 });
 
-const sortRoute=(a:any, b:any)=> {
+const sortRoute = (a: any, b: any) => {
   return (a.meta?.sort || 0) - (b.meta?.sort || 0);
-}
+};
 
 routeModuleList.sort(sortRoute);
 
@@ -27,9 +26,9 @@ routeModuleList.sort(sortRoute);
 export const asyncRoutes: any[] = [...routeModuleList];
 
 const router = createRouter({
-  history: createWebHistory(''),
+  history: createWebHistory(""),
   strict: true,
-  routes:routeModuleList,
+  routes: routeModuleList,
 });
 
 // 创建路由守卫

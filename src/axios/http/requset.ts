@@ -1,16 +1,11 @@
-import type {
-  AxiosError,
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-} from "axios";
+import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import Axios from "axios";
 import type { Request } from "@/axios/http/type";
 import { message } from "./message";
 import { ACCESS_TOKEN } from "@/stores/mutation-types";
 import { storage } from "@/utils/storage";
 
-export const baseURL="http://localhost:8000/api/"
+export const baseURL = "http://localhost:8000/api/";
 
 /**
  * 默认 create Axios 的配置参数
@@ -87,7 +82,7 @@ class EnclosureHttp {
       },
       (err) => {
         return Promise.resolve(err);
-      }
+      },
     );
   }
 
@@ -130,7 +125,7 @@ class EnclosureHttp {
           // 后续增加断网情况下做的一些操作
           return Promise.reject(error);
         }
-      }
+      },
     );
   }
 
@@ -167,11 +162,7 @@ class EnclosureHttp {
    * @param params 参数
    * @param config
    */
-  public reqGet: Request = async (
-    url: string,
-    params?: unknown,
-    config?: AxiosRequestConfig
-  ) => {
+  public reqGet: Request = async (url: string, params?: unknown, config?: AxiosRequestConfig) => {
     return await EnclosureHttp.axiosInstance.get(url, { params, ...config });
   };
 
@@ -181,17 +172,13 @@ class EnclosureHttp {
    * @param params 参数
    * @param config
    */
-  public reqPost: Request = (
-    url: string,
-    data: unknown = {},
-    config?: AxiosRequestConfig
-  ) => {
+  public reqPost: Request = (url: string, data: unknown = {}, config?: AxiosRequestConfig) => {
     return EnclosureHttp.axiosInstance.post(
       url,
       {
         ...(data as Record<string, unknown>),
       },
-      config
+      config,
     );
   };
 
@@ -201,11 +188,7 @@ class EnclosureHttp {
    * @param params 参数
    * @param config
    */
-  public get: Request = (
-    url: string,
-    params?: unknown,
-    config?: AxiosRequestConfig
-  ) => {
+  public get: Request = (url: string, params?: unknown, config?: AxiosRequestConfig) => {
     return Axios.get(url, { params, ...config });
   };
 
@@ -215,11 +198,7 @@ class EnclosureHttp {
    * @param params 参数
    * @param config
    */
-  public post: Request = (
-    url: string,
-    params: unknown = {},
-    config?: AxiosRequestConfig
-  ) => {
+  public post: Request = (url: string, params: unknown = {}, config?: AxiosRequestConfig) => {
     return Axios.post(url, { data: params }, config);
   };
 }
