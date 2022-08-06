@@ -15,14 +15,13 @@
 5. vue-router
 6. pinia
 7. axios
-8. less
-9. tailwindCSS
+8. tailwindCSS
 
 
 
 ## 如何启动
 
-推荐使用pnpm就行依赖管理
+推荐使用pnpm进行依赖管理
 
 ```sh
 pnpm install
