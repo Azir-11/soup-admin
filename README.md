@@ -15,8 +15,7 @@
 5. vue-router
 6. pinia
 7. axios
-8. less
-9. tailwindCSS
+8. tailwindCSS
 
 
 
