@@ -16,6 +16,7 @@ const BASE_HOME = PageEnum.BASE_HOME;
  * @param meta.keepAlive 缓存该路由
  * @param meta.sort 排序越小越排前
  * @param meta.hidden 隐藏这个菜单项
+ * @param meta.affix 在标签页中固定这个路由
  * */
 
 const routes: Array<RouteRecordRaw> = [
@@ -51,6 +52,7 @@ const routes: Array<RouteRecordRaw> = [
         name: `index`,
         meta: {
           title: "首页",
+          affix: true,
         },
         component: () => import("@/views/index.vue"),
       },

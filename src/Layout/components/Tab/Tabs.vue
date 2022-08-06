@@ -1,16 +1,11 @@
 <template>
   <div class="px-4 pt-2 h-12">
-    <n-tabs
-      :value="state.activeKey"
-      type="card"
-      closable
-      tab-style="min-width: 80px;"
-      @close="closeTabPane"
-    >
+    <n-tabs :value="state.activeKey" type="card" @close="closeTabPane">
       <n-tab
         v-for="(item, index) in tabsList"
         :key="index"
         :name="item.path"
+        :closable="!item.meta.affix"
         @click="goPage(item.path)"
       >
         {{ item.meta.title }}
@@ -42,10 +37,6 @@ const whiteList: string[] = [
 
 const state = reactive({
   activeKey: route.fullPath,
-  scrollable: false,
-  dropdownX: 0,
-  dropdownY: 0,
-  showDropdown: false,
   isMultiHeaderFixed: false,
 });
 
