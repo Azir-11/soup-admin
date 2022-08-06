@@ -21,7 +21,7 @@
 
 ## 如何启动
 
-推荐使用pnpm就行依赖管理
+推荐使用pnpm进行依赖管理
 
 ```sh
 pnpm install
