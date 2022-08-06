@@ -6,8 +6,8 @@
     />
     <div class="flex flex-col justify-center items-center h-screen z-10">
       <div class="text-center">
-        <n-h1>-象牙塔-</n-h1>
-        <n-h2>后台管理系统</n-h2>
+        <n-h1>-soupAdmin-</n-h1>
+        <n-h2>中后台模板</n-h2>
       </div>
       <div class="w-3/4 sm:w-3/4 md:w-1/2 lg:w-2/4 xl:w-2/5 2xl:w-2/5">
         <n-form
