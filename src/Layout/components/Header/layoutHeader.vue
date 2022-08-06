@@ -17,12 +17,7 @@
     <div class="pr-10 flex items-center gap-6">
       <n-dropdown trigger="click" :options="options" @select="handleSelect">
         <div class="flex items-center cursor-pointer">
-          <n-avatar
-            round
-            bordered
-            :size="size + 8"
-            :src="user.imagePath || '../../../../../../public/favicon.ico'"
-          />
+          <n-avatar round bordered :size="size + 8" :src="user.imagePath || '/favicon.ico'" />
         </div>
       </n-dropdown>
       <n-icon :size="size">
