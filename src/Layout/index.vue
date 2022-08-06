@@ -13,7 +13,7 @@
       :native-scrollbar="false"
       style="max-height: 100vh"
     >
-      <AsideMenu />
+      <AsideMenu v-if="!mobile" />
     </n-layout-sider>
     <n-drawer
       v-model:show="showSideDrawder"
@@ -32,14 +32,21 @@
       <n-layout-content
         position="absolute"
         style="top: 64px; background-color: rgba(246, 249, 248, 1)"
-        class="h-auto p-4"
+        class="h-auto"
       >
-        <n-scrollbar style="max-height: 100%">
-          <MainView id="MainView" />
-          <n-layout-footer style="border-top: #efeff5 1px solid" class="bg-white mt-10"
-            ><PageFooter
-          /></n-layout-footer>
-        </n-scrollbar>
+        <div style="max-height: 100%">
+          <div class="h-16 bg-white">
+            <TabsView />
+          </div>
+          <n-scrollbar>
+            <div class="p-4 mt-1 box-border" style="min-height: calc(100vh - 159px)">
+              <MainView id="MainView" />
+            </div>
+            <n-layout-footer style="border-top: #efeff5 1px solid" class="bg-white"
+              ><PageFooter
+            /></n-layout-footer>
+          </n-scrollbar>
+        </div>
       </n-layout-content>
     </n-layout>
   </n-layout>
@@ -49,8 +56,9 @@
 import { MainView } from "./components/Main";
 import { AsideMenu } from "./components/Menu";
 import { PageHeader } from "./components/Header";
+import { TabsView } from "./components/Tab";
 import { PageFooter } from "./components/Footer";
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted } from "vue";
 
 const collapsed = ref<boolean>();
 const mobile = ref<boolean>(false);
@@ -96,10 +104,6 @@ onMounted(() => {
   checkMobileMode();
   watchWidth();
   window.addEventListener("resize", watchWidth);
-  console.log(
-    'document.getElementById("MainView").clientWidth',
-    document.getElementById("MainView").clientHeight + 64,
-  );
   // window["$loading"].finish();
 });
 </script>

@@ -29,9 +29,9 @@
           <n-form-item path="password">
             <n-input
               v-model:value="formInline.password"
+              show-password-on="click"
               clearable
               placeholder="请输入密码"
-              showPasswordOn="click"
               type="password"
             >
               <template #password-visible-icon>

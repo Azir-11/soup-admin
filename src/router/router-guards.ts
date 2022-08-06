@@ -4,6 +4,7 @@ import { storage } from "@/utils/storage";
 import { ACCESS_TOKEN } from "@/stores/mutation-types";
 import { PageEnum } from "@/enums/pageEnum";
 import { useAsyncRouteStoreWidthOut } from "@/stores/modules/asyncRoute";
+import { useAsyncSystemConfig } from "@/stores/modules/system";
 
 type Recordable<T = any> = {
   [x: string]: T;
@@ -16,7 +17,8 @@ const LOGIN_PATH = PageEnum.BASE_LOGIN;
 const whitePathList = [LOGIN_PATH];
 
 export function createRouterGuards(router: Router) {
-  // const asyncRouteStore = useAsyncRouteStoreWidthOut();
+  const asyncRouteStore = useAsyncRouteStoreWidthOut();
+  const systemStore = useAsyncSystemConfig();
 
   router.beforeEach((to, _from, next) => {
     //开启loading
@@ -62,7 +64,8 @@ export function createRouterGuards(router: Router) {
       return;
     }
 
-    // const routes = asyncRouteStore.generateRoutes("userInfo");
+    // 将路由转化为菜单
+    asyncRouteStore.generateRoutes("userInfo");
 
     next();
     // loading完成

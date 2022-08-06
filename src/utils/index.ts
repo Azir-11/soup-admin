@@ -2,9 +2,17 @@ import { h } from "vue";
 import type { Component } from "vue";
 import { NIcon, NTag } from "naive-ui";
 import { PageEnum } from "@/enums/pageEnum";
-import { isObject } from "./is/index";
+import { isString, isObject } from "./is/index";
 import { cloneDeep } from "lodash-es";
 import { RouterLink } from "vue-router";
+
+import type { RouteLocationRaw, Router } from "vue-router";
+import { useRouter } from "vue-router";
+
+function handleError(e: Error) {
+  console.error(e);
+}
+
 /**
  * render 图标
  * */
@@ -177,4 +185,28 @@ export function deepMerge<T = any>(src: any = {}, target: any = {}): T {
     src[key] = isObject(src[key]) ? deepMerge(src[key], target[key]) : (src[key] = target[key]);
   }
   return src;
+}
+
+export type RouteLocationRawEx = Omit<RouteLocationRaw, "path"> & { path: PageEnum };
+/**
+ * 页面切换
+ */
+export function useGo(_router?: Router) {
+  let router;
+  if (!_router) {
+    router = useRouter();
+  }
+  const { push, replace } = _router || router;
+  function go(opt: PageEnum | RouteLocationRawEx | string = PageEnum.BASE_HOME, isReplace = false) {
+    if (!opt) {
+      return;
+    }
+    if (isString(opt)) {
+      isReplace ? replace(opt).catch(handleError) : push(opt).catch(handleError);
+    } else {
+      const o = opt as RouteLocationRaw;
+      isReplace ? replace(o).catch(handleError) : push(o).catch(handleError);
+    }
+  }
+  return go;
 }

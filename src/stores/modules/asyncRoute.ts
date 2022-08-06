@@ -1,23 +1,10 @@
-import { toRaw, unref } from "vue";
+import { toRaw } from "vue";
 import { defineStore } from "pinia";
 import type { RouteRecordRaw } from "vue-router";
 import { store } from "@/stores";
 import { asyncRoutes } from "@/router/index";
 
-interface TreeHelperConfig {
-  id: string;
-  children: string;
-  pid: string;
-}
-
-const DEFAULT_CONFIG: TreeHelperConfig = {
-  id: "id",
-  children: "children",
-  pid: "pid",
-};
-
-const getConfig = (config: Partial<TreeHelperConfig>) => Object.assign({}, DEFAULT_CONFIG, config);
-
+// const getConfig = (config: Partial<TreeHelperConfig>) => Object.assign({}, DEFAULT_CONFIG, config);
 export interface IAsyncRouteState {
   menus: RouteRecordRaw[];
   routers: any[];
