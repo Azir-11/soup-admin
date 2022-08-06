@@ -35,7 +35,7 @@
         class="h-auto"
       >
         <div style="max-height: 100%">
-          <div class="h-16 bg-white">
+          <div class="bg-white">
             <TabsView />
           </div>
           <n-scrollbar>

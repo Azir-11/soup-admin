@@ -18,14 +18,45 @@
 import { reactive, computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useGo } from "@/utils";
-import { useTabsViewStore } from "@/stores/modules/tabList";
+import { useTabsViewStore } from "@/stores/modules/tabsList";
+import { RouteItem } from "@/stores/modules/tabsList";
 import { PageEnum } from "@/enums/pageEnum";
+import { storage } from "@/utils/storage";
+import { TABS_ROUTES } from "@/stores/mutation-types";
 
 const route = useRoute();
 const router = useRouter();
 const go = useGo();
 const tabsViewStore = useTabsViewStore();
 const message = window["$message"];
+
+// 获取简易的路由对象
+const getSimpleRoute = (route) => {
+  const { fullPath, hash, meta, name, params, path, query } = route;
+  return { fullPath, hash, meta, name, params, path, query };
+};
+
+let cacheRoutes: RouteItem[] = [];
+const simpleRoute = getSimpleRoute(route);
+try {
+  const routesStr = storage.get(TABS_ROUTES) as string | null | undefined;
+  cacheRoutes = routesStr ? JSON.parse(routesStr) : [simpleRoute];
+} catch (e) {
+  cacheRoutes = [simpleRoute];
+}
+
+// 将最新的路由信息同步到 localStorage 中
+const routes = router.getRoutes();
+cacheRoutes.forEach((cacheRoute) => {
+  const route = routes.find((route) => route.path === cacheRoute.path);
+  if (route) {
+    cacheRoute.meta = route.meta || cacheRoute.meta;
+    cacheRoute.name = (route.name || cacheRoute.name) as string;
+  }
+});
+
+// 初始化标签页
+tabsViewStore.initTabs(cacheRoutes);
 
 // 标签页列表
 const tabsList: any = computed(() => tabsViewStore.tabsList);
@@ -39,12 +70,6 @@ const state = reactive({
   activeKey: route.fullPath,
   isMultiHeaderFixed: false,
 });
-
-// 获取简易的路由对象
-const getSimpleRoute = (route) => {
-  const { fullPath, hash, meta, name, params, path, query } = route;
-  return { fullPath, hash, meta, name, params, path, query };
-};
 
 watch(
   () => route.fullPath,
@@ -88,4 +113,9 @@ const removeTab = (route) => {
     router.push(currentRoute);
   }
 };
+
+// 在页面关闭或刷新之前，保存数据
+window.addEventListener("beforeunload", () => {
+  storage.set(TABS_ROUTES, JSON.stringify(tabsList.value));
+});
 </script>
