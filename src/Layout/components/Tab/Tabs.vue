@@ -99,7 +99,10 @@ const closeTabPane = (path: String) => {
   removeTab(routeInfo);
 };
 
-// 关闭当前页面
+/**
+ * 关闭当前页面
+ * @param {string} route 当前的路由对象
+ */
 const removeTab = (route) => {
   if (tabsList.value.length === 1) {
     message.warning("这已经是最后一页，不能再关闭了！");
@@ -114,7 +117,9 @@ const removeTab = (route) => {
   }
 };
 
-// 在页面关闭或刷新之前，保存数据
+/**
+ * 在页面关闭或刷新之前，保存标签页的数据
+ */
 window.addEventListener("beforeunload", () => {
   storage.set(TABS_ROUTES, JSON.stringify(tabsList.value));
 });
