@@ -1,5 +1,5 @@
 <template>
-  <div class="px-4 pt-2 h-12">
+  <div class="px-4 pt-2">
     <n-tabs :value="state.activeKey" type="card" @close="closeTabPane">
       <n-tab
         v-for="(item, index) in tabsList"
@@ -109,7 +109,7 @@ const removeTab = (route) => {
     return;
   }
   tabsViewStore.closeCurrentTab(route);
-  // 如果关闭的是当前页
+  // 如果关闭的是当前页,则跳转到最后一页
   if (state.activeKey === route.fullPath) {
     const currentRoute = tabsList.value[Math.max(0, tabsList.value.length - 1)];
     state.activeKey = currentRoute.fullPath;

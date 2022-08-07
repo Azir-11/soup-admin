@@ -25,28 +25,33 @@
       <AsideMenu @click-menu-item="changeCollapsed" />
     </n-drawer>
     <n-layout style="height: 100vh">
-      <n-layout-header position="absolute" style="height: 64px">
+      <n-layout-header
+        position="absolute"
+        style="height: 64px"
+        class="border-solid border-0 border-b border-gray-200"
+      >
         <!-- 点击头部的menu按钮时修改collapesd的值 -->
         <PageHeader @update:collapsed="changeCollapsed" />
       </n-layout-header>
       <n-layout-content
         position="absolute"
         style="top: 64px; background-color: rgba(246, 249, 248, 1)"
-        class="h-auto"
       >
-        <div style="max-height: 100%">
-          <div class="bg-white">
+        <section>
+          <div class="bg-white flex flex-col justify-end" style="height: 46px">
             <TabsView />
           </div>
           <n-scrollbar>
-            <div class="p-4 mt-1 box-border" style="min-height: calc(100vh - 159px)">
-              <MainView id="MainView" />
+            <div class="p-4 mt-1 box-border" style="min-height: calc(100vh - (65px + 47px + 65px))">
+              <MainView />
             </div>
-            <n-layout-footer style="border-top: #efeff5 1px solid" class="bg-white"
+            <n-layout-footer
+              style="height: 64px"
+              class="border-solid border-0 border-t border-gray-200 bg-white"
               ><PageFooter
             /></n-layout-footer>
           </n-scrollbar>
-        </div>
+        </section>
       </n-layout-content>
     </n-layout>
   </n-layout>

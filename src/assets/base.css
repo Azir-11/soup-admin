@@ -64,25 +64,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.n-layout-header {
-  border-bottom: #efeff5 1px solid;
-}
-
-/* .n-layout-header,
-.n-layout-footer {
-  background: rgba(255, 255, 255, 0.2);
-} */
-
 .n-menu {
   width: 100%;
-}
-
-.n-layout-content {
-  /* background: rgba(252, 252, 252, 0.4); */
-  top: 64px;
-  bottom: 64px;
-}
-.n-layout-footer {
-  height: 64px;
-  padding: 24px;
 }

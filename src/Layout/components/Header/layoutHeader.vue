@@ -15,7 +15,7 @@
       </n-button-group>
     </div>
     <div class="pr-10 flex items-center gap-6">
-      <n-dropdown trigger="click" :options="options" @select="handleSelect">
+      <n-dropdown trigger="hover" :options="options" @select="handleSelect">
         <div class="flex items-center cursor-pointer">
           <n-avatar round bordered :size="size + 8" :src="user.imagePath || '/favicon.ico'" />
         </div>
