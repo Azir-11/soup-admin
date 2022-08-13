@@ -58,12 +58,12 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from "vue";
 import { MainView } from "./components/Main";
 import { AsideMenu } from "./components/Menu";
 import { PageHeader } from "./components/Header";
 import { TabsView } from "./components/Tab";
 import { PageFooter } from "./components/Footer";
-import { ref, onMounted } from "vue";
 
 const collapsed = ref<boolean>();
 const mobile = ref<boolean>(false);
