@@ -11,6 +11,7 @@
       :collapsed-width="64"
       :width="200"
       :native-scrollbar="false"
+      class="shadow-xl"
       style="max-height: 100vh"
     >
       <AsideMenu v-if="!mobile" />
@@ -38,7 +39,7 @@
         style="top: 64px; background-color: rgba(246, 249, 248, 1)"
       >
         <section>
-          <div class="bg-white flex flex-col justify-end" style="height: 46px">
+          <div class="bg-white flex flex-col justify-end shadow-md" style="height: 46px">
             <TabsView />
           </div>
           <n-scrollbar>
@@ -85,10 +86,10 @@ const changeCollapsed = () => {
 //判断是否触发移动端模式
 const checkMobileMode = () => {
   if (document.body.clientWidth <= mobileWidth) {
-    console.log("当前是移动端");
+    // console.log("当前是移动端");
     mobile.value = true;
   } else {
-    console.log("当前是PC端");
+    // console.log("当前是PC端");
     // 如果从移动端切换到PC端，则将drawer隐藏
     if (mobile.value) {
       showSideDrawder.value = false;
