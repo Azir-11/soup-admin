@@ -102,7 +102,6 @@
 <script lang="ts" setup>
 import { reactive, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useMessage } from "naive-ui";
 import {
   Glasses,
   GlassesOutline,
@@ -120,7 +119,7 @@ import { ACCESS_TOKEN, CURRENT_USER } from "@/stores/mutation-types";
 import { storage } from "@/utils/storage";
 
 const formRef = ref();
-const message = useMessage();
+const message = window["$message"];
 const loading = ref(false);
 const autoLogin = ref(false);
 const LOGIN_NAME = PageEnum.BASE_LOGIN_NAME;
