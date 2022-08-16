@@ -1,33 +1,59 @@
 <template>
   <div class="w-full h-full flex justify-between items-center">
-    <div class="flex items-center">
-      <n-button-group>
-        <n-button text color="#1f2225" class="pl-4" @click="changeCollapsed">
+    <div class="flex h-full">
+      <div class="flex items-center">
+        <n-button quaternary color="#1f2225" class="h-full pl-4" @click="changeCollapsed">
           <n-icon :size="size">
             <MenuOutline />
           </n-icon>
         </n-button>
-        <n-button text color="#1f2225" class="pl-4" style="font-size: 20px">
+        <n-button quaternary color="#1f2225" class="h-full pl-4" style="font-size: 20px">
           <n-icon>
             <ReloadOutline />
           </n-icon>
         </n-button>
-      </n-button-group>
+      </div>
+      <!-- 面包屑 -->
+      <div class="ml-4 flex items-center">
+        <n-breadcrumb>
+          <template v-for="routeItem in breadcrumbList" :key="routeItem.name">
+            <n-breadcrumb-item>
+              <n-dropdown
+                v-if="routeItem.children.length"
+                :options="routeItem.children"
+                @select="dropdownSelect"
+              >
+                <span class="link-text">
+                  {{ routeItem.meta.title }}
+                </span>
+              </n-dropdown>
+              <span v-else class="link-text">
+                {{ routeItem.meta.title }}
+              </span>
+            </n-breadcrumb-item>
+          </template>
+        </n-breadcrumb>
+      </div>
     </div>
-    <div class="pr-10 flex items-center gap-6">
+    <div class="h-full pr-10 flex items-center">
       <n-dropdown trigger="hover" :options="options" @select="handleSelect">
-        <div class="flex items-center cursor-pointer">
-          <n-avatar round bordered :size="size + 8" :src="user.imagePath || '/favicon.ico'" />
-        </div>
+        <n-button quaternary class="h-full">
+          <div class="flex items-center cursor-pointer">
+            <n-avatar round bordered :size="size + 8" :src="user.imagePath || '/favicon.ico'" />
+          </div>
+        </n-button>
       </n-dropdown>
-      <n-icon :size="size">
-        <SettingsOutline />
-      </n-icon>
+      <n-button quaternary class="h-full">
+        <n-icon :size="size">
+          <SettingsOutline />
+        </n-icon>
+      </n-button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from "vue";
 import {
   PersonCircleOutline as UserIcon,
   Pencil as EditIcon,
@@ -40,9 +66,8 @@ import {
 import { renderIcon } from "@/utils/index";
 import { storage } from "@/utils/storage";
 import { CURRENT_USER } from "@/stores/mutation-types";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { PageEnum } from "@/enums/pageEnum";
-import { ref } from "vue";
 const emit = defineEmits(["update:collapsed"]);
 
 const BASE_HOME = PageEnum.BASE_HOME;
@@ -50,8 +75,37 @@ const BASE_HOME = PageEnum.BASE_HOME;
 const message = window["$message"];
 
 const router = useRouter();
+const route = useRoute();
 
-const size = ref(24);
+/**
+ * 面包屑导航
+ */
+const generator: any = (routerMap) => {
+  return routerMap.map((item) => {
+    const currentMenu = {
+      ...item,
+      label: item.meta.title,
+      key: item.name,
+      disabled: item.path === "/",
+    };
+    // 是否有子菜单，并递归处理
+    if (item.children && item.children.length > 0) {
+      // Recursion
+      currentMenu.children = generator(item.children, currentMenu);
+    }
+    return currentMenu;
+  });
+};
+
+const breadcrumbList = computed(() => {
+  return generator(route.matched);
+});
+const dropdownSelect = (key) => {
+  router.push({ name: key });
+};
+
+// 图表大小
+const size = ref(18);
 
 const changeCollapsed = () => {
   emit("update:collapsed");
