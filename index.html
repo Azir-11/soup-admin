@@ -8,7 +8,6 @@
     <title>Soup Admin</title>
   </head>
   <body>
-    <div id="appProvider" style="display: none"></div>
     <div id="app">
       <!-- 首屏加载动画，app挂载完成后会被内容自动覆盖 -->
       <div class="loadingAnimation">
@@ -22,6 +21,10 @@
         </div>
         <h3>加载中...</h3>
         <style>
+          body {
+            height: 100vh;
+            overflow: hidden;
+          }
           .loadingAnimation {
             height: 100vh;
             overflow: hidden;
