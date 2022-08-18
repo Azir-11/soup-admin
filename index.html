@@ -8,6 +8,8 @@
     <title>Soup Admin</title>
   </head>
   <body>
+    <!-- 首屏加载时优先挂载，解决路由守卫、Axios、，Dialog，Message 等之类组件使用的问题 -->
+    <div id="appProvider"></div>
     <div id="app">
       <!-- 首屏加载动画，app挂载完成后会被内容自动覆盖 -->
       <div class="loadingAnimation">
@@ -21,7 +23,7 @@
         </div>
         <h3>加载中...</h3>
         <style>
-          body {
+          body{
             height: 100vh;
             overflow: hidden;
           }
