@@ -1,5 +1,5 @@
 <template>
-  <n-config-provider :locale="zhCN" :theme="theme" :date-locale="dateZhCN">
+  <n-config-provider :locale="zhCN" :theme="getDarkTheme" :date-locale="dateZhCN">
     <AppProvider>
       <RouterView />
     </AppProvider>
@@ -7,12 +7,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { AppProvider } from "@/components/Application";
 import { RouterView } from "vue-router";
-import { zhCN, dateZhCN } from "naive-ui";
+import { zhCN, dateZhCN, darkTheme } from "naive-ui";
+import { useSystemSettingStore } from "@/stores/modules/systemSetting";
 
-const theme = ref(null);
+const systemStore = useSystemSettingStore();
+
+const getDarkTheme = computed(() => (systemStore.darkTheme ? darkTheme : undefined));
 </script>
 
 <style>

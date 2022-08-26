@@ -1,4 +1,5 @@
 module.exports = {
+  plugins: [require("prettier-plugin-tailwindcss")],
   // 一行最多 100 字符
   printWidth: 100,
   // 使用 2 个空格缩进
@@ -32,5 +33,5 @@ module.exports = {
   proseWrap: "preserve",
   // 根据显示样式决定 html 要不要折行
   htmlWhitespaceSensitivity: "css",
-  "endOfLine": "auto",
+  endOfLine: "auto",
 };

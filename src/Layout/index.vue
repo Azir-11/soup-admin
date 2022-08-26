@@ -8,11 +8,10 @@
       :on-update:collapsed="changeCollapsed"
       :collapsed="collapsed"
       collapse-mode="width"
-      :collapsed-width="64"
-      :width="200"
+      :collapsed-width="systemStore.viewSize.asideCollapsedWidth"
+      :width="systemStore.viewSize.asideWidth"
       :native-scrollbar="false"
-      class="shadow-xl"
-      style="max-height: 100vh"
+      class="max-h-screen shadow-xl"
     >
       <AsideMenu v-if="!mobile" />
     </n-layout-sider>
@@ -25,30 +24,36 @@
       <!-- 当点击菜单进行跳转之后隐藏drawer -->
       <AsideMenu @click-menu-item="changeCollapsed" />
     </n-drawer>
-    <n-layout style="height: 100vh">
+    <n-layout class="h-screen">
       <n-layout-header
         position="absolute"
-        style="height: 64px"
-        class="border-solid border-0 border-b border-gray-200"
+        :style="`height:${systemStore.viewSize.headerHeight}px`"
+        class="border-0 border-b border-solid border-gray-200"
       >
         <!-- 点击头部的menu按钮时修改collapesd的值 -->
         <PageHeader @update:collapsed="changeCollapsed" />
       </n-layout-header>
       <n-layout-content
         position="absolute"
-        style="top: 64px; background-color: rgba(246, 249, 248, 1)"
+        :style="`top:${systemStore.viewSize.headerHeight}px`"
+        :class="{ 'bg-gray-100': getDarkTheme === false }"
       >
         <section>
-          <div class="bg-white flex flex-col justify-end shadow-md" style="height: 46px">
+          <div
+            class="flex flex-col justify-end shadow-md"
+            :style="`height:${systemStore.viewSize.tabsHeight}px;`"
+            :class="{ 'bg-white': getDarkTheme === false }"
+          >
             <TabsView />
           </div>
           <n-scrollbar>
-            <div class="p-4 mt-1 box-border" style="min-height: calc(100vh - (65px + 47px + 65px))">
+            <div class="box-border p-4" :style="`height:${mainHeight}px`">
               <MainView />
             </div>
             <n-layout-footer
-              style="height: 64px"
-              class="border-solid border-0 border-t border-gray-200 bg-white"
+              :style="`height: ${systemStore.viewSize.footerHeight}px`"
+              class="border-0 border-t border-solid border-gray-200"
+              :class="{ 'bg-white': getDarkTheme === false }"
               ><PageFooter
             /></n-layout-footer>
           </n-scrollbar>
@@ -59,17 +64,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { MainView } from "./components/Main";
 import { AsideMenu } from "./components/Menu";
 import { PageHeader } from "./components/Header";
 import { TabsView } from "./components/Tab";
 import { PageFooter } from "./components/Footer";
+import { useSystemSetting } from "@/hooks/setting/useSystemSetting";
+import { useSystemSettingStore } from "@/stores/modules/systemSetting";
 
 const collapsed = ref<boolean>();
 const mobile = ref<boolean>(false);
 const showSideDrawder = ref(false);
 const mobileWidth = 800;
+const { getDarkTheme } = useSystemSetting();
+const systemStore = useSystemSettingStore();
+const mainHeight = computed(() => {
+  return (
+    document.body.clientHeight -
+    systemStore.viewSize.headerHeight -
+    systemStore.viewSize.tabsHeight -
+    systemStore.viewSize.footerHeight -
+    1
+  );
+});
 
 /**
  * 如果当前是PC端，则伸缩侧边导航

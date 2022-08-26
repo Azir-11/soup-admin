@@ -1,23 +1,23 @@
 <template>
-  <div class="w-full h-full flex justify-between items-center">
+  <div class="flex h-full w-full items-center justify-between">
     <div class="flex h-full">
       <div class="flex items-center">
-        <n-button quaternary color="#1f2225" class="h-full pl-4" @click="changeCollapsed">
+        <div class="hoverBtn" @click="changeCollapsed">
           <n-icon :size="size">
             <MenuOutline />
           </n-icon>
-        </n-button>
-        <n-button quaternary color="#1f2225" class="h-full pl-4" style="font-size: 20px">
-          <n-icon>
+        </div>
+        <div class="hoverBtn">
+          <n-icon :size="size">
             <ReloadOutline />
           </n-icon>
-        </n-button>
+        </div>
       </div>
       <!-- 面包屑 -->
       <div class="ml-4 flex items-center">
         <n-breadcrumb>
           <template v-for="routeItem in breadcrumbList" :key="routeItem.name">
-            <n-breadcrumb-item>
+            <n-breadcrumb-item v-if="routeItem.meta.title">
               <n-dropdown
                 v-if="routeItem.children.length"
                 :options="routeItem.children"
@@ -35,21 +35,24 @@
         </n-breadcrumb>
       </div>
     </div>
-    <div class="h-full pr-10 flex items-center">
+    <div class="flex h-full items-center pr-10">
       <n-dropdown trigger="hover" :options="options" @select="handleSelect">
-        <n-button quaternary class="h-full">
-          <div class="flex items-center cursor-pointer">
-            <n-avatar round bordered :size="size + 8" :src="user.imagePath || '/favicon.ico'" />
-          </div>
-        </n-button>
+        <div class="hoverBtn">
+          <n-avatar round bordered :size="size + 8" :src="user.imagePath || '/favicon.ico'" />
+        </div>
       </n-dropdown>
-      <n-button quaternary class="h-full">
-        <n-icon :size="size">
-          <SettingsOutline />
-        </n-icon>
-      </n-button>
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          <div class="hoverBtn" @click="openSetting">
+            <n-icon :size="size">
+              <SettingsOutline />
+            </n-icon></div></template
+        ><span>项目配置</span></n-tooltip
+      >
     </div>
   </div>
+  <!--项目配置-->
+  <ProjectSetting ref="drawerSetting" />
 </template>
 
 <script setup lang="ts">
@@ -68,6 +71,7 @@ import { storage } from "@/utils/storage";
 import { CURRENT_USER } from "@/stores/mutation-types";
 import { useRoute, useRouter } from "vue-router";
 import { PageEnum } from "@/enums/pageEnum";
+import ProjectSetting from "./systemSetting.vue";
 const emit = defineEmits(["update:collapsed"]);
 
 const BASE_HOME = PageEnum.BASE_HOME;
@@ -76,6 +80,8 @@ const message = window["$message"];
 
 const router = useRouter();
 const route = useRoute();
+
+const drawerSetting = ref();
 
 /**
  * 面包屑导航
@@ -156,4 +162,15 @@ const handleSelect = (key: string | number) => {
     router.push({ path: `/setting/account` });
   }
 };
+
+const openSetting = () => {
+  const { changeDrawer } = drawerSetting.value;
+  changeDrawer(true);
+};
 </script>
+
+<style>
+.hoverBtn {
+  @apply flex h-full w-14 cursor-pointer items-center justify-center duration-300 hover:bg-gray-200;
+}
+</style>

@@ -4,7 +4,7 @@ import { storage } from "@/utils/storage";
 import { ACCESS_TOKEN } from "@/stores/mutation-types";
 import { PageEnum } from "@/enums/pageEnum";
 import { useAsyncRouteStoreWidthOut } from "@/stores/modules/asyncRoute";
-import { useAsyncSystemConfig } from "@/stores/modules/system";
+import { useSystemSettingStore } from "@/stores/modules/systemSetting";
 
 type Recordable<T = any> = {
   [x: string]: T;
@@ -18,7 +18,7 @@ const whitePathList = [LOGIN_PATH];
 
 export function createRouterGuards(router: Router) {
   const asyncRouteStore = useAsyncRouteStoreWidthOut();
-  const systemStore = useAsyncSystemConfig();
+  const systemStore = useSystemSettingStore();
 
   router.beforeEach((to, _from, next) => {
     //开启loading

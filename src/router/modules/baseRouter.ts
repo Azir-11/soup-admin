@@ -42,7 +42,6 @@ const routes: Array<RouteRecordRaw> = [
     component: Layout,
     meta: {
       sort: 1,
-      title: "首页",
       icon: renderIcon(BarChart),
       permissions: ["index"],
     },

@@ -1,5 +1,5 @@
 <template>
-  <RouterView v-slot="{ Component }" class="bg-white p-1.5">
+  <RouterView v-slot="{ Component }" class="p-1.5">
     <transition :name="animateName" mode="out-in" appear>
       <component :is="Component" />
     </transition>
