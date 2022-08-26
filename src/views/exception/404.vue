@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col justify-center page-container w-full rounded-2xl py-12">
+  <div class="page-container flex w-full flex-col justify-center rounded-2xl py-12">
     <div class="text-center">
       <img src="~@/assets/images/exception/404.svg" alt="" class="w-1/3" />
     </div>

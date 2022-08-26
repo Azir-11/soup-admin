@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col justify-center page-container">
+  <div class="page-container flex flex-col justify-center">
     <div class="text-center">
       <img src="~@/assets/images/exception/500.svg" alt="" />
     </div>

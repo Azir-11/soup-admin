@@ -4,9 +4,9 @@
       <n-grid-item span="6">
         <n-card :bordered="false" size="small" class="proCard">
           <n-thing
-            class="thing-cell"
             v-for="item in typeTabList"
             :key="item.key"
+            class="thing-cell"
             :class="{ 'thing-cell-on': type === item.key }"
             @click="switchType(item)"
           >

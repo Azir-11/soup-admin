@@ -4,7 +4,7 @@
       class="absolute z-0 block h-screen w-screen select-none"
       src="../../assets/images/login.svg"
     />
-    <div class="flex flex-col justify-center items-center h-screen z-10">
+    <div class="z-10 flex h-screen flex-col items-center justify-center">
       <div class="text-center">
         <n-h1>-soupAdmin-</n-h1>
         <n-h2>中后台模板</n-h2>
@@ -76,7 +76,7 @@
             </n-button>
           </n-form-item>
           <n-form-item class="default-color justify-between">
-            <div class="flex justify-between w-full">
+            <div class="flex w-full justify-between">
               <div class="flex">
                 <span class="cursor-default">其它登录方式</span>
                 <a class="cursor-pointer pl-2">

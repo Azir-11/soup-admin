@@ -10,7 +10,7 @@
           <p>已提交申请，等待财务部门审核。</p>
         </div>
         <template #footer>
-          <div class="flex justify-center mb-4">
+          <div class="mb-4 flex justify-center">
             <n-space align="center">
               <n-button type="info" @click="goHome">回到首页</n-button>
               <n-button>查看详情</n-button>
