@@ -141,7 +141,6 @@ const togTheme = (color) => {
 };
 
 const resetViewSize = () => {
-  console.log("staticViewSize", staticViewSize);
-  systemStore.viewSize = staticViewSize;
+  systemStore.viewSize = JSON.parse(JSON.stringify(staticViewSize));
 };
 </script>

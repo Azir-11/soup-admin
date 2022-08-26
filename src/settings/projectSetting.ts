@@ -40,7 +40,7 @@ const setting = {
   navTheme: "dark",
   // 是否处于移动端模式
   MobileModel: false,
-  viewSize: staticViewSize,
+  viewSize: JSON.parse(JSON.stringify(staticViewSize)),
   //顶部
   headerSetting: {
     //背景色
