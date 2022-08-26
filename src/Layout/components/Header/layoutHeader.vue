@@ -164,8 +164,10 @@ const handleSelect = (key: string | number) => {
 };
 
 const openSetting = () => {
+  // const { changeDrawer } = drawerSetting.value;
+  // changeDrawer(true);
   const { changeDrawer } = drawerSetting.value;
-  changeDrawer(true);
+  changeDrawer();
 };
 </script>
 

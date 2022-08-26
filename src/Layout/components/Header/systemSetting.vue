@@ -42,12 +42,57 @@
         </div>
 
         <n-divider> 视图尺寸 </n-divider>
-        <div class="grid h-24 grid-cols-2 gap-2">
-          <n-input-number v-model:value="systemStore.viewSize.headerHeight" clearable />
-          <n-input-number v-model:value="systemStore.viewSize.tabsHeight" clearable />
-          <n-input-number v-model:value="systemStore.viewSize.footerHeight" clearable />
-          <n-input-number v-model:value="systemStore.viewSize.asideCollapsedWidth" clearable />
-          <n-input-number v-model:value="systemStore.viewSize.asideWidth" clearable />
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <span>头部导航高度</span>
+            <n-input-number
+              v-model:value="systemStore.viewSize.headerHeight"
+              clearable
+              :step="10"
+              :min="1"
+            />
+          </div>
+          <div>
+            <span>多签页高度</span>
+            <n-input-number
+              v-model:value="systemStore.viewSize.tabsHeight"
+              clearable
+              :step="10"
+              :min="1"
+            />
+          </div>
+          <div>
+            <span>底部高度</span>
+            <n-input-number
+              v-model:value="systemStore.viewSize.footerHeight"
+              clearable
+              :step="10"
+              :min="1"
+            />
+          </div>
+          <div>
+            <span>导航带单收缩宽度</span>
+            <n-input-number
+              v-model:value="systemStore.viewSize.asideCollapsedWidth"
+              clearable
+              :step="10"
+              :min="1"
+            />
+          </div>
+          <div>
+            <span>导航菜单展开宽度</span>
+            <n-input-number
+              v-model:value="systemStore.viewSize.asideWidth"
+              clearable
+              :step="10"
+              :min="1"
+            />
+          </div>
+          <div class="flex items-end">
+            <n-button tertiary type="primary" class="w-full" @click="resetViewSize">
+              重置
+            </n-button>
+          </div>
         </div>
       </section>
     </n-drawer-content>
@@ -58,6 +103,7 @@
 import { reactive, CSSProperties } from "vue";
 import { useSystemSettingStore } from "@/stores/modules/systemSetting";
 import { Moon, SunnySharp, Checkmark } from "@vicons/ionicons5";
+import { staticViewSize } from "@/settings/projectSetting";
 
 const state = reactive({
   showDrawer: false,
@@ -66,7 +112,7 @@ const state = reactive({
     "该功能主要实时预览各种布局效果，更多完整配置在 projectSetting.ts 中设置，建议在生产环境关闭该布局预览功能。",
 });
 
-const changeDrawer = (flag: boolean) => {
+const changeDrawer = (flag: boolean = true) => {
   state.showDrawer = flag;
 };
 defineExpose({ changeDrawer });
@@ -92,5 +138,10 @@ const railStyle = ({ checked }: { checked: boolean }) => {
  */
 const togTheme = (color) => {
   systemStore.appTheme = color;
+};
+
+const resetViewSize = () => {
+  console.log("staticViewSize", staticViewSize);
+  systemStore.viewSize = staticViewSize;
 };
 </script>

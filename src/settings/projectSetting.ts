@@ -19,6 +19,14 @@ export const appThemeList: string[] = [
   "#FC5404",
 ];
 
+export const staticViewSize = {
+  headerHeight: 64,
+  tabsHeight: 49,
+  footerHeight: 64,
+  asideCollapsedWidth: 64,
+  asideWidth: 200,
+};
+
 const setting = {
   //深色主题
   darkTheme: false,
@@ -32,13 +40,7 @@ const setting = {
   navTheme: "dark",
   // 是否处于移动端模式
   MobileModel: false,
-  viewSize: {
-    headerHeight: 64,
-    tabsHeight: 49,
-    footerHeight: 64,
-    asideCollapsedWidth: 64,
-    asideWidth: 200,
-  },
+  viewSize: staticViewSize,
   //顶部
   headerSetting: {
     //背景色
