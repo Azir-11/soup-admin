@@ -89,9 +89,6 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs } from "vue";
-import { useDialog, useMessage } from "naive-ui";
-
 const rules = {
   name: {
     required: true,
@@ -155,8 +152,8 @@ const pricePreciseList = [
 export default defineComponent({
   setup() {
     const formRef = ref(null);
-    const message = useMessage();
-    const dialog = useDialog();
+    const message = window["$message"];
+    const dialog = window["$dialog"];
 
     const state = reactive({
       formValue: {

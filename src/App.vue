@@ -7,9 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
 import { AppProvider } from "@/components/Application";
-import { RouterView } from "vue-router";
 import { zhCN, dateZhCN, darkTheme } from "naive-ui";
 import { useSystemSettingStore } from "@/stores/modules/systemSetting";
 

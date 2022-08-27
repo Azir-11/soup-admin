@@ -64,7 +64,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from "vue";
 import { MainView } from "./components/Main";
 import { AsideMenu } from "./components/Menu";
 import { PageHeader } from "./components/Header";

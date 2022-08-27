@@ -7,7 +7,6 @@
 </template>
 
 <script setup lang="ts">
-import { RouterView } from "vue-router";
 const animates = [
   { value: "zoom-fade", label: "渐变" },
   { value: "zoom-out", label: "闪现" },

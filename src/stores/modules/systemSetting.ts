@@ -1,4 +1,3 @@
-import { defineStore } from "pinia";
 import { store } from "@/stores";
 import projectSetting from "@/settings/projectSetting";
 import type {

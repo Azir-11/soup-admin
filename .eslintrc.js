@@ -12,6 +12,7 @@ module.exports = {
     // "plugin:@typescript-eslint/recommended", // typescript-eslint推荐规则,
     "prettier",
     "plugin:prettier/recommended",
+    "./.eslintrc-auto-import.json",
   ],
   parser: "vue-eslint-parser",
   parserOptions: {

@@ -100,8 +100,6 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
 import {
   Glasses,
   GlassesOutline,

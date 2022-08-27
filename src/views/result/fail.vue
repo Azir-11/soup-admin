@@ -37,9 +37,7 @@
   </n-card>
 </template>
 <script lang="ts" setup>
-import { computed } from "vue";
 import { useThemeVars } from "naive-ui";
-import { useRouter } from "vue-router";
 import { InformationCircleOutline } from "@vicons/ionicons5";
 
 const router = useRouter();

@@ -37,9 +37,6 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs } from "vue";
-import { useMessage } from "naive-ui";
-
 const rules = {
   originator: {
     required: true,
@@ -50,7 +47,7 @@ const rules = {
 export default defineComponent({
   setup() {
     const formRef: any = ref(null);
-    const message = useMessage();
+    const message = window["$message"];
 
     const state = reactive({
       formValue: {

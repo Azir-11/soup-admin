@@ -15,8 +15,6 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
 import { useGo } from "@/utils";
 import { useTabsViewStore } from "@/stores/modules/tabsList";
 import { RouteItem } from "@/stores/modules/tabsList";

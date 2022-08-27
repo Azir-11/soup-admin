@@ -1,5 +1,3 @@
-import { toRaw } from "vue";
-import { defineStore } from "pinia";
 import type { RouteRecordRaw } from "vue-router";
 import { store } from "@/stores";
 import { asyncRoutes } from "@/router/index";
@@ -12,25 +10,6 @@ export interface IAsyncRouteState {
   keepAliveComponents: string[];
   isDynamicAddedRoute: boolean;
 }
-
-// function filter<T = any>(
-//   tree: T[],
-//   func: (n: T) => boolean,
-//   config: Partial<TreeHelperConfig> = {},
-// ): T[] {
-//   config = getConfig(config);
-//   const children = config.children as string;
-//   function listFilter(list: T[]) {
-//     return list
-//       .map((node: any) => ({ ...node }))
-//       .filter((node) => {
-//         node[children] = node[children] && listFilter(node[children]);
-//         return func(node) || (node[children] && node[children].length);
-//       });
-//   }
-
-//   return listFilter(tree);
-// }
 
 export const useAsyncRouteStore = defineStore({
   id: "app-async-route",

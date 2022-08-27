@@ -25,7 +25,6 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref } from "vue";
 import BasicSetting from "./BasicSetting.vue";
 import SafetySetting from "./SafetySetting.vue";
 

@@ -15,11 +15,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch, unref } from "vue";
 import type { MenuOption } from "naive-ui";
 import { useAsyncRouteStore } from "@/stores/modules/asyncRoute";
 import { generatorMenu } from "@/utils";
-import { useRoute, useRouter } from "vue-router";
 
 const router = useRouter();
 const asyncRouteStore = useAsyncRouteStore();

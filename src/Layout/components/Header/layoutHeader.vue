@@ -38,7 +38,12 @@
     <div class="flex h-full items-center pr-10">
       <n-dropdown trigger="hover" :options="options" @select="handleSelect">
         <div class="hoverBtn">
-          <n-avatar round bordered :size="size + 8" :src="user.imagePath || '/favicon.ico'" />
+          <n-avatar
+            round
+            bordered
+            :size="size + 8"
+            :src="user.imagePath || '/icon/ms-icon-310x310.png'"
+          />
         </div>
       </n-dropdown>
       <n-tooltip trigger="hover">
@@ -56,7 +61,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
 import {
   PersonCircleOutline as UserIcon,
   Pencil as EditIcon,
@@ -69,7 +73,6 @@ import {
 import { renderIcon } from "@/utils/index";
 import { storage } from "@/utils/storage";
 import { CURRENT_USER } from "@/stores/mutation-types";
-import { useRoute, useRouter } from "vue-router";
 import { PageEnum } from "@/enums/pageEnum";
 import ProjectSetting from "./systemSetting.vue";
 const emit = defineEmits(["update:collapsed"]);

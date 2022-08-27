@@ -29,9 +29,6 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref } from "vue";
-import { useMessage } from "naive-ui";
-
 const rules = {
   name: {
     required: true,
@@ -50,7 +47,7 @@ const rules = {
   },
 };
 const formRef: any = ref(null);
-const message = useMessage();
+const message = window["$message"];
 
 const formValue = reactive({
   name: "",
