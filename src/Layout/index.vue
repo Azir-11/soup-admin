@@ -38,26 +38,19 @@
         :style="`top:${systemStore.viewSize.headerHeight}px`"
         :class="{ 'bg-gray-100': getDarkTheme === false }"
       >
-        <section>
-          <div
-            class="flex flex-col justify-end shadow-md"
-            :style="`height:${systemStore.viewSize.tabsHeight}px;`"
-            :class="{ 'bg-white': getDarkTheme === false }"
-          >
-            <TabsView />
-          </div>
-          <n-scrollbar>
-            <div class="box-border p-4" :style="`height:${mainHeight}px`">
+        <n-scrollbar>
+          <section>
+            <div
+              class="flex flex-col justify-end shadow-md"
+              :class="{ 'bg-white': getDarkTheme === false }"
+            >
+              <TabsView />
+            </div>
+            <div class="box-border h-full p-4">
               <MainView />
             </div>
-            <n-layout-footer
-              :style="`height: ${systemStore.viewSize.footerHeight}px`"
-              class="border-0 border-t border-solid border-gray-200"
-              :class="{ 'bg-white': getDarkTheme === false }"
-              ><PageFooter
-            /></n-layout-footer>
-          </n-scrollbar>
-        </section>
+          </section>
+        </n-scrollbar>
       </n-layout-content>
     </n-layout>
   </n-layout>
@@ -68,7 +61,6 @@ import { MainView } from "./components/Main";
 import { AsideMenu } from "./components/Menu";
 import { PageHeader } from "./components/Header";
 import { TabsView } from "./components/Tab";
-import { PageFooter } from "./components/Footer";
 import { useSystemSetting } from "@/hooks/setting/useSystemSetting";
 import { useSystemSettingStore } from "@/stores/modules/systemSetting";
 
@@ -78,15 +70,6 @@ const showSideDrawder = ref(false);
 const mobileWidth = 800;
 const { getDarkTheme } = useSystemSetting();
 const systemStore = useSystemSettingStore();
-const mainHeight = computed(() => {
-  return (
-    document.body.clientHeight -
-    systemStore.viewSize.headerHeight -
-    systemStore.viewSize.tabsHeight -
-    systemStore.viewSize.footerHeight -
-    1
-  );
-});
 
 /**
  * 如果当前是PC端，则伸缩侧边导航
