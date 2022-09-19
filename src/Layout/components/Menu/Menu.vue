@@ -1,5 +1,11 @@
 <template>
   <n-space vertical>
+    <div
+      class="box-border flex items-center justify-center gap-3 border-0 border-b border-solid border-gray-200"
+      :style="`height:${viewSize.headerHeight}px`"
+    >
+      <img src="@/assets/logo.svg" alt="logo" class="w-8" />
+    </div>
     <n-layout has-sider>
       <n-menu
         :collapsed-width="64"
@@ -17,10 +23,13 @@
 <script setup lang="ts">
 import type { MenuOption } from "naive-ui";
 import { useRouteStore } from "@/stores/modules/asyncRoute";
+import { useSystemSettingStore } from "@/stores/modules/systemSetting";
+
 import { generatorMenu } from "@/utils";
 
 const router = useRouter();
 const asyncRouteStore = useRouteStore();
+const { viewSize } = useSystemSettingStore();
 const menus = ref<any[]>([]);
 const currentRoute = useRoute();
 
