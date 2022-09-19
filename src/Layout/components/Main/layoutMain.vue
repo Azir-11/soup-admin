@@ -1,22 +1,17 @@
 <template>
-  <RouterView v-slot="{ Component }" class="p-1.5">
-    <transition :name="animateName" mode="out-in" appear>
-      <component :is="Component" />
-    </transition>
-  </RouterView>
+  <div>
+    <RouterView v-slot="{ Component }" class="p-1.5">
+      <transition :name="getIsPageAnimate ? getPageAnimateType : 'null'" mode="out-in" appear>
+        <component :is="Component" />
+      </transition>
+    </RouterView>
+  </div>
 </template>
 
 <script setup lang="ts">
-const animates = [
-  { value: "zoom-fade", label: "渐变" },
-  { value: "zoom-out", label: "闪现" },
-  { value: "fade-slide", label: "滑动" },
-  { value: "fade", label: "消退" },
-  { value: "fade-bottom", label: "底部消退" },
-  { value: "fade-scale", label: "缩放消退" },
-];
-// TODO:切换效果待完善
-const animateName = animates[2].value;
+import { useSystemSetting } from "@/hooks/setting/useSystemSetting";
+
+const { getIsPageAnimate, getPageAnimateType } = useSystemSetting();
 </script>
 
 <style lang="less" scoped>
