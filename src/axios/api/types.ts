@@ -2,15 +2,15 @@
 
 //接口返回的数据类型
 export interface Result<T> {
-  data: Array<T> | T;
+  data: T;
   status: number;
-  message: string;
+  msg: string;
 }
 
-// 登录接口返回的数据类型
 export interface Login {
-  role: string;
-  id: number;
-  username: string;
+  id: string;
+  userName: string;
+  roles: string;
   token: string;
+  permissions: string;
 }
