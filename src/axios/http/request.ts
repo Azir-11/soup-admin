@@ -5,8 +5,7 @@ import { message } from "./message";
 import { ACCESS_TOKEN } from "@/stores/mutation-types";
 import { storage } from "@/utils/storage";
 
-export const baseURL = "http://localhost:8000/api/";
-
+export const baseURL = "http://localhost:5173/";
 /**
  * 默认 create Axios 的配置参数
  */
@@ -75,8 +74,9 @@ class EnclosureHttp {
         /*
          * 在请求发出去之前作出一下处理,添加token
          * */
+        config.url = config.baseURL + config.url;
         if (storage.get(ACCESS_TOKEN)) {
-          (config as any).headers.token = storage.get(ACCESS_TOKEN).value;
+          (config as any).headers.token = storage.get(ACCESS_TOKEN);
         }
         return config;
       },
@@ -93,21 +93,14 @@ class EnclosureHttp {
   private httpInterceptorsResponse(): void {
     EnclosureHttp.axiosInstance.interceptors.response.use(
       (response: AxiosResponse) => {
-        // message("请求成功", "success");
         /*
-         *   对响应的数据作出一些处理
+         *   请求成功,对响应的数据作出一些处理
          * */
-        const { status } = response.data;
-        let msg = "";
+        const resp = response.data;
+        let { status } = resp;
         if (status < 200 || status >= 300) {
           // 处理http错误，抛到业务代码
-          this.errorHandle(status, response.data.message);
-          if (typeof response.data === "string") {
-            msg = "打盹了！！！";
-            response.data = { msg };
-          } else {
-            response.data.msg = msg;
-          }
+          this.errorHandle(status, resp.message);
         }
         return response;
       },
@@ -134,25 +127,32 @@ class EnclosureHttp {
    * @param status 请求失败的状态码
    * @param other
    */
-  private errorHandle = (status: string, other: string) => {
+  private errorHandle = (status: number, other: string) => {
     // 状态码判断
     switch (status) {
-      case "-1": // -1: 未登录状态，跳转登录页
+      case -1: // -1: 未登录状态，跳转登录页
         message("未登录状态");
         break;
-      case "403": // 403 token过期
+      case 401: // 403 token过期
         message("登录过期，请重新登录", "warning");
         setTimeout(() => {
-          // storage.remove(ACCESS_TOKEN);
-          // storage.remove("LOGIN");
+          storage.clear();
           location.reload();
         }, 1000);
         break;
-      case "404": // 404请求不存在
+      case 403: // 403 token过期
+        // message("权限不足", "warning");
+        // location.reload();
+        break;
+      case 404: // 404请求不存在
         message("请求错误！！！", "error");
         break;
+      case 407:
+        message("权限不足，请联系管理员操作");
+        break;
       default:
-        message(other);
+        console.log("other", other);
+      // message(other);
     }
   };
 
@@ -169,7 +169,7 @@ class EnclosureHttp {
   /**
    * post 方法
    * @param url 路径
-   * @param params 参数
+   * @param data 参数
    * @param config
    */
   public reqPost: Request = (url: string, data: unknown = {}, config?: AxiosRequestConfig) => {
