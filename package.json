@@ -16,6 +16,7 @@
     "less": "^4.1.2",
     "less-loader": "7.x",
     "lodash-es": "^4.17.21",
+    "mockjs": "^1.1.0",
     "naive-ui": "^2.26.4",
     "pinia": "^2.0.11",
     "postcss": "^8.4.14",
@@ -25,8 +26,9 @@
     "tailwindcss": "^3.1.2",
     "unplugin-auto-import": "^0.11.2",
     "unplugin-vue-components": "^0.18.0",
+    "vite-plugin-mock": "^2.9.6",
     "vue": "^3.2.31",
-    "vue-router": "^4.0.12",
+    "vue-router": "^4.0.15",
     "vue3-slide-verify": "^1.1.1"
   },
   "devDependencies": {

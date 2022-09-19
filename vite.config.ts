@@ -8,6 +8,8 @@ import AutoImport from "unplugin-auto-import/vite";
 
 import eslintPlugin from "vite-plugin-eslint";
 
+import { viteMockServe } from "vite-plugin-mock";
+
 // https://vitejs.dev/config/
 export default defineConfig({
   css: {
@@ -52,6 +54,10 @@ export default defineConfig({
       // Defaults to './auto-imports.d.ts' when `typescript` is installed locally.
       // Set `false` to disable.
       dts: "./auto-imports.d.ts",
+    }),
+    viteMockServe({
+      mockPath: "./mock",
+      supportTs: true,
     }),
   ],
   resolve: {
