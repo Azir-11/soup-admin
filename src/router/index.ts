@@ -1,7 +1,10 @@
 import type { App } from "vue";
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
-import { createRouterGuards } from "./router-guards";
+import { constantRoutes } from "./routes";
+import { createRouterGuards } from "./guard/router-guards";
+
+const { VITE_HASH_ROUTE = "N", VITE_BASE_URL } = import.meta.env;
 
 // 导入模块内的所有路由 star
 const modules = (import.meta as any).globEager("./modules/**/*.ts");
@@ -22,20 +25,21 @@ routeModuleList.sort(sortRoute);
 
 // 导入路由 End
 
-//普通路由 无需验证权限
+//需要验证权限
 export const asyncRoutes: any[] = [...routeModuleList];
 
-const router = createRouter({
-  history: createWebHistory(""),
+export const router = createRouter({
+  history:
+    VITE_HASH_ROUTE === "Y" ? createWebHashHistory(VITE_BASE_URL) : createWebHistory(VITE_BASE_URL),
   strict: true,
-  routes: routeModuleList,
+  routes: constantRoutes,
 });
 
 // 创建路由守卫
-export function setupRouter(app: App) {
+export async function setupRouter(app: App) {
   app.use(router);
-  // 创建路由守卫
   createRouterGuards(router);
+  await router.isReady();
 }
 
 export default router;
