@@ -16,11 +16,11 @@
 
 <script setup lang="ts">
 import type { MenuOption } from "naive-ui";
-import { useAsyncRouteStore } from "@/stores/modules/asyncRoute";
+import { useRouteStore } from "@/stores/modules/asyncRoute";
 import { generatorMenu } from "@/utils";
 
 const router = useRouter();
-const asyncRouteStore = useAsyncRouteStore();
+const asyncRouteStore = useRouteStore();
 const menus = ref<any[]>([]);
 const currentRoute = useRoute();
 

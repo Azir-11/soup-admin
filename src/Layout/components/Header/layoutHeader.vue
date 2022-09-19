@@ -57,7 +57,7 @@
     </div>
   </div>
   <!--项目配置-->
-  <ProjectSetting ref="drawerSetting" />
+  <ProjectSetting ref="drawerSetting" class="z-100" />
 </template>
 
 <script setup lang="ts">

@@ -1,11 +1,11 @@
 import { store } from "@/stores";
-import projectSetting from "@/settings/projectSetting";
+import projectSetting from "@/settings/systemSetting";
 import type {
   LHeaderSetting,
   LMenuSetting,
   LMultiTabsSetting,
   LCrumbsSetting,
-} from "@/types/layout";
+} from "../../types/layout";
 
 const {
   darkTheme,

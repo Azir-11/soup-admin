@@ -103,7 +103,7 @@
 import { CSSProperties } from "vue";
 import { useSystemSettingStore } from "@/stores/modules/systemSetting";
 import { Moon, SunnySharp, Checkmark } from "@vicons/ionicons5";
-import { staticViewSize } from "@/settings/projectSetting";
+import { staticViewSize } from "@/settings/systemSetting";
 
 const state = reactive({
   showDrawer: false,
