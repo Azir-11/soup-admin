@@ -10,15 +10,9 @@
         <n-h2>中后台模板</n-h2>
       </div>
       <div class="w-3/4 sm:w-3/4 md:w-1/2 lg:w-2/4 xl:w-2/5 2xl:w-2/5">
-        <n-form
-          ref="formRef"
-          :model="formInline"
-          :rules="rules"
-          label-placement="left"
-          size="large"
-        >
-          <n-form-item path="username">
-            <n-input v-model:value="formInline.username" clearable placeholder="请输入用户名">
+        <n-form ref="formRef" :model="loginForm" :rules="rules" label-placement="left" size="large">
+          <n-form-item path="userName">
+            <n-input v-model:value="loginForm.userName" clearable placeholder="请输入用户名">
               <template #prefix>
                 <n-icon color="#808695" size="18">
                   <PersonOutline />
@@ -28,7 +22,7 @@
           </n-form-item>
           <n-form-item path="password">
             <n-input
-              v-model:value="formInline.password"
+              v-model:value="loginForm.password"
               show-password-on="click"
               clearable
               placeholder="请输入密码"
@@ -108,13 +102,12 @@ import {
   LogoFacebook,
 } from "@vicons/ionicons5";
 import { PageEnum } from "@/enums/pageEnum";
-import { login } from "@/axios/api";
 //图形验证码
 import SlideVerify from "vue3-slide-verify";
 import "vue3-slide-verify/dist/style.css";
-import type { Login } from "@/axios/api/types";
 import { ACCESS_TOKEN, CURRENT_USER } from "@/stores/mutation-types";
 import { storage } from "@/utils/storage";
+import { useUserStore } from "@/stores/modules/user";
 
 const formRef = ref();
 const message = window["$message"];
@@ -122,14 +115,14 @@ const loading = ref(false);
 const autoLogin = ref(false);
 const LOGIN_NAME = PageEnum.BASE_LOGIN_NAME;
 
-const formInline = reactive({
-  username: "",
+const loginForm = reactive({
+  userName: "",
   password: "",
   isCaptcha: false,
 });
 
 const rules = {
-  username: { required: true, message: "请输入用户名", trigger: "blur" },
+  userName: { required: true, message: "请输入用户名", trigger: "blur" },
   password: { required: true, message: "请输入密码", trigger: "blur" },
 };
 
@@ -164,7 +157,7 @@ const verifyAgain = () => {
 const verifySuccess = () => {
   message.success("验证通过!");
   setTimeout(() => {
-    formInline.isCaptcha = true;
+    loginForm.isCaptcha = true;
     showModal.value = false;
   }, 400);
 };
@@ -182,6 +175,8 @@ watch(autoLogin, (val) => {
   }
 });
 
+const userStore = useUserStore();
+
 /**
  * 第一次点击时打开验证码model，验证通过时调用登录接口
  * @param e 阻止默认事件传递
@@ -196,16 +191,17 @@ const handleSubmit = (e: { preventDefault: () => void }) => {
   formRef.value?.validate((errors: any) => {
     if (!errors) {
       loading.value = true;
-      // TODO
-      //如果没通过验证码，则打开model,图片暂有问题，后面再加
-      // if (formInline.isCaptcha === false) {
-      //   showModal.value = true;
-      //   return;
-      // }
-      storage.set(CURRENT_USER, { userName: "admin" });
-      storage.set(ACCESS_TOKEN, { value: "token" });
-      message.success("登录成功，即将进入系统");
-      handleSuccess();
+
+      userStore
+        .login(loginForm)
+        .then(() => {
+          message.success("登录成功，即将进入系统");
+          handleSuccess();
+        })
+        .catch((err) => {
+          message.warning(err.message);
+        });
+
       loading.value = false;
       return;
     }
