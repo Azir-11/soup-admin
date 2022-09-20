@@ -90,9 +90,9 @@ export const useRouteStore = defineStore({
       const permissionsList = data || [];
       const routeFilter = (route) => {
         const { meta } = route;
-        const { permissions } = meta || {};
-        if (!permissions) return true;
-        return permissionsList.some((item) => permissions.includes(item.value));
+        const { permission } = meta || {};
+        if (!permission) return true;
+        return permissionsList.some((item) => permission.includes(item.value));
       };
       try {
         //过滤账户是否拥有某一个权限，并将菜单从加载列表移除
@@ -115,6 +115,7 @@ export const useRouteStore = defineStore({
       if (!id) return;
 
       const permissions = userStore.getPermissions;
+      console.log("permissions", permissions);
       await this.initDynamicRoute(permissions);
 
       this.isInitAuthRoute = true;
