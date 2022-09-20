@@ -75,6 +75,7 @@ import { storage } from "@/utils/storage";
 import { CURRENT_USER } from "@/stores/mutation-types";
 import { PageEnum } from "@/enums/pageEnum";
 import ProjectSetting from "./systemSetting.vue";
+import { useUserStore } from "@/stores/modules/user";
 
 const emit = defineEmits(["update:collapsed"]);
 
@@ -82,6 +83,7 @@ const BASE_HOME = PageEnum.BASE_HOME;
 const message = window["$message"];
 const router = useRouter();
 const route = useRoute();
+const userStore = useUserStore();
 const drawerSetting = ref();
 
 /**
@@ -151,9 +153,9 @@ const handleSelect = (key: string | number) => {
       positiveText: "确定",
       negativeText: "再想想",
       onPositiveClick: () => {
-        message.success("已退出");
-        storage.clear();
-        router.replace(`?redirect=${BASE_HOME}`);
+        userStore.logout().then(() => {
+          message.success("已退出");
+        });
       },
       onNegativeClick: () => {
         return;

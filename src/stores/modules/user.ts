@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { storage, createStorage } from "@/utils/storage";
 import { store } from "@/stores";
-import { ACCESS_TOKEN, CURRENT_USER } from "@/stores/mutation-types";
+import { ACCESS_TOKEN, CURRENT_USER, TABS_ROUTES } from "@/stores/mutation-types";
 import { ResultEnum } from "@/enums/httpEnums";
 import { login as Login, getPermissions } from "@/axios/api";
 
@@ -100,8 +100,10 @@ export const useUserStore = defineStore({
     // 登出
     async logout() {
       this.setPermissions([]);
-      this.setUserInfo("");
+      storage.remove(CURRENT_USER);
       storage.remove(ACCESS_TOKEN);
+      storage.remove(TABS_ROUTES);
+      location.reload();
       return Promise.resolve("");
     },
 
