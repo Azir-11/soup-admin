@@ -8,12 +8,12 @@
       :on-update:collapsed="changeCollapsed"
       :collapsed="collapsed"
       collapse-mode="width"
-      :collapsed-width="systemStore.viewSize.asideCollapsedWidth"
-      :width="systemStore.viewSize.asideWidth"
+      :collapsed-width="systemStore.menuSetting.minMenuWidth"
+      :width="systemStore.menuSetting.menuWidth"
       :native-scrollbar="false"
       class="max-h-screen shadow-xl"
     >
-      <AsideMenu v-if="!mobile" />
+      <AsideMenu v-if="!mobile" :collapsed="collapsed" />
     </n-layout-sider>
     <n-drawer
       v-model:show="showSideDrawder"
@@ -27,7 +27,7 @@
     <n-layout class="h-screen">
       <n-layout-header
         position="absolute"
-        :style="`height:${systemStore.viewSize.headerHeight}px`"
+        :style="`height:${systemStore.headerSetting.headerHeight}px`"
         class="border-0 border-b border-solid border-gray-200"
       >
         <!-- 点击头部的menu按钮时修改collapesd的值 -->
@@ -35,7 +35,7 @@
       </n-layout-header>
       <n-layout-content
         position="absolute"
-        :style="`top:${systemStore.viewSize.headerHeight}px`"
+        :style="`top:${systemStore.headerSetting.headerHeight}px`"
         :class="{ 'bg-gray-100': getDarkTheme === false }"
       >
         <n-scrollbar>

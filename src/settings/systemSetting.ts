@@ -19,14 +19,6 @@ export const appThemeList: string[] = [
   "#FC5404",
 ];
 
-export const staticViewSize = {
-  headerHeight: 64,
-  tabsHeight: 49,
-  footerHeight: 64,
-  asideCollapsedWidth: 64,
-  asideWidth: 200,
-};
-
 const setting = {
   //深色主题
   darkTheme: false,
@@ -40,7 +32,6 @@ const setting = {
   navTheme: "dark",
   // 是否处于移动端模式
   MobileModel: false,
-  viewSize: JSON.parse(JSON.stringify(staticViewSize)),
   //顶部
   headerSetting: {
     //背景色
@@ -49,6 +40,8 @@ const setting = {
     fixed: true,
     //显示重载按钮
     isReload: true,
+    // 头部高度
+    headerHeight: 64,
   },
   //多标签
   multiTabsSetting: {

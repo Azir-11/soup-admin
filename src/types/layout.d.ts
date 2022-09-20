@@ -25,6 +25,7 @@ export interface LHeaderSetting {
   bgColor: string;
   fixed: boolean;
   isReload: boolean;
+  headerHeight: number;
 }
 
 export interface LMenuSetting {

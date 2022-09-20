@@ -40,60 +40,6 @@
           </div>
           <n-button secondary size="small"> 更多主题色 </n-button>
         </div>
-
-        <n-divider> 视图尺寸 </n-divider>
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <span>头部导航高度</span>
-            <n-input-number
-              v-model:value="systemStore.viewSize.headerHeight"
-              clearable
-              :step="10"
-              :min="1"
-            />
-          </div>
-          <div>
-            <span>多签页高度</span>
-            <n-input-number
-              v-model:value="systemStore.viewSize.tabsHeight"
-              clearable
-              :step="10"
-              :min="1"
-            />
-          </div>
-          <div>
-            <span>底部高度</span>
-            <n-input-number
-              v-model:value="systemStore.viewSize.footerHeight"
-              clearable
-              :step="10"
-              :min="1"
-            />
-          </div>
-          <div>
-            <span>导航带单收缩宽度</span>
-            <n-input-number
-              v-model:value="systemStore.viewSize.asideCollapsedWidth"
-              clearable
-              :step="10"
-              :min="1"
-            />
-          </div>
-          <div>
-            <span>导航菜单展开宽度</span>
-            <n-input-number
-              v-model:value="systemStore.viewSize.asideWidth"
-              clearable
-              :step="10"
-              :min="1"
-            />
-          </div>
-          <div class="flex items-end">
-            <n-button tertiary type="primary" class="w-full" @click="resetViewSize">
-              重置
-            </n-button>
-          </div>
-        </div>
       </section>
     </n-drawer-content>
   </n-drawer>
@@ -103,7 +49,6 @@
 import { CSSProperties } from "vue";
 import { useSystemSettingStore } from "@/stores/modules/systemSetting";
 import { Moon, SunnySharp, Checkmark } from "@vicons/ionicons5";
-import { staticViewSize } from "@/settings/systemSetting";
 
 const state = reactive({
   showDrawer: false,
@@ -138,9 +83,5 @@ const railStyle = ({ checked }: { checked: boolean }) => {
  */
 const togTheme = (color) => {
   systemStore.appTheme = color;
-};
-
-const resetViewSize = () => {
-  systemStore.viewSize = JSON.parse(JSON.stringify(staticViewSize));
 };
 </script>

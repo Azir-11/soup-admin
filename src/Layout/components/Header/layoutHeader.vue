@@ -75,15 +75,13 @@ import { storage } from "@/utils/storage";
 import { CURRENT_USER } from "@/stores/mutation-types";
 import { PageEnum } from "@/enums/pageEnum";
 import ProjectSetting from "./systemSetting.vue";
+
 const emit = defineEmits(["update:collapsed"]);
 
 const BASE_HOME = PageEnum.BASE_HOME;
-
 const message = window["$message"];
-
 const router = useRouter();
 const route = useRoute();
-
 const drawerSetting = ref();
 
 /**

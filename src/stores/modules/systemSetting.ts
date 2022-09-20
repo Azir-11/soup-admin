@@ -14,7 +14,6 @@ const {
   navMode,
   navTheme,
   MobileModel,
-  viewSize,
   headerSetting,
   menuSetting,
   multiTabsSetting,
@@ -28,7 +27,6 @@ interface ProjectSettingState {
   darkTheme: boolean; //深色主题
   appTheme: string; //系统主题色
   appThemeList; //系统内置主题色列表
-  viewSize; //显示的宽度
   navMode: string; //导航模式
   navTheme: string; //导航风格
   headerSetting: LHeaderSetting; //顶部设置
@@ -49,7 +47,6 @@ export const useSystemSettingStore = defineStore({
     appThemeList,
     navMode,
     navTheme,
-    viewSize,
     MobileModel,
     headerSetting,
     menuSetting,

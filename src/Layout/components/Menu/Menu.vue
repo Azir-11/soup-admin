@@ -2,7 +2,7 @@
   <n-space vertical>
     <div
       class="box-border flex items-center justify-center gap-3 border-0 border-b border-solid border-gray-200"
-      :style="`height:${viewSize.headerHeight}px`"
+      :style="`height:${headerSetting.headerHeight}px`"
     >
       <img src="@/assets/logo.svg" alt="logo" class="w-8" />
     </div>
@@ -29,7 +29,7 @@ import { generatorMenu } from "@/utils";
 
 const router = useRouter();
 const asyncRouteStore = useRouteStore();
-const { viewSize } = useSystemSettingStore();
+const { headerSetting } = useSystemSettingStore();
 const menus = ref<any[]>([]);
 const currentRoute = useRoute();
 
