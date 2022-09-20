@@ -92,7 +92,7 @@ export const useRouteStore = defineStore({
         const { meta } = route;
         const { permission } = meta || {};
         if (!permission) return true;
-        return permissionsList.some((item) => permission.includes(item.value));
+        return permissionsList.some((item) => permission.includes(item));
       };
       try {
         //过滤账户是否拥有某一个权限，并将菜单从加载列表移除
