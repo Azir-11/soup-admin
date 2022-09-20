@@ -37,9 +37,19 @@ export async function createPermissionGuard(
 
   const userStore = useUserStore();
   const isLogin = Boolean(storage.get(ACCESS_TOKEN));
-  const permissions = to.meta.permissions || [];
+  const permissions: Array<string> = (to.meta.permission as Array<string>) || [];
   const needLogin = Boolean(to.meta?.requiresAuth) || Boolean(permissions.length);
-  const hasPermission = !permissions.length || permissions.includes(userStore.getPermissions);
+  const hasPermission =
+    !permissions.length ||
+    permissions.some((routePermission) => {
+      let flag = false;
+      userStore.getPermissions.forEach((userPermission) => {
+        if (routePermission == userPermission) {
+          flag = true;
+        }
+      });
+      return flag;
+    });
 
   const actions = [
     // 已登录状态跳转登录页，跳转至首页
