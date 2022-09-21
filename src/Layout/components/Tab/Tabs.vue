@@ -7,10 +7,21 @@
         :name="item.path"
         :closable="!item.meta.affix"
         @click="goPage(item.path)"
+        @contextmenu="handleContextMenu($event, item.path)"
       >
         {{ item.meta.title }}
       </n-tab>
     </n-tabs>
+    <n-dropdown
+      placement="bottom-start"
+      trigger="manual"
+      :x="x"
+      :y="y"
+      :options="options"
+      :show="showDropdown"
+      :on-clickoutside="onClickoutside"
+      @select="handleSelect"
+    />
   </div>
 </template>
 
@@ -73,11 +84,58 @@ watch(
   () => route.fullPath,
   (to) => {
     if (whiteList.includes(route.name as string)) return;
+    const router = routes.find((route) => route.path === to);
+    if (router?.meta?.tabsHidden) return;
     state.activeKey = to;
     tabsViewStore.addTabs(getSimpleRoute(route));
   },
   { immediate: true },
 );
+
+const options = [
+  {
+    label: "关闭左侧",
+    key: "close left",
+  },
+  {
+    label: "关闭右侧",
+    key: "close right",
+  },
+];
+const showDropdown = ref(false);
+const x = ref(0);
+const y = ref(0);
+const activePath = ref("");
+const handleSelect = (key: string | number) => {
+  showDropdown.value = false;
+  message.info(String(key));
+  switch (key) {
+    case "close left":
+      tabsViewStore.closeLeftTabs(activePath.value);
+      console.log("activePath.value", activePath.value);
+      break;
+  }
+};
+
+/**
+ * tab栏右击事件，用来有目的的关闭标签页
+ * @param e 鼠标右击的位置
+ * @param path 该标签页指向页面的路径信息
+ */
+const handleContextMenu = (e: MouseEvent, path: string) => {
+  e.preventDefault();
+  showDropdown.value = false;
+  nextTick().then(() => {
+    showDropdown.value = true;
+    activePath.value = path;
+    x.value = e.clientX;
+    y.value = e.clientY;
+  });
+};
+const onClickoutside = () => {
+  message.info("clickoutside");
+  showDropdown.value = false;
+};
 
 /** 点击标签页跳转页面
  * @param {string} path 路径
@@ -92,7 +150,6 @@ const goPage = (path: string) => {
  * @param {string} path 路径
  */
 const closeTabPane = (path: String) => {
-  console.log("path", path);
   const routeInfo = tabsList.value.find((item) => item.fullPath == path);
   removeTab(routeInfo);
 };

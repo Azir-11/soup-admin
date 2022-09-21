@@ -42,9 +42,10 @@ export const useTabsViewStore = defineStore({
       }
       return true;
     },
-    closeLeftTabs(route) {
+    closeLeftTabs(path) {
       // 关闭左侧
-      const index = this.tabsList.findIndex((item) => item.fullPath == route.fullPath);
+      const index = this.tabsList.findIndex((item) => item.fullPath == path);
+      console.log("index", index);
       this.tabsList = this.tabsList.filter((item, i) => i >= index || (item?.meta?.affix ?? false));
     },
     closeRightTabs(route) {
