@@ -1,15 +1,14 @@
 import type { Router } from "vue-router";
 import { isNavigationFailure } from "vue-router";
-import { useAsyncRouteStoreWidthOut } from "@/stores/modules/asyncRoute";
 import { createPermissionGuard } from "./permissions";
 
 export function createRouterGuards(router: Router) {
-  const asyncRouteStore = useAsyncRouteStoreWidthOut();
-
   router.beforeEach(async (to, from, next) => {
     //开启loading
     const Loading = window["$loading"] || null;
     Loading && Loading.start();
+    console.log("from", from);
+    console.log("to", to);
 
     // 页面跳转权限处理
     await createPermissionGuard(to, from, next);

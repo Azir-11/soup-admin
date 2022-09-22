@@ -48,14 +48,14 @@ export const constantRoutes: RouteRecordRaw[] = [
     path: "/notFound",
     component: Layout,
     meta: {
-      title: "404",
+      title: "NotFound",
     },
     children: [
       {
         path: "NotFound",
         name: "notFound404",
         meta: {
-          title: "404",
+          title: "NotFound",
           hideBreadcrumb: true,
         },
         component: () => import("@/views/exception/404.vue"),
@@ -83,11 +83,22 @@ export const constantRoutes: RouteRecordRaw[] = [
   },
   // 匹配无效路径的路由
   {
-    name: "NotFoundPage",
+    name: "InvalidPath",
     path: "/:pathMatch(.*)*",
-    redirect: "/NotFound/NotFound",
+    component: Layout,
     meta: {
-      title: "404",
+      title: "NotFound",
     },
+    children: [
+      {
+        path: "NotFound",
+        name: "InvalidPath404",
+        meta: {
+          title: "InvalidPath",
+          hideBreadcrumb: true,
+        },
+        component: () => import("@/views/exception/404.vue"),
+      },
+    ],
   },
 ];

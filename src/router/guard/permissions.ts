@@ -21,13 +21,10 @@ export async function createPermissionGuard(
   from: RouteLocationNormalized,
   next: NavigationGuardNext,
 ) {
-  // const asyncRouteStore = useAsyncRouteStoreWidthOut();
-  // 将路由转化为菜单
-  // const permissions = await JSON.parse((await getPermissions()).data);
-  // const permission = [];
   const permission = await createDynamicRouteGuard(to, from, next);
   if (!permission) return;
 
+  console.log("2", 2);
   // 外链路由, 从新标签打开，返回上一个路由
   if (to.meta.href) {
     window.open(to.meta.href as string);
@@ -63,6 +60,7 @@ export async function createPermissionGuard(
     [
       !needLogin,
       () => {
+        console.log("4", 4);
         next();
       },
     ],
@@ -103,5 +101,6 @@ export async function createPermissionGuard(
     ],
   ];
 
+  console.log("3", 3);
   exeStrategyActions(actions);
 }

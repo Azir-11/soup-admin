@@ -6,6 +6,7 @@ import { PageEnum } from "@/enums/pageEnum";
 
 const LOGIN_PATH = PageEnum.BASE_LOGIN;
 const ERROR_PAGE = PageEnum.ERROR_PAGE;
+const INVALID_PATH = PageEnum.INVALID_PATH;
 
 /**
  * 动态路由
@@ -32,19 +33,19 @@ export async function createDynamicRouteGuard(
 
     await route.initAuthRoute();
 
-    if (to.path === ERROR_PAGE) {
-      // 动态路由没有加载导致被not-found-page路由捕获，等待权限路由加载好了，回到之前的路由
+    if (to.name === INVALID_PATH) {
+      // 动态路由没有加载导致被INVALID_PATH路由捕获，等待权限路由加载好了，回到之前的路由
       // 若路由是从根路由重定向过来的，重新回到根路由
       const ROOT_ROUTE_NAME = "root";
-      const path = to.redirectedFrom?.name === ROOT_ROUTE_NAME ? "/" : to.fullPath;
+      const path = to.redirectedFrom?.fullPath === ROOT_ROUTE_NAME ? "/" : to.fullPath;
       next({ path, replace: true, query: to.query, hash: to.hash });
       return false;
     }
   }
 
   // 权限路由已经加载，仍然未找到，重定向到not-found
-  if (to.name === ERROR_PAGE) {
-    next({ name: ERROR_PAGE, replace: true });
+  if (to.name === INVALID_PATH) {
+    next({ path: ERROR_PAGE, replace: true });
     return false;
   }
 
