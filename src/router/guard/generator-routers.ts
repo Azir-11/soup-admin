@@ -1,4 +1,4 @@
-import { Layout } from "@/router/constant";
+import { Layout } from "@/router/routes/constant";
 import { getPermissions } from "@/axios/api";
 // import type { AppRouteRecordRaw } from "@/router/types";
 

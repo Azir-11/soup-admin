@@ -1,5 +1,5 @@
 <template>
-  <n-layout :native-scrollbar="false" has-sider>
+  <n-layout has-sider>
     <n-layout-sider
       v-if="!mobile"
       bordered
@@ -10,7 +10,6 @@
       collapse-mode="width"
       :collapsed-width="systemStore.menuSetting.minMenuWidth"
       :width="systemStore.menuSetting.menuWidth"
-      :native-scrollbar="false"
       class="max-h-screen shadow-xl"
     >
       <AsideMenu v-if="!mobile" :collapsed="collapsed" />

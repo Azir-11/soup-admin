@@ -1,5 +1,4 @@
 import type { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
-import { useAsyncRouteStoreWidthOut } from "@/stores/modules/asyncRoute";
 import { createDynamicRouteGuard } from "./dynamic";
 import { storage } from "@/utils/storage";
 import { ACCESS_TOKEN } from "@/stores/mutation-types";
@@ -12,8 +11,8 @@ type Recordable<T = any> = {
 };
 
 const BASE_HOME = PageEnum.BASE_HOME;
-const LOGIN_PATH = PageEnum.BASE_LOGIN;
-const NO_PERMISSION = PageEnum.NO_PERMISSION;
+const BASE_LOGIN_PATH = PageEnum.BASE_LOGIN_PATH;
+const NO_PERMISSION_PATH = PageEnum.NO_PERMISSION_PATH;
 
 /** 处理路由页面的权限 */
 export async function createPermissionGuard(
@@ -24,7 +23,6 @@ export async function createPermissionGuard(
   const permission = await createDynamicRouteGuard(to, from, next);
   if (!permission) return;
 
-  console.log("2", 2);
   // 外链路由, 从新标签打开，返回上一个路由
   if (to.meta.href) {
     window.open(to.meta.href as string);
@@ -51,7 +49,7 @@ export async function createPermissionGuard(
   const actions = [
     // 已登录状态跳转登录页，跳转至首页
     [
-      isLogin && to.path == LOGIN_PATH,
+      isLogin && to.path == BASE_LOGIN_PATH,
       () => {
         next({ path: BASE_HOME });
       },
@@ -60,7 +58,6 @@ export async function createPermissionGuard(
     [
       !needLogin,
       () => {
-        console.log("4", 4);
         next();
       },
     ],
@@ -73,7 +70,7 @@ export async function createPermissionGuard(
           replace: boolean;
           query?: Recordable<string>;
         } = {
-          path: LOGIN_PATH,
+          path: BASE_LOGIN_PATH,
           replace: true,
         };
         if (to.path) {
@@ -96,11 +93,10 @@ export async function createPermissionGuard(
       // 登录状态进入需要登录权限的页面，无权限，重定向到无权限页面
       isLogin && needLogin && !hasPermission,
       () => {
-        next({ path: NO_PERMISSION });
+        next({ path: NO_PERMISSION_PATH });
       },
     ],
   ];
 
-  console.log("3", 3);
   exeStrategyActions(actions);
 }

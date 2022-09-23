@@ -115,7 +115,6 @@ export const useRouteStore = defineStore({
       if (!id) return;
 
       const permissions = userStore.getPermissions;
-      console.log("permissions", permissions);
       await this.initDynamicRoute(permissions);
 
       this.isInitAuthRoute = true;

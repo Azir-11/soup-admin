@@ -4,9 +4,9 @@ import { storage } from "@/utils/storage";
 import { ACCESS_TOKEN } from "@/stores/mutation-types";
 import { PageEnum } from "@/enums/pageEnum";
 
-const LOGIN_PATH = PageEnum.BASE_LOGIN;
-const ERROR_PAGE = PageEnum.ERROR_PAGE;
-const INVALID_PATH = PageEnum.INVALID_PATH;
+const BASE_LOGIN_PATH = PageEnum.BASE_LOGIN_PATH;
+const REDIRECT_PATH = PageEnum.REDIRECT_PATH;
+const INVALID_PATH_NAME = PageEnum.INVALID_NAME;
 
 /**
  * 动态路由
@@ -23,17 +23,17 @@ export async function createDynamicRouteGuard(
   if (!route.isInitAuthRoute) {
     // 未登录情况下直接回到登录页，登录成功后再加载权限路由
     if (!isLogin) {
-      if (to.path === LOGIN_PATH) {
+      if (to.path === BASE_LOGIN_PATH) {
         next();
       } else {
-        next({ path: LOGIN_PATH });
+        next({ path: BASE_LOGIN_PATH });
       }
       return false;
     }
 
     await route.initAuthRoute();
 
-    if (to.name === INVALID_PATH) {
+    if (to.name === INVALID_PATH_NAME) {
       // 动态路由没有加载导致被INVALID_PATH路由捕获，等待权限路由加载好了，回到之前的路由
       // 若路由是从根路由重定向过来的，重新回到根路由
       const ROOT_ROUTE_NAME = "root";
@@ -44,10 +44,9 @@ export async function createDynamicRouteGuard(
   }
 
   // 权限路由已经加载，仍然未找到，重定向到not-found
-  if (to.name === INVALID_PATH) {
-    next({ path: ERROR_PAGE, replace: true });
+  if (to.name === INVALID_PATH_NAME) {
+    next({ path: REDIRECT_PATH, replace: true });
     return false;
   }
-
   return true;
 }

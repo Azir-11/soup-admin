@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
-import { Layout } from "@/router/constant";
+import { Layout } from "@/router/routes/constant";
 import { CheckmarkCircleOutline } from "@vicons/ionicons5";
 import { renderIcon } from "@/utils/index";
 

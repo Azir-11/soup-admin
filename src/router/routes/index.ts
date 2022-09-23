@@ -1,4 +1,4 @@
-import { Layout } from "@/router/constant";
+import { Layout } from "@/router/routes/constant";
 import { RouteRecordRaw } from "vue-router";
 import { PageEnum } from "@/enums/pageEnum";
 
@@ -25,18 +25,14 @@ export const constantRoutes: RouteRecordRaw[] = [
   },
   {
     name: "NoPermission",
-    path: "/NoPermission",
+    path: "",
     component: Layout,
-    meta: {
-      title: "无权限",
-      singleLayout: "blank",
-    },
     children: [
       {
-        path: "NoPermission",
-        name: "NoPermission403",
+        path: PageEnum.NO_PERMISSION_PATH,
+        name: "No-permission",
         meta: {
-          title: "403",
+          title: "权限不足",
           hideBreadcrumb: true,
         },
         component: () => import("@/views/exception/403.vue"),
@@ -45,17 +41,14 @@ export const constantRoutes: RouteRecordRaw[] = [
   },
   {
     name: "NotFound",
-    path: "/notFound",
+    path: "",
     component: Layout,
-    meta: {
-      title: "NotFound",
-    },
     children: [
       {
-        path: "NotFound",
+        path: PageEnum.NOT_FOUND_NAME,
         name: "notFound404",
         meta: {
-          title: "NotFound",
+          title: "页面未找到",
           hideBreadcrumb: true,
         },
         component: () => import("@/views/exception/404.vue"),
@@ -64,17 +57,14 @@ export const constantRoutes: RouteRecordRaw[] = [
   },
   {
     name: "ServiceError",
-    path: "/ServiceError",
+    path: "",
     component: Layout,
-    meta: {
-      title: "服务器错误",
-    },
     children: [
       {
-        path: "ServiceError",
-        name: "ServiceError500",
+        path: PageEnum.SERVICE_ERROR_NAME,
+        name: "ServiceError",
         meta: {
-          title: "500",
+          title: "服务器错误",
           hideBreadcrumb: true,
         },
         component: () => import("@/views/exception/500.vue"),
@@ -91,10 +81,10 @@ export const constantRoutes: RouteRecordRaw[] = [
     },
     children: [
       {
-        path: "NotFound",
+        path: PageEnum.INVALID_NAME,
         name: "InvalidPath404",
         meta: {
-          title: "InvalidPath",
+          title: PageEnum.INVALID_NAME,
           hideBreadcrumb: true,
         },
         component: () => import("@/views/exception/404.vue"),
