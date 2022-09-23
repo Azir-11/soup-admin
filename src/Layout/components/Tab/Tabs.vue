@@ -32,6 +32,7 @@ import { RouteItem } from "@/stores/modules/tabsList";
 import { PageEnum } from "@/enums/pageEnum";
 import { storage } from "@/utils/storage";
 import { TABS_ROUTES } from "@/stores/mutation-types";
+import { tagsWhitelist } from "@/stores/modules/tabsList";
 
 const route = useRoute();
 const router = useRouter();
@@ -69,11 +70,6 @@ tabsViewStore.initTabs(cacheRoutes);
 
 // 标签页列表
 const tabsList: any = computed(() => tabsViewStore.tabsList);
-const whiteList: string[] = [
-  PageEnum.BASE_LOGIN_NAME,
-  PageEnum.REDIRECT_NAME,
-  PageEnum.ERROR_PAGE_NAME,
-];
 
 const state = reactive({
   activeKey: route.fullPath,
@@ -83,7 +79,7 @@ const state = reactive({
 watch(
   () => route.fullPath,
   (to) => {
-    if (whiteList.includes(route.name as string)) return;
+    if (tagsWhitelist.includes(route.name as PageEnum)) return;
     const router = routes.find((route) => route.path === to);
     if (router?.meta?.tabsHidden) return;
     state.activeKey = to;
@@ -94,25 +90,34 @@ watch(
 
 const options = [
   {
-    label: "关闭左侧",
-    key: "close left",
+    label: "关闭左侧的标签页",
+    key: "closeLeftTabs",
   },
   {
-    label: "关闭右侧",
-    key: "close right",
+    label: "关闭右侧的标签页",
+    key: "closeRightTabs",
+  },
+  {
+    label: "关闭其他页",
+    key: "closeOtherTabs",
   },
 ];
 const showDropdown = ref(false);
 const x = ref(0);
 const y = ref(0);
-const activePath = ref("");
+const activeContextMenuPath = ref("");
 const handleSelect = (key: string | number) => {
   showDropdown.value = false;
   message.info(String(key));
   switch (key) {
-    case "close left":
-      tabsViewStore.closeLeftTabs(activePath.value);
-      console.log("activePath.value", activePath.value);
+    case "closeLeftTabs":
+      tabsViewStore.closeLeftTabs(activeContextMenuPath.value, state.activeKey);
+      break;
+    case "closeRightTabs":
+      tabsViewStore.closeRightTabs(activeContextMenuPath.value, state.activeKey);
+      break;
+    case "closeOtherTabs":
+      tabsViewStore.closeOtherTabs(activeContextMenuPath.value, state.activeKey);
       break;
   }
 };
@@ -127,7 +132,7 @@ const handleContextMenu = (e: MouseEvent, path: string) => {
   showDropdown.value = false;
   nextTick().then(() => {
     showDropdown.value = true;
-    activePath.value = path;
+    activeContextMenuPath.value = path;
     x.value = e.clientX;
     y.value = e.clientY;
   });

@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
-import { Layout } from "@/router/constant";
+import { Layout } from "@/router/routes/constant";
 import { CheckmarkCircleOutline } from "@vicons/ionicons5";
 import { renderIcon } from "@/utils/index";
 
@@ -13,6 +13,7 @@ import { renderIcon } from "@/utils/index";
  * @param meta.keepAlive 缓存该路由
  * @param meta.sort 排序越小越排前
  * @param meta.hidden 隐藏这个菜单项
+ * @param meta.tabsHidden 在标签页中不显示该路由
  * */
 
 const routes: Array<RouteRecordRaw> = [
@@ -32,6 +33,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "result-success",
         meta: {
           title: "成功页",
+          tabsHidden: true,
         },
         component: () => import("@/views/result/success.vue"),
       },
@@ -40,6 +42,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "result-fail",
         meta: {
           title: "失败页",
+          tabsHidden: true,
         },
         component: () => import("@/views/result/fail.vue"),
       },
@@ -48,6 +51,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "result-info",
         meta: {
           title: "信息页",
+          tabsHidden: true,
         },
         component: () => import("@/views/result/info.vue"),
       },
