@@ -39,7 +39,7 @@ specifiers:
   vite-plugin-eslint: ^1.8.1
   vite-plugin-mock: ^2.9.6
   vue: ^3.2.31
-  vue-router: ^4.0.15
+  vue-router: ^4.1.3
   vue-tsc: ^0.31.4
   vue3-slide-verify: ^1.1.1
 
@@ -64,7 +64,7 @@ dependencies:
   unplugin-vue-components: registry.npmmirror.com/unplugin-vue-components/0.18.5_vite@3.0.8+vue@3.2.37
   vite-plugin-mock: registry.npmmirror.com/vite-plugin-mock/2.9.6_mockjs@1.1.0+vite@3.0.8
   vue: registry.npmmirror.com/vue/3.2.37
-  vue-router: registry.npmmirror.com/vue-router/4.0.15_vue@3.2.37
+  vue-router: registry.npmmirror.com/vue-router/4.1.5_vue@3.2.37
   vue3-slide-verify: registry.npmmirror.com/vue3-slide-verify/1.1.1
 
 devDependencies:
@@ -5241,11 +5241,11 @@ packages:
       - supports-color
     dev: true
 
-  registry.npmmirror.com/vue-router/4.0.15_vue@3.2.37:
-    resolution: {integrity: sha512-xa+pIN9ZqORdIW1MkN2+d9Ui2pCM1b/UMgwYUCZOiFYHAvz/slKKBDha8DLrh5aCG/RibtrpyhKjKOZ85tYyWg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vue-router/-/vue-router-4.0.15.tgz}
-    id: registry.npmmirror.com/vue-router/4.0.15
+  registry.npmmirror.com/vue-router/4.1.5_vue@3.2.37:
+    resolution: {integrity: sha512-IsvoF5D2GQ/EGTs/Th4NQms9gd2NSqV+yylxIyp/OYp8xOwxmU8Kj/74E9DTSYAyH5LX7idVUngN3JSj1X4xcQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vue-router/-/vue-router-4.1.5.tgz}
+    id: registry.npmmirror.com/vue-router/4.1.5
     name: vue-router
-    version: 4.0.15
+    version: 4.1.5
     peerDependencies:
       vue: ^3.2.0
     dependencies:
