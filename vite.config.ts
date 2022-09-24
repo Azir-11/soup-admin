@@ -60,6 +60,12 @@ export default defineConfig({
       supportTs: true,
     }),
   ],
+  server: {
+    host: "0.0.0.0",
+    port: 5200,
+    // 启动之后自动打开页面
+    open: true,
+  },
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
