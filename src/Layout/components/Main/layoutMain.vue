@@ -14,6 +14,6 @@ import { useSystemSetting } from "@/hooks/setting/useSystemSetting";
 const { getIsPageAnimate, getPageAnimateType } = useSystemSetting();
 </script>
 
-<style lang="less" scoped>
-@import "@/styles/index.less";
+<style scoped>
+@import "@/styles/css/global";
 </style>
