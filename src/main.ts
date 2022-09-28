@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
+import 'uno.css';
 import { setupRouter } from "./router";
-import "./assets/css/taiwind.css";
 import { setupStore } from "@/stores";
 
 async function setupApp() {
