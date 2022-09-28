@@ -55,18 +55,17 @@ function goHome() {
   router.push("/");
 }
 </script>
-<style lang="less" scoped>
+<style scoped>
 .result-box {
   width: 72%;
   margin: 0 auto;
   text-align: center;
   padding-top: 5px;
-
-  &-extra {
-    padding: 24px 40px;
-    text-align: left;
-    background: v-bind(getTableHeaderColor);
-    border-radius: 4px;
-  }
+}
+.result-box .extra {
+  padding: 24px 40px;
+  text-align: left;
+  background: v-bind(getTableHeaderColor);
+  border-radius: 4px;
 }
 </style>

@@ -45,17 +45,16 @@ onMounted(() => {
 });
 </script>
 
-<style lang="less" scoped>
+<style scoped>
 .frame {
   width: 100%;
   height: 100vh;
-
-  &-iframe {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    border: 0;
-    box-sizing: border-box;
-  }
+}
+.frame iframe {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border: 0;
+  box-sizing: border-box;
 }
 </style>
