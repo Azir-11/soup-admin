@@ -7,7 +7,6 @@ export function createRouterGuards(router: Router) {
     //开启loading
     const Loading = window["$loading"] || null;
     Loading && Loading.start();
-
     // 页面跳转权限处理
     await createPermissionGuard(to, from, next);
   });

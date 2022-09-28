@@ -14,7 +14,14 @@ export const ROOT_ROUTE: RouteRecordRaw = {
 
 /** 固定的路由 */
 export const constantRoutes: RouteRecordRaw[] = [
-  ROOT_ROUTE,
+  {
+    name: "root",
+    path: "/",
+    redirect: PageEnum.BASE_HOME_REDIRECT,
+    meta: {
+      title: "Root",
+    },
+  },
   {
     name: "login",
     path: "/login",
@@ -24,8 +31,8 @@ export const constantRoutes: RouteRecordRaw[] = [
     },
   },
   {
-    name: "NoPermission",
-    path: "",
+    name: "abnormal",
+    path: "/abnormal",
     component: Layout,
     children: [
       {
@@ -37,13 +44,6 @@ export const constantRoutes: RouteRecordRaw[] = [
         },
         component: () => import("@/views/exception/403.vue"),
       },
-    ],
-  },
-  {
-    name: "NotFound",
-    path: "",
-    component: Layout,
-    children: [
       {
         path: PageEnum.NOT_FOUND_NAME,
         name: "notFound404",
@@ -53,13 +53,6 @@ export const constantRoutes: RouteRecordRaw[] = [
         },
         component: () => import("@/views/exception/404.vue"),
       },
-    ],
-  },
-  {
-    name: "ServiceError",
-    path: "",
-    component: Layout,
-    children: [
       {
         path: PageEnum.SERVICE_ERROR_NAME,
         name: "ServiceError",
