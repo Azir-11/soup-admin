@@ -1,5 +1,4 @@
 module.exports = {
-  plugins: [require("prettier-plugin-tailwindcss")],
   // 一行最多 100 字符
   printWidth: 100,
   // 使用 2 个空格缩进
