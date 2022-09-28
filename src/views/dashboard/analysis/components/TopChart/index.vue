@@ -28,8 +28,8 @@
       </n-card>
     </n-grid-item>
     <n-grid-item span="0:24 640:24 1024:8">
-      <n-card :bordered="false" class="rounded-16px shadow-sm">
-        <div ref="pieRef" class="h-[30rem] w-full"></div>
+      <n-card :bordered="false" class="rounded-16px shadow-sm wh-full">
+        <div ref="pieRef" class="wh-full"></div>
       </n-card>
     </n-grid-item>
   </n-grid>

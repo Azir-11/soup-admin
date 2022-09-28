@@ -49,27 +49,21 @@ function switchType(e) {
   typeTitle.value = e.name;
 }
 </script>
-<style lang="less" scoped>
+<style scoped>
 .thing-cell {
   margin: 0 -16px 10px;
   padding: 5px 16px;
-
-  &:hover {
-    background: #f3f3f3;
-    cursor: pointer;
-  }
+}
+.thing-cell:hover {
+  background: #f3f3f3;
+  cursor: pointer;
 }
 
 .thing-cell-on {
   background: #f0faff;
   color: #2d8cf0;
-
-  ::v-deep(.n-thing-main .n-thing-header .n-thing-header__title) {
-    color: #2d8cf0;
-  }
-
-  &:hover {
-    background: #f0faff;
-  }
+}
+.thing-cell-on:hover {
+  background: #f0faff;
 }
 </style>
