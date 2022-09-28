@@ -5,7 +5,7 @@ import { message } from "./message";
 import { ACCESS_TOKEN } from "@/stores/mutation-types";
 import { storage } from "@/utils/storage";
 
-export const baseURL = "http://localhost:5173/";
+export const baseURL = "http://localhost:5200/";
 /**
  * 默认 create Axios 的配置参数
  */
