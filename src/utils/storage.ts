@@ -1,5 +1,10 @@
+import { decrypto, encrypto } from "./crypto";
 // 默认缓存期限为7天
 const DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7;
+interface StorageData {
+  value: unknown;
+  expire: number | null;
+}
 
 /**
  * 创建本地缓存对象
@@ -26,11 +31,11 @@ export const createStorage = ({ prefixKey = "", storage = localStorage } = {}) =
      * @param expire
      */
     set(key: string, value: any, expire: number | null = DEFAULT_CACHE_TIME) {
-      const stringData = JSON.stringify({
+      const stringData = {
         value,
         expire: expire !== null ? new Date().getTime() + expire * 1000 : null,
-      });
-      this.storage.setItem(this.getKey(key), stringData);
+      };
+      this.storage.setItem(this.getKey(key), encrypto(stringData));
     }
 
     /**
@@ -41,16 +46,19 @@ export const createStorage = ({ prefixKey = "", storage = localStorage } = {}) =
     get(key: string, def: any = null) {
       const item = this.storage.getItem(this.getKey(key));
       if (item) {
+        let storageData: StorageData | null = null;
         try {
-          const data = JSON.parse(item);
-          const { value, expire } = data;
+          storageData = decrypto(item);
+        } catch (error) {
+          // 防止解析失败
+        }
+        if (storageData) {
+          const { value, expire } = storageData;
           // 在有效期内直接返回
           if (expire === null || expire >= Date.now()) {
             return value;
           }
           this.remove(key);
-        } catch (e) {
-          return def;
         }
       }
       return def;

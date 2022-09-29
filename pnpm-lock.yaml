@@ -12,6 +12,7 @@ specifiers:
   '@vueuse/core': ^9.2.0
   autoprefixer: ^10.4.7
   axios: ^0.26.1
+  crypto-js: ^4.1.1
   echarts: ^5.3.3
   element-resize-detector: ^1.2.4
   eslint: ^8.0.1
@@ -47,6 +48,7 @@ dependencies:
   '@vueuse/core': registry.npmmirror.com/@vueuse/core/9.2.0_vue@3.2.37
   autoprefixer: registry.npmmirror.com/autoprefixer/10.4.7
   axios: registry.npmmirror.com/axios/0.26.1
+  crypto-js: registry.npmmirror.com/crypto-js/4.1.1
   echarts: registry.npmmirror.com/echarts/5.3.3
   element-resize-detector: registry.npmmirror.com/element-resize-detector/1.2.4
   lodash-es: registry.npmmirror.com/lodash-es/4.17.21
@@ -1594,6 +1596,12 @@ packages:
       path-key: registry.npmmirror.com/path-key/3.1.1
       shebang-command: registry.npmmirror.com/shebang-command/2.0.0
       which: registry.npmmirror.com/which/2.0.2
+
+  registry.npmmirror.com/crypto-js/4.1.1:
+    resolution: {integrity: sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/crypto-js/-/crypto-js-4.1.1.tgz}
+    name: crypto-js
+    version: 4.1.1
+    dev: false
 
   registry.npmmirror.com/css-functions-list/3.1.0:
     resolution: {integrity: sha512-/9lCvYZaUbBGvYUgYGFJ4dcYiyqdhSjG7IPVluoV8A1ILjkF7ilmhp1OGUz8n+nmBcu0RNrQAzgD8B6FJbrt2w==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/css-functions-list/-/css-functions-list-3.1.0.tgz}

@@ -13,6 +13,7 @@
     "@vueuse/core": "^9.2.0",
     "autoprefixer": "^10.4.7",
     "axios": "^0.26.1",
+    "crypto-js": "^4.1.1",
     "echarts": "^5.3.3",
     "element-resize-detector": "^1.2.4",
     "lodash-es": "^4.17.21",
