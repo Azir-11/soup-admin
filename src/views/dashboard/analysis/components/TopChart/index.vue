@@ -12,14 +12,14 @@
                 <template #prefix>$</template>
               </n-statistic>
             </h3>
-            <p class="m-0 text-[#aaa]">Current Month Earnings</p>
-            <h3 class="pt-36px text-24px mb-0 font-bold">
+            <p class="text-[#aaa]">Current Month Earnings</p>
+            <h3 class="pt-36px text-24px font-bold">
               <n-statistic tabular-nums>
                 <n-number-animation :from="0" :to="1234" />
               </n-statistic>
             </h3>
-            <p class="m-0 text-[#aaa]">Current Month Sales</p>
-            <n-button class="mt-7" type="primary">Last Month Summary</n-button>
+            <p class="text-[#aaa]">Current Month Sales</p>
+            <n-button class="mt-24px" type="primary">Last Month Summary</n-button>
           </div>
           <div class="flex-1-hidden wh-full">
             <div ref="lineRef" class="wh-full"></div>
@@ -28,8 +28,8 @@
       </n-card>
     </n-grid-item>
     <n-grid-item span="0:24 640:24 1024:8">
-      <n-card :bordered="false" class="rounded-16px shadow-sm wh-full">
-        <div ref="pieRef" class="wh-full"></div>
+      <n-card :bordered="false" class="rounded-16px shadow-sm">
+        <div ref="pieRef" class="w-full h-360px"></div>
       </n-card>
     </n-grid-item>
   </n-grid>

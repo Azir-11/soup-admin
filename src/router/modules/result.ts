@@ -34,6 +34,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: "成功页",
           tabsHidden: true,
+          hideBreadcrumb: true,
         },
         component: () => import("@/views/result/success.vue"),
       },
@@ -43,6 +44,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: "失败页",
           tabsHidden: true,
+          hideBreadcrumb: true,
         },
         component: () => import("@/views/result/fail.vue"),
       },
@@ -52,6 +54,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: "信息页",
           tabsHidden: true,
+          hideBreadcrumb: true,
         },
         component: () => import("@/views/result/info.vue"),
       },

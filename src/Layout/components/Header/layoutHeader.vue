@@ -15,20 +15,20 @@
       </div>
       <!-- 面包屑 -->
       <div class="ml-4 flex items-center">
-        <n-breadcrumb>
+        <n-breadcrumb v-if="breadcrumbList.length != 0">
           <template v-for="routeItem in breadcrumbList" :key="routeItem.name">
-            <n-breadcrumb-item v-if="routeItem.meta.title">
+            <n-breadcrumb-item v-if="routeItem.meta?.title">
               <n-dropdown
                 v-if="routeItem.children.length"
                 :options="routeItem.children"
                 @select="dropdownSelect"
               >
                 <span class="link-text">
-                  {{ routeItem.meta.title }}
+                  {{ routeItem.meta?.title }}
                 </span>
               </n-dropdown>
               <span v-else class="link-text">
-                {{ routeItem.meta.title }}
+                {{ routeItem.meta?.title }}
               </span>
             </n-breadcrumb-item>
           </template>
@@ -73,13 +73,11 @@ import {
 import { renderIcon } from "@/utils/index";
 import { storage } from "@/utils/storage";
 import { CURRENT_USER } from "@/stores/mutation-types";
-import { PageEnum } from "@/enums/pageEnum";
 import ProjectSetting from "./systemSetting.vue";
 import { useUserStore } from "@/stores/modules/user";
 
 const emit = defineEmits(["update:collapsed"]);
 
-const BASE_HOME = PageEnum.BASE_HOME;
 const message = window["$message"];
 const router = useRouter();
 const route = useRoute();
@@ -91,6 +89,10 @@ const drawerSetting = ref();
  */
 const generator: any = (routerMap) => {
   return routerMap.map((item) => {
+    // 如果为隐藏菜单，则返回空
+    if (item?.meta?.hideBreadcrumb) {
+      return [];
+    }
     const currentMenu = {
       ...item,
       label: item.meta.title,
@@ -173,9 +175,3 @@ const openSetting = () => {
   changeDrawer();
 };
 </script>
-
-<style>
-.hoverBtn {
-  @apply flex h-full w-14 cursor-pointer items-center justify-center duration-300 hover:bg-gray-200;
-}
-</style>
