@@ -4,7 +4,7 @@
 export interface Result<T> {
   data: T;
   status: number;
-  msg: string;
+  message: string;
 }
 
 export interface Login {

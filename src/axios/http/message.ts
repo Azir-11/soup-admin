@@ -1,7 +1,7 @@
 import type { NotificationType } from "naive-ui";
 /**
- * 封装的 element-plus 的消息提示框
- * @param msg
+ * 封装的 naive 的消息提示框
+ * @param message
  * @param type
  */
 export const message = (msg: string, type: NotificationType = "info") => {
