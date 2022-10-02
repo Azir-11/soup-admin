@@ -6,22 +6,16 @@ import { PageEnum } from "@/enums/pageEnum";
 export const ROOT_ROUTE: RouteRecordRaw = {
   name: "root",
   path: "/",
-  redirect: PageEnum.BASE_HOME,
+  redirect: PageEnum.BASE_HOME_REDIRECT,
   meta: {
+    tabsHidden: true,
     title: "Root",
   },
 };
 
 /** 固定的路由 */
 export const constantRoutes: RouteRecordRaw[] = [
-  {
-    name: "root",
-    path: "/",
-    redirect: PageEnum.BASE_HOME_REDIRECT,
-    meta: {
-      title: "Root",
-    },
-  },
+  ROOT_ROUTE,
   {
     name: "login",
     path: "/login",
@@ -40,6 +34,7 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: "No-permission",
         meta: {
           title: "权限不足",
+          tabsHidden: true,
           hideBreadcrumb: true,
         },
         component: () => import("@/views/exception/403.vue"),
@@ -49,6 +44,7 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: "notFound404",
         meta: {
           title: "页面未找到",
+          tabsHidden: true,
           hideBreadcrumb: true,
         },
         component: () => import("@/views/exception/404.vue"),
@@ -58,6 +54,7 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: "ServiceError",
         meta: {
           title: "服务器错误",
+          tabsHidden: true,
           hideBreadcrumb: true,
         },
         component: () => import("@/views/exception/500.vue"),
@@ -78,6 +75,7 @@ export const constantRoutes: RouteRecordRaw[] = [
         name: "InvalidPath404",
         meta: {
           title: PageEnum.INVALID_NAME,
+          tabsHidden: true,
           hideBreadcrumb: true,
         },
         component: () => import("@/views/exception/404.vue"),
