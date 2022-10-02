@@ -5,7 +5,7 @@ import { ACCESS_TOKEN } from "@/stores/mutation-types";
 import { PageEnum } from "@/enums/pageEnum";
 
 const BASE_LOGIN_PATH = PageEnum.BASE_LOGIN_PATH;
-const REDIRECT_PATH = PageEnum.REDIRECT_PATH;
+const NOT_FOUND_PATH = PageEnum.NOT_FOUND_PATH;
 const INVALID_PATH_NAME = PageEnum.INVALID_NAME;
 
 /**
@@ -45,7 +45,7 @@ export async function createDynamicRouteGuard(
 
   // 权限路由已经加载，仍然未找到，重定向到not-found
   if (to.name === INVALID_PATH_NAME) {
-    next({ path: REDIRECT_PATH, replace: true });
+    next({ path: NOT_FOUND_PATH, replace: true });
     return false;
   }
   return true;
