@@ -8,6 +8,8 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@iconify/json": "^2.1.116",
+    "@iconify/vue": "^4.0.0",
     "@types/lodash-es": "^4.17.6",
     "@vicons/ionicons5": "^0.12.0",
     "@vueuse/core": "^9.2.0",
