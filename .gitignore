@@ -26,3 +26,7 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+#project files
+components.d.ts
+pnpm-lock.yaml
