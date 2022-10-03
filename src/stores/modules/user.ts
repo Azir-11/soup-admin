@@ -5,12 +5,11 @@ import { ACCESS_TOKEN, CURRENT_USER, TABS_ROUTES } from "@/stores/mutation-types
 import { ResultEnum } from "@/enums/httpEnums";
 import { login as Login, getPermissions } from "@/axios/api";
 
-// const Storage = createStorage({ storage: localStorage });
-
 export interface IUserState {
   id: string;
   token: string;
   userName: string;
+  avatar: string;
   role: string;
   permissions: any[];
 }
@@ -21,6 +20,7 @@ export const useUserStore = defineStore({
     id: storage.get(CURRENT_USER)?.id,
     token: storage.get(CURRENT_USER)?.token,
     userName: storage.get(CURRENT_USER)?.userName,
+    avatar: storage.get(CURRENT_USER)?.avatar,
     role: storage.get(CURRENT_USER)?.role,
     permissions: JSON.parse(storage.get(CURRENT_USER)?.permissions || `[]`),
   }),
