@@ -31,3 +31,9 @@ export const getPermissions = () => {
   const res = http.reqGet<Result<string>>(`user/getPermissions`);
   return res.then((res) => res.data);
 };
+
+//获取table
+export function getTableList(params) {
+  const res = http.reqGet("/table/list", params);
+  return res.then((res) => res.data);
+}

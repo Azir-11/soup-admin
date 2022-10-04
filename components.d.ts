@@ -5,7 +5,10 @@
 declare module 'vue' {
   export interface GlobalComponents {
     Application: typeof import('./src/components/Application/Application.vue')['default']
+    BasicForm: typeof import('./src/components/Form/src/BasicForm.vue')['default']
+    ColumnSetting: typeof import('./src/components/Table/src/components/settings/ColumnSetting.vue')['default']
     DialogContent: typeof import('./src/components/DialogContent/DialogContent.vue')['default']
+    EditableCell: typeof import('./src/components/Table/src/components/editable/EditableCell.vue')['default']
     FeedbackContent: typeof import('./src/components/feedbackContent/index.vue')['default']
     LoadingContent: typeof import('./src/components/LoadingContent/index.vue')['default']
     MessageContent: typeof import('./src/components/feedbackContent/MessageContent.vuelt']
@@ -18,6 +21,7 @@ declare module 'vue' {
     NCheckbox: typeof import('naive-ui')['NCheckbox']
     NConfigProvider: typeof import('naive-ui')['NConfigProvider']
     NDataTable: typeof import('naive-ui')['NDataTable']
+    NDatePicker: typeof import('naive-ui')['NDatePicker']
     NDialogProvider: typeof import('naive-ui')['NDialogProvider']
     NDivider: typeof import('naive-ui')['NDivider']
     NDrawer: typeof import('naive-ui')['NDrawer']
@@ -63,6 +67,8 @@ declare module 'vue' {
     NTimelineItem: typeof import('naive-ui')['NTimelineItem']
     NTooltip: typeof import('naive-ui')['NTooltip']
     NUpload: typeof import('naive-ui')['NUpload']
+    Table: typeof import('./src/components/Table/src/Table.vue')['default']
+    TableAction: typeof import('./src/components/Table/src/components/TableAction.vue')['default']
   }
 }
 
