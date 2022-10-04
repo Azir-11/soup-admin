@@ -23,7 +23,6 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/component",
     name: "component",
-    redirect: "/component/basic-list",
     component: Layout,
     meta: {
       title: "组件示例",
