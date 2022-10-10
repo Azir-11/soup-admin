@@ -112,7 +112,8 @@ export const useRouteStore = defineStore({
     async initAuthRoute() {
       const userStore = useUserStore();
       const id = userStore.getId;
-      if (!id) return;
+      // 如果本地储存的user被删掉了，但是token又还在，就会导致路由无限重定向，这里检测一下，没user信息直接执行退出
+      if (!id) userStore.logout();
 
       const permissions = userStore.getPermissions;
       await this.initDynamicRoute(permissions);
