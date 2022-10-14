@@ -5,7 +5,7 @@ import vue from "@vitejs/plugin-vue";
 import Components from "unplugin-vue-components/vite";
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import AutoImport from "unplugin-auto-import/vite";
-import Unocss from 'unocss/vite'
+import Unocss from "unocss/vite";
 
 import eslintPlugin from "vite-plugin-eslint";
 
@@ -60,7 +60,7 @@ export default defineConfig({
       mockPath: "./mock",
       supportTs: true,
     }),
-    Unocss()
+    Unocss(),
   ],
   server: {
     host: "0.0.0.0",
