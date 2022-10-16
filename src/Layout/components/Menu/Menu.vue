@@ -97,3 +97,9 @@ const findChildrenLen = (key: string) => {
   return subRouteChildren.includes(key);
 };
 </script>
+
+<style scoped:art:>
+.n-menu {
+  width: 100%;
+}
+</style>

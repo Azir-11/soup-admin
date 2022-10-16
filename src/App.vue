@@ -15,7 +15,3 @@ const systemStore = useSystemSettingStore();
 
 const getDarkTheme = computed(() => (systemStore.darkTheme ? darkTheme : undefined));
 </script>
-
-<style>
-@import "@/assets/base.css";
-</style>
