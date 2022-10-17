@@ -1,63 +1,68 @@
 <template>
-  <div class="flex h-full w-full items-center justify-between">
-    <div class="flex h-full">
-      <div class="flex items-center">
-        <div class="hoverBtn" @click="changeCollapsed">
-          <n-icon :size="size">
-            <MenuOutline />
-          </n-icon>
+  <header class="shadow-sm">
+    <div
+      class="flex h-full w-full items-center justify-between border-b border-gray-200"
+      :style="`height:${systemStore.headerSetting.headerHeight}px`"
+    >
+      <div class="flex h-full">
+        <div class="flex items-center">
+          <div class="hoverBtn" @click="changeCollapsed">
+            <n-icon :size="size">
+              <MenuOutline />
+            </n-icon>
+          </div>
+          <div class="hoverBtn">
+            <n-icon :size="size">
+              <ReloadOutline />
+            </n-icon>
+          </div>
         </div>
-        <div class="hoverBtn">
-          <n-icon :size="size">
-            <ReloadOutline />
-          </n-icon>
-        </div>
-      </div>
-      <!-- 面包屑 -->
-      <div class="ml-4 flex items-center">
-        <n-breadcrumb v-if="breadcrumbList.length != 0">
-          <template v-for="routeItem in breadcrumbList" :key="routeItem.name">
-            <n-breadcrumb-item v-if="routeItem.meta?.title">
-              <n-dropdown
-                v-if="routeItem.children.length"
-                :options="routeItem.children"
-                @select="dropdownSelect"
-              >
-                <span class="link-text">
+        <!-- 面包屑 -->
+        <div class="ml-4 flex items-center">
+          <n-breadcrumb v-if="breadcrumbList.length != 0">
+            <template v-for="routeItem in breadcrumbList" :key="routeItem.name">
+              <n-breadcrumb-item v-if="routeItem.meta?.title">
+                <n-dropdown
+                  v-if="routeItem.children.length"
+                  :options="routeItem.children"
+                  @select="dropdownSelect"
+                >
+                  <span class="link-text">
+                    {{ routeItem.meta?.title }}
+                  </span>
+                </n-dropdown>
+                <span v-else class="link-text">
                   {{ routeItem.meta?.title }}
                 </span>
-              </n-dropdown>
-              <span v-else class="link-text">
-                {{ routeItem.meta?.title }}
-              </span>
-            </n-breadcrumb-item>
-          </template>
-        </n-breadcrumb>
+              </n-breadcrumb-item>
+            </template>
+          </n-breadcrumb>
+        </div>
+      </div>
+      <div class="flex h-full items-center pr-10">
+        <n-dropdown trigger="hover" :options="options" @select="handleSelect">
+          <div class="hoverBtn">
+            <n-avatar
+              round
+              bordered
+              :size="size + 8"
+              :src="user.imagePath || '/icon/ms-icon-310x310.png'"
+            />
+          </div>
+        </n-dropdown>
+        <n-tooltip trigger="hover">
+          <template #trigger>
+            <div class="hoverBtn" @click="openSetting">
+              <n-icon :size="size">
+                <SettingsOutline />
+              </n-icon></div></template
+          ><span>项目配置</span></n-tooltip
+        >
       </div>
     </div>
-    <div class="flex h-full items-center pr-10">
-      <n-dropdown trigger="hover" :options="options" @select="handleSelect">
-        <div class="hoverBtn">
-          <n-avatar
-            round
-            bordered
-            :size="size + 8"
-            :src="user.imagePath || '/icon/ms-icon-310x310.png'"
-          />
-        </div>
-      </n-dropdown>
-      <n-tooltip trigger="hover">
-        <template #trigger>
-          <div class="hoverBtn" @click="openSetting">
-            <n-icon :size="size">
-              <SettingsOutline />
-            </n-icon></div></template
-        ><span>项目配置</span></n-tooltip
-      >
-    </div>
-  </div>
-  <!--项目配置-->
-  <ProjectSetting ref="drawerSetting" class="z-100" />
+    <!--项目配置-->
+    <ProjectSetting ref="drawerSetting" class="z-100" />
+  </header>
 </template>
 
 <script setup lang="ts">
@@ -73,8 +78,9 @@ import {
 import { renderIcon } from "@/utils/index";
 import { storage } from "@/utils/storage";
 import { CURRENT_USER } from "@/stores/mutation-types";
-import ProjectSetting from "./systemSetting.vue";
+import ProjectSetting from "./components/systemSetting.vue";
 import { useUserStore } from "@/stores/modules/user";
+import { useSystemSettingStore } from "@/stores/modules/systemSetting";
 
 const emit = defineEmits(["update:collapsed"]);
 
@@ -82,6 +88,7 @@ const message = window["$message"];
 const router = useRouter();
 const route = useRoute();
 const userStore = useUserStore();
+const systemStore = useSystemSettingStore();
 const drawerSetting = ref();
 
 /**

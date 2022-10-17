@@ -1,3 +1,3 @@
-import PageFooter from './Footer.vue';
+import GlobalFooter from "./Footer.vue";
 
-export { PageFooter };
+export { GlobalFooter };

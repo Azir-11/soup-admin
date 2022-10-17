@@ -1,3 +1,3 @@
-import AsideMenu from './Menu.vue';
+import GlobalMenu from "./GlobalMenu.vue";
 
-export { AsideMenu };
+export { GlobalMenu };

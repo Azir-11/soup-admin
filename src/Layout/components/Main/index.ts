@@ -1,3 +1,3 @@
-import MainView from "./layoutMain.vue";
+import GlobalMain from "./GlobalMain.vue";
 
-export { MainView };
+export { GlobalMain };

@@ -1,3 +1,3 @@
-import TabsView from "./Tabs.vue";
+import GlobalTabs from "./GlobalTabs.vue";
 
-export { TabsView };
+export { GlobalTabs };

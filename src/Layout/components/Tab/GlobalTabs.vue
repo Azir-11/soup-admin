@@ -1,28 +1,30 @@
 <template>
-  <div class="px-4 pt-2">
-    <n-tabs :value="state.activeKey" type="card" @close="closeTabPane">
-      <n-tab
-        v-for="(item, index) in tabsList"
-        :key="index"
-        :name="item.path"
-        :closable="!item.meta.affix"
-        @click="goPage(item.path)"
-        @contextmenu="handleContextMenu($event, item.path)"
-      >
-        {{ item.meta.title }}
-      </n-tab>
-    </n-tabs>
-    <n-dropdown
-      placement="bottom-start"
-      trigger="manual"
-      :x="x"
-      :y="y"
-      :options="options"
-      :show="showDropdown"
-      :on-clickoutside="onClickoutside"
-      @select="handleSelect"
-    />
-  </div>
+  <section class="w-full shadow-md flex items-end">
+    <div class="px-6">
+      <n-tabs :value="state.activeKey" type="card" @close="closeTabPane">
+        <n-tab
+          v-for="(item, index) in tabsList"
+          :key="index"
+          :name="item.path"
+          :closable="!item.meta.affix"
+          @click="goPage(item.path)"
+          @contextmenu="handleContextMenu($event, item.path)"
+        >
+          {{ item.meta.title }}
+        </n-tab>
+      </n-tabs>
+      <n-dropdown
+        placement="bottom-start"
+        trigger="manual"
+        :x="x"
+        :y="y"
+        :options="options"
+        :show="showDropdown"
+        :on-clickoutside="onClickoutside"
+        @select="handleSelect"
+      />
+    </div>
+  </section>
 </template>
 
 <script setup lang="ts">

@@ -1,3 +1,3 @@
-import PageHeader from "./layoutHeader.vue";
+import GlobalHeader from "./GlobalHeader.vue";
 
-export { PageHeader };
+export { GlobalHeader };
