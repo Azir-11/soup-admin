@@ -1,5 +1,5 @@
 <template>
-  <n-config-provider :locale="zhCN" :theme="getDarkTheme" :date-locale="dateZhCN">
+  <n-config-provider :locale="zhCN" :theme="getDarkTheme" :date-locale="dateZhCN" class="h-full">
     <AppProvider>
       <RouterView />
     </AppProvider>
