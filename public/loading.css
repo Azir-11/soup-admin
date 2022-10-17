@@ -1,9 +1,9 @@
-body {
+.loading-container {
     height: 100vh;
     overflow: hidden;
 }
 
-.loadingAnimation {
+.loading_animation {
     height: 100vh;
     display: flex;
     justify-content: center;

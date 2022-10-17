@@ -16,7 +16,7 @@
     <link rel="icon" type="image/png" sizes="96x96" href="/icon/favicon-96x96.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/icon/favicon-16x16.png" />
     <link rel="manifest" href="/manifest.json" />
-    <link rel="stylesheet" href="/loading.css">
+    <link rel="stylesheet" href="/loading.css" />
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
     <meta name="theme-color" content="#ffffff" />
@@ -27,14 +27,16 @@
   <body>
     <div id="app">
       <!-- 首屏加载动画，app挂载完成后会被内容自动覆盖 -->
-      <div class="loadingAnimation">
-        <div class="sk-folding-cube">
-          <div class="sk-cube1 sk-cube"></div>
-          <div class="sk-cube2 sk-cube"></div>
-          <div class="sk-cube4 sk-cube"></div>
-          <div class="sk-cube3 sk-cube"></div>
+      <div class="loading-container">
+        <div class="loading_animation">
+          <div class="sk-folding-cube">
+            <div class="sk-cube1 sk-cube"></div>
+            <div class="sk-cube2 sk-cube"></div>
+            <div class="sk-cube4 sk-cube"></div>
+            <div class="sk-cube3 sk-cube"></div>
+          </div>
+          <h3 class="appLoadingText">加载中...</h3>
         </div>
-        <h3 class="appLoadingText">加载中...</h3>
       </div>
     </div>
     <script src="/src/main.ts" type="module"></script>
