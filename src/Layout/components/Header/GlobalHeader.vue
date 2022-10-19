@@ -75,8 +75,8 @@ import {
   FlameOutline,
   SettingsOutline,
 } from "@vicons/ionicons5";
-import { renderIcon } from "@/utils/index";
-import { storage } from "@/utils/storage";
+import { renderIcon } from "@/utils/router/index";
+import { storage } from "@/utils/storage/storage";
 import { CURRENT_USER } from "@/stores/mutation-types";
 import ProjectSetting from "./components/systemSetting.vue";
 import { useUserStore } from "@/stores/modules/user";

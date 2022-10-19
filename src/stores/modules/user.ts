@@ -1,9 +1,9 @@
 import { defineStore } from "pinia";
-import { storage, createStorage } from "@/utils/storage";
+import { storage } from "@/utils";
 import { store } from "@/stores";
 import { ACCESS_TOKEN, CURRENT_USER, TABS_ROUTES } from "@/stores/mutation-types";
-import { ResultEnum } from "@/enums/httpEnums";
-import { login as Login, getPermissions } from "@/axios/api";
+import { ResultEnum } from "@/enum/httpEnums";
+import { fetchLogin, fetchPermissions } from "@/service";
 
 export interface IUserState {
   id: string;
@@ -57,20 +57,17 @@ export const useUserStore = defineStore({
     // 登录
     async login(userInfo) {
       try {
-        const response = await Login(userInfo.userName, userInfo.password);
-        const { status, data } = response;
-        if (status === ResultEnum.SUCCESS) {
-          const ex = 7 * 24 * 60 * 60 * 1000;
-          storage.set(ACCESS_TOKEN, data.token, ex);
-          storage.set(CURRENT_USER, data);
-          this.setId(data.id);
-          this.setToken(data.token);
-          this.setuserName(data.userName);
-          this.setRole(data.roles);
-          this.setPermissions(JSON.parse(data.permissions));
-          return Promise.resolve(data);
-        }
-        return Promise.reject(response);
+        const response: any = await fetchLogin(userInfo.userName, userInfo.password);
+        const { data } = response;
+        const ex = 7 * 24 * 60 * 60 * 1000;
+        storage.set(ACCESS_TOKEN, data.token, ex);
+        storage.set(CURRENT_USER, data);
+        this.setId(data.id);
+        this.setToken(data.token);
+        this.setuserName(data.userName);
+        this.setRole(data.roles);
+        this.setPermissions(JSON.parse(data.permissions));
+        return Promise.resolve(data);
       } catch (e) {
         console.log("e", e);
         return Promise.reject(e);
@@ -81,7 +78,7 @@ export const useUserStore = defineStore({
     GetPermissions() {
       const that = this;
       return new Promise((resolve, reject) => {
-        getPermissions()
+        fetchPermissions()
           .then((res) => {
             const permissionsList = res.data;
             if (permissionsList && permissionsList.length) {

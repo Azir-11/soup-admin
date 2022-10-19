@@ -8,16 +8,17 @@ const ERROR_PARAM_MSG = "参数校验失败！";
 const apis = [
   // 登录
   {
-    url: "/user/login",
+    url: "/mock/user/login",
     method: "post",
     response: (options) => {
       const { userName = undefined, password = undefined } = options.body;
+      console.log("userName", userName);
 
       if (!userName || !password) {
         return {
-          status: ERROR_PARAM_STATUS,
+          code: ERROR_PARAM_STATUS,
           message: ERROR_PARAM_MSG,
-          data: null,
+          data: { userName, password },
         };
       }
       const findItem = userModel.find(
@@ -26,13 +27,13 @@ const apis = [
 
       if (findItem) {
         return {
-          status: 200,
-          message: "ok",
+          code: 200,
+          message: "success",
           data: findItem,
         };
       }
       return {
-        status: ERROR_PARAM_STATUS,
+        code: ERROR_PARAM_STATUS,
         message: "用户名或密码错误！",
         data: null,
       };
@@ -40,14 +41,14 @@ const apis = [
   },
   // 获取权限列表
   {
-    url: "/user/getPermissions",
+    url: "/mock/user/getPermissions",
     method: "get",
     response: (options) => {
       const { token = undefined } = options.body;
 
       if (!token) {
         return {
-          status: ERROR_PARAM_STATUS,
+          code: ERROR_PARAM_STATUS,
           message: ERROR_PARAM_MSG,
           data: null,
         };
@@ -57,7 +58,7 @@ const apis = [
 
       if (findItem) {
         return {
-          status: "200",
+          code: "200",
           message: "成功",
           data: {
             token: findItem.token,
@@ -65,7 +66,7 @@ const apis = [
         };
       }
       return {
-        status: 403,
+        code: 403,
         message: "Token错误,请重新登录",
         data: null,
       };

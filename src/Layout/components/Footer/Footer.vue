@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { ProjectEnum } from "@/enums/projectEnums";
+import { ProjectEnum } from "@/enum/projectEnums";
 
 const data = [ProjectEnum.COPYRIGHT_INFORMATION, ProjectEnum.RECORD_INFORMATION];
 </script>

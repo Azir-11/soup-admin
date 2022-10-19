@@ -33,7 +33,7 @@ const tableList = (pageSize) => {
 export default [
   //表格数据列表
   {
-    url: "/api/table/list",
+    url: "/mock/table/list",
     timeout: 1000,
     method: "get",
     response: ({ query }) => {

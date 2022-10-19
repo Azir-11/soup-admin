@@ -1,8 +1,8 @@
 import type { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
 import { createDynamicRouteGuard } from "./dynamic";
-import { storage } from "@/utils/storage";
+import { storage } from "@/utils";
 import { ACCESS_TOKEN } from "@/stores/mutation-types";
-import { PageEnum } from "@/enums/pageEnum";
+import { PageEnum } from "@/enum";
 import { useUserStore } from "@/stores/modules/user";
 import { exeStrategyActions } from "@/utils/common/pattern";
 

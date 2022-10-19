@@ -28,11 +28,11 @@
 </template>
 
 <script setup lang="ts">
-import { useGo } from "@/utils";
+import { useGo } from "@/utils/router";
 import { useTabsViewStore } from "@/stores/modules/tabsList";
 import { RouteItem } from "@/stores/modules/tabsList";
-import { PageEnum } from "@/enums/pageEnum";
-import { storage } from "@/utils/storage";
+import { PageEnum } from "@/enum/pageEnum";
+import { storage } from "@/utils/storage/storage";
 import { TABS_ROUTES } from "@/stores/mutation-types";
 import { tagsWhitelist } from "@/stores/modules/tabsList";
 

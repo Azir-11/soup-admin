@@ -20,7 +20,7 @@
 import type { MenuOption } from "naive-ui";
 import { useRouteStore } from "@/stores/modules/asyncRoute";
 import { useSystemSettingStore } from "@/stores/modules/systemSetting";
-import { generatorMenu } from "@/utils";
+import { generatorMenu } from "@/utils/router";
 
 const router = useRouter();
 const asyncRouteStore = useRouteStore();

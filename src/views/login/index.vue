@@ -101,12 +101,12 @@ import {
   LogoGithub,
   LogoFacebook,
 } from "@vicons/ionicons5";
-import { PageEnum } from "@/enums/pageEnum";
+import { PageEnum } from "@/enum/pageEnum";
 //图形验证码
 import SlideVerify from "vue3-slide-verify";
 import "vue3-slide-verify/dist/style.css";
 import { ACCESS_TOKEN, CURRENT_USER } from "@/stores/mutation-types";
-import { storage } from "@/utils/storage";
+import { storage } from "@/utils/storage/storage";
 import { useUserStore } from "@/stores/modules/user";
 
 const formRef = ref();

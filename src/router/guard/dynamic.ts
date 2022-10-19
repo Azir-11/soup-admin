@@ -1,8 +1,8 @@
 import type { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
 import { useRouteStore } from "@/stores/modules/asyncRoute";
-import { storage } from "@/utils/storage";
+import { storage } from "@/utils";
 import { ACCESS_TOKEN } from "@/stores/mutation-types";
-import { PageEnum } from "@/enums/pageEnum";
+import { PageEnum } from "@/enum";
 
 const BASE_LOGIN_PATH = PageEnum.BASE_LOGIN_PATH;
 const NOT_FOUND_PATH = PageEnum.NOT_FOUND_PATH;

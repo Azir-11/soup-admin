@@ -1,4 +1,4 @@
-import { decrypto, encrypto } from "./crypto";
+import { decrypto, encrypto } from "../crypto";
 // 默认缓存期限为7天
 const DEFAULT_CACHE_TIME = 60 * 60 * 24 * 7;
 interface StorageData {

@@ -1,5 +1,5 @@
 import { RouteLocationNormalized } from "vue-router";
-import { PageEnum } from "@/enums/pageEnum";
+import { PageEnum } from "@/enum/pageEnum";
 
 // 不需要出现在标签页中的路由名称
 export const tagsWhitelist = [

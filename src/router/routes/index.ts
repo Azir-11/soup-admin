@@ -1,6 +1,6 @@
 import { Layout } from "@/router/routes/constant";
 import { RouteRecordRaw } from "vue-router";
-import { PageEnum } from "@/enums/pageEnum";
+import { PageEnum } from "@/enum";
 
 /** 根路由: / */
 export const ROOT_ROUTE: RouteRecordRaw = {
