@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "ESNext",
+    "module": "ESNext",
     "moduleResolution": "node",
     "strict": false,
     "forceConsistentCasingInFileNames": true,
@@ -19,11 +19,11 @@
     "noImplicitAny": false,
     "skipLibCheck": true,
     "paths": {
-      "@/*": ["src/*"],
-      "/#/*": ["src/types/*"]
+      "~/*": ["./*"],
+      "@/*": ["./src/*"]
     },
-    "lib": ["dom", "esnext"],
-    "types": ["vite/client", "node", "naive-ui/volar"],
+    "lib": ["dom", "ESNext"],
+    "types": ["vite/client", "node", "unplugin-icons/types/vue", "naive-ui/volar"],
     "typeRoots": ["./node_modules/@types/", "src/types"]
   },
   "exclude": ["node_modules", "dist", "**/*.js"]

@@ -6,26 +6,28 @@ import Components from "unplugin-vue-components/vite";
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers";
 import AutoImport from "unplugin-auto-import/vite";
 import Unocss from "unocss/vite";
-
+import Icons from "unplugin-icons/vite";
+import IconsResolver from "unplugin-icons/resolver";
 import eslintPlugin from "vite-plugin-eslint";
-
 import { viteMockServe } from "vite-plugin-mock";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  css: {
-    preprocessorOptions: {
-      less: {
-        javascriptEnabled: true,
-        charset: false,
-        // additionalData: '@import "./src/assets/style/global.less";',
-      },
-    },
-  },
   plugins: [
     vue(),
+    Icons({
+      compiler: "vue3",
+      scale: 1,
+      defaultClass: "inline-block",
+    }),
     Components({
-      resolvers: [NaiveUiResolver()],
+      resolvers: [
+        NaiveUiResolver(),
+        IconsResolver({
+          prefix: "icon", // 自动引入的Icon组件统一前缀，默认为 i，设置false为不需要前缀
+          // enabledCollections: ["ep"], // 这是可选的，默认启用 Iconify 支持的所有集合['mdi']
+        }),
+      ],
     }),
     eslintPlugin({
       include: ["src/**/*.js", "src/**/*.vue", "src/*.js", "src/*.vue"],
