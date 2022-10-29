@@ -11,7 +11,6 @@ import {
 
 /**
  * 封装axios请求类
- * @author Soybean<honghuangdc@gmail.com>
  */
 export default class CustomAxiosInstance {
   instance: AxiosInstance;

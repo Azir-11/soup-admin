@@ -1,5 +1,5 @@
 import type { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
-import { useRouteStore } from "@/stores/modules/asyncRoute";
+import { useRouteStore } from "@/stores";
 import { storage } from "@/utils";
 import { ACCESS_TOKEN } from "@/stores/mutation-types";
 import { PageEnum } from "@/enum";

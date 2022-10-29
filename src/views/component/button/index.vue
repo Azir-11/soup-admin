@@ -393,11 +393,11 @@ const buttonExample: ButtonExample[] = [
         props: {
           text: true,
           tag: "a",
-          href: "https://github.com/honghuangdc/soybean-admin",
+          href: "https://github.com/soup-Lee/soup-admin",
           target: "_blank",
           type: "primary",
         },
-        label: "soybean-admin",
+        label: "soup-admin",
       },
     ],
     desc: "你可以把按钮渲染成不同的标签，比如 a标签 。",
@@ -411,7 +411,7 @@ const buttonExample: ButtonExample[] = [
         props: {
           disabled: true,
         },
-        label: "不许点",
+        label: "这里....这里不可以!!",
       },
     ],
     desc: "按钮可以被禁用",

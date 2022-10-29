@@ -1,5 +1,11 @@
 <template>
-  <n-config-provider :locale="zhCN" :theme="getDarkTheme" :date-locale="dateZhCN" class="h-full">
+  <n-config-provider
+    :locale="zhCN"
+    :theme="theme.naiveTheme"
+    :theme-overrides="theme.naiveThemeOverrides"
+    :date-locale="dateZhCN"
+    class="h-full"
+  >
     <AppProvider>
       <RouterView />
     </AppProvider>
@@ -9,9 +15,10 @@
 <script setup lang="ts">
 import { AppProvider } from "@/components/Application";
 import { zhCN, dateZhCN, darkTheme } from "naive-ui";
-import { useSystemSettingStore } from "@/stores/modules/systemSetting";
+import { subscribeStore, useThemeStore } from "@/stores";
 
-const systemStore = useSystemSettingStore();
+const theme = useThemeStore();
 
-const getDarkTheme = computed(() => (systemStore.darkTheme ? darkTheme : undefined));
+// 开始订阅
+subscribeStore();
 </script>

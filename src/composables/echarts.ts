@@ -39,6 +39,7 @@ import type {
 import { LabelLayout, UniversalTransition } from "echarts/features";
 import { CanvasRenderer } from "echarts/renderers";
 import { useElementSize } from "@vueuse/core";
+import { useThemeStore } from "@/stores";
 
 export type ECOption = echarts.ComposeOption<
   | BarSeriesOption
@@ -86,7 +87,9 @@ export function useEcharts(
   options: Ref<ECOption> | ComputedRef<ECOption>,
   renderFun?: (chartInstance: echarts.ECharts) => void,
 ) {
-  const domRef = ref<HTMLElement | null>(null);
+  const theme = useThemeStore();
+
+  const domRef = ref(null);
 
   const initialSize = { width: 0, height: 0 };
   const { width, height } = useElementSize(domRef, initialSize);
@@ -126,6 +129,11 @@ export function useEcharts(
     chart?.dispose();
   }
 
+  function updateTheme() {
+    destroy();
+    render();
+  }
+
   const stopSizeWatch = watch([width, height], ([newWidth, newHeight]) => {
     initialSize.width = newWidth;
     initialSize.height = newHeight;
@@ -141,6 +149,13 @@ export function useEcharts(
   const stopOptionWatch = watch(options, (newValue) => {
     update(newValue);
   });
+
+  const stopDarkModeWatch = watch(
+    () => theme.darkMode,
+    () => {
+      updateTheme();
+    },
+  );
 
   // 销毁之前删除该实例
   onUnmounted(() => {

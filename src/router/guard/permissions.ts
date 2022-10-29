@@ -3,7 +3,7 @@ import { createDynamicRouteGuard } from "./dynamic";
 import { storage } from "@/utils";
 import { ACCESS_TOKEN } from "@/stores/mutation-types";
 import { PageEnum } from "@/enum";
-import { useUserStore } from "@/stores/modules/user";
+import { useAuthStore } from "@/stores";
 import { exeStrategyActions } from "@/utils/common/pattern";
 
 type Recordable<T = any> = {
@@ -30,7 +30,7 @@ export async function createPermissionGuard(
     return;
   }
 
-  const userStore = useUserStore();
+  const authStore = useAuthStore();
   const isLogin = Boolean(storage.get(ACCESS_TOKEN));
   const permissions: Array<string> = (to.meta.permission as Array<string>) || [];
   const needLogin = Boolean(to.meta?.requiresAuth) || Boolean(permissions.length);
@@ -38,7 +38,7 @@ export async function createPermissionGuard(
     !permissions.length ||
     permissions.some((routePermission) => {
       let flag = false;
-      userStore.getPermissions.forEach((userPermission) => {
+      authStore.getPermissions.forEach((userPermission) => {
         if (routePermission == userPermission) {
           flag = true;
         }

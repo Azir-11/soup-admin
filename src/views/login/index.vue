@@ -36,24 +36,6 @@
               </template>
             </n-input>
           </n-form-item>
-          <!--          验证model框-->
-          <n-modal
-            v-model:show="showModal"
-            :on-after-leave="modelClose"
-            preset="dialog"
-            title="Dialog"
-          >
-            <template #header>
-              <div>验证</div>
-            </template>
-            <slide-verify
-              :accuracy="accuracy"
-              :slider-text="verifyText"
-              style="margin: 0 auto"
-              @again="verifyAgain"
-              @success="verifySuccess"
-            ></slide-verify>
-          </n-modal>
           <n-form-item>
             <div class="flex w-full justify-between">
               <div>
@@ -102,12 +84,7 @@ import {
   LogoFacebook,
 } from "@vicons/ionicons5";
 import { PageEnum } from "@/enum/pageEnum";
-//图形验证码
-import SlideVerify from "vue3-slide-verify";
-import "vue3-slide-verify/dist/style.css";
-import { ACCESS_TOKEN, CURRENT_USER } from "@/stores/mutation-types";
-import { storage } from "@/utils/storage/storage";
-import { useUserStore } from "@/stores/modules/user";
+import { useAuthStore } from "@/stores";
 
 const formRef = ref();
 const message = window["$message"];
@@ -129,39 +106,6 @@ const rules = {
 const router = useRouter();
 const route = useRoute();
 
-// 提示文字
-let verifyText = ref("请滑动滑块至正确位置");
-// 灵敏程度
-const accuracy = ref(1);
-//验证的model框
-let showModal = ref(false);
-
-//model关闭回调
-const modelClose = () => {
-  loading.value = false;
-};
-
-/**
- * 检测是否机器操作
- * @return 刷新验证码
- */
-const verifyAgain = () => {
-  message.error("检测到非人为操作的哦！ try again");
-  accuracy.value = 10;
-};
-
-/**
- * 验证成功,关闭model框，再次点击登录时调用登录接口
- * @return 关闭model框，修改验证状态为通过
- */
-const verifySuccess = () => {
-  message.success("验证通过!");
-  setTimeout(() => {
-    loginForm.isCaptcha = true;
-    showModal.value = false;
-  }, 400);
-};
-
 /**
  * 监听自动登录按钮的状态,暂停自动登录功能的执行
  * @param val 是否自动登录
@@ -175,7 +119,7 @@ watch(autoLogin, (val) => {
   }
 });
 
-const userStore = useUserStore();
+const authStore = useAuthStore();
 
 /**
  * 第一次点击时打开验证码model，验证通过时调用登录接口
@@ -192,7 +136,7 @@ const handleSubmit = (e: { preventDefault: () => void }) => {
     if (!errors) {
       loading.value = true;
 
-      userStore
+      authStore
         .login(loginForm)
         .then(() => {
           message.success("登录成功，即将进入系统");

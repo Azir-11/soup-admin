@@ -28,7 +28,7 @@
                   round
                   bordered
                   :size="48"
-                  :src="userStore?.avatar || '/icon/ms-icon-310x310.png'"
+                  :src="authStore?.avatar || '/icon/ms-icon-310x310.png'"
                 />
               </template>
               <n-thing :title="item.content" :description="item.time" />
@@ -56,7 +56,7 @@
 
 <script setup lang="ts">
 import { ShortcutsCard, TechnologyCard } from "./components";
-import { useUserStore } from "@/stores/modules/user";
+import { useAuthStore } from "@/stores";
 
 interface Technology {
   id: number;
@@ -68,7 +68,7 @@ interface Technology {
   iconColor?: string;
 }
 
-const userStore = useUserStore();
+const authStore = useAuthStore();
 
 const technology: Technology[] = [
   {
