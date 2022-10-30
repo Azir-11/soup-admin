@@ -4,7 +4,8 @@ import type { RouteRecordRaw } from "vue-router";
 import { constantRoutes } from "./routes";
 import { createRouterGuards } from "./guard/router-guards";
 
-const { VITE_HASH_ROUTE = "N", VITE_BASE_URL } = import.meta.env;
+const VITE_HASH_ROUTE = false;
+const VITE_BASE_URL = "/";
 
 // 导入模块内的所有路由 star
 const modules = (import.meta as any).globEager("./modules/**/*.ts");
@@ -29,8 +30,7 @@ routeModuleList.sort(sortRoute);
 export const asyncRoutes: any[] = [...routeModuleList];
 
 export const router = createRouter({
-  history:
-    VITE_HASH_ROUTE === "Y" ? createWebHashHistory(VITE_BASE_URL) : createWebHistory(VITE_BASE_URL),
+  history: VITE_HASH_ROUTE ? createWebHashHistory(VITE_BASE_URL) : createWebHistory(VITE_BASE_URL),
   strict: true,
   routes: constantRoutes,
 });
