@@ -36,7 +36,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import type { Ref } from "vue";
 import { type ECOption, useEcharts } from "@/composables";
 
 const lineOptions = ref<ECOption>({
@@ -144,7 +144,7 @@ const lineOptions = ref<ECOption>({
     },
   ],
 });
-const { domRef: lineRef } = useEcharts(lineOptions);
+const { domRef: lineRef } = useEcharts(lineOptions as Ref<ECOption>);
 
 const pieOptions = ref<ECOption>({
   tooltip: {
@@ -191,7 +191,7 @@ const pieOptions = ref<ECOption>({
     },
   ],
 });
-const { domRef: pieRef } = useEcharts(pieOptions);
+const { domRef: pieRef } = useEcharts(pieOptions as Ref<ECOption>);
 </script>
 
 <style scoped></style>

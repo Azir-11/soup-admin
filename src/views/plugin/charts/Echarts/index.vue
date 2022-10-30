@@ -26,6 +26,7 @@
 
 <script setup lang="ts">
 import { onUnmounted, ref } from "vue";
+import type { Ref } from "vue";
 import { graphic } from "echarts";
 import { type ECOption, useEcharts } from "@/composables";
 
@@ -63,7 +64,7 @@ const pieOptions = ref<ECOption>({
     },
   ],
 });
-const { domRef: pieRef } = useEcharts(pieOptions);
+const { domRef: pieRef } = useEcharts(pieOptions as Ref<ECOption>);
 
 const lineOptions = ref<ECOption>({
   tooltip: {
@@ -253,7 +254,7 @@ const lineOptions = ref<ECOption>({
     },
   ],
 });
-const { domRef: lineRef } = useEcharts(lineOptions);
+const { domRef: lineRef } = useEcharts(lineOptions as Ref<ECOption>);
 
 const barOptions = ref<ECOption>({
   tooltip: {
@@ -288,10 +289,10 @@ const barOptions = ref<ECOption>({
     },
   ],
 });
-const { domRef: barRef } = useEcharts(barOptions);
+const { domRef: barRef } = useEcharts(barOptions as Ref<ECOption>);
 
 const pictorialBarOption = ref<ECOption>(getPictorialBarOption());
-const { domRef: pictorialBarRef } = useEcharts(pictorialBarOption);
+const { domRef: pictorialBarRef } = useEcharts(pictorialBarOption as Ref<ECOption>);
 function getPictorialBarOption(): ECOption {
   const category: string[] = [];
   let dottedBase = +new Date();
@@ -395,7 +396,7 @@ function getPictorialBarOption(): ECOption {
 }
 
 const scatterOptions = ref<ECOption>(getScatterOption());
-const { domRef: scatterRef } = useEcharts(scatterOptions);
+const { domRef: scatterRef } = useEcharts(scatterOptions as Ref<ECOption>);
 
 function getScatterOption() {
   // prettier-ignore
@@ -546,7 +547,7 @@ const radarOptions = ref<ECOption>({
     },
   ],
 });
-const { domRef: radarRef } = useEcharts(radarOptions);
+const { domRef: radarRef } = useEcharts(radarOptions as Ref<ECOption>);
 
 const gaugeOptions = ref<ECOption>({
   series: [
@@ -741,7 +742,7 @@ const gaugeOptions = ref<ECOption>({
 });
 
 let intervalId;
-const { domRef: gaugeRef } = useEcharts(gaugeOptions, (chart) => {
+const { domRef: gaugeRef } = useEcharts(gaugeOptions as Ref<ECOption>, (chart) => {
   intervalId = setInterval(() => {
     const date = new Date();
     const second = date.getSeconds();
