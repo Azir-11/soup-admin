@@ -13,13 +13,15 @@ export interface IUserState {
 }
 const initUser = () => {
   const user = storage.get(CURRENT_USER);
-  return {
-    id: user.id,
-    token: user.token,
-    userName: user.userName,
-    avatar: user.avatar,
-    permissions: JSON.parse(user.permissions),
-  };
+  if (user) {
+    return {
+      id: user.id,
+      token: user.token,
+      userName: user.userName,
+      avatar: user.avatar,
+      permissions: JSON.parse(user.permissions),
+    };
+  }
 };
 
 export const useAuthStore = defineStore({
