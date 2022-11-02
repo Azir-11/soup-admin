@@ -10,6 +10,10 @@ import Icons from "unplugin-icons/vite";
 import IconsResolver from "unplugin-icons/resolver";
 import eslintPlugin from "vite-plugin-eslint";
 import { viteMockServe } from "vite-plugin-mock";
+import dayjs from "dayjs";
+
+/** 项目构建时间 */
+const PROJECT_BUILD_TIME = dayjs().format("YYYY-MM-DD HH:mm:ss");
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -64,6 +68,9 @@ export default defineConfig({
     }),
     Unocss(),
   ],
+  define: {
+    PROJECT_BUILD_TIME: JSON.stringify(PROJECT_BUILD_TIME),
+  },
   server: {
     host: "0.0.0.0",
     port: 5200,
