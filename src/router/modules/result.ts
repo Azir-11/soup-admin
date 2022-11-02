@@ -1,7 +1,6 @@
 import { RouteRecordRaw } from "vue-router";
 import { Layout } from "@/router/routes/constant";
 import { CheckmarkCircleOutline } from "@vicons/ionicons5";
-import { renderIcon } from "@/utils/index";
 
 /**
  * @param name 路由名称, 必须设置,且不能重名
@@ -24,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Layout,
     meta: {
       title: "结果页面",
-      icon: renderIcon(CheckmarkCircleOutline),
+      icon: CheckmarkCircleOutline,
       sort: 4,
     },
     children: [
@@ -33,6 +32,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "result-success",
         meta: {
           title: "成功页",
+          icon: "ant-design:check-circle-outlined",
           tabsHidden: true,
           hideBreadcrumb: true,
         },
@@ -43,6 +43,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "result-fail",
         meta: {
           title: "失败页",
+          icon: "ant-design:close-circle-outlined",
           tabsHidden: true,
           hideBreadcrumb: true,
         },
@@ -53,6 +54,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "result-info",
         meta: {
           title: "信息页",
+          icon: "ant-design:exclamation-circle-outlined",
           tabsHidden: true,
           hideBreadcrumb: true,
         },

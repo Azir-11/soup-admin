@@ -28,10 +28,9 @@
 </template>
 
 <script setup lang="ts">
-import { useGo } from "@/utils/router";
+import { useGo, storage } from "@/utils";
 import { useTabStore, RouteItem, tagsWhitelist } from "@/stores";
 import { PageEnum } from "@/enum/pageEnum";
-import { storage } from "@/utils/storage/storage";
 import { TABS_ROUTES } from "@/stores/mutation-types";
 
 const route = useRoute();

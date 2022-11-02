@@ -1,6 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
 import { Layout } from "@/router/routes/constant";
-import { renderIcon } from "@/utils/index";
 import { OpenOutline, PieChartSharp, CopyOutline } from "@vicons/ionicons5";
 
 /**
@@ -22,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Layout,
     meta: {
       title: "插件",
-      icon: renderIcon(OpenOutline),
+      icon: OpenOutline,
     },
     children: [
       {
@@ -31,7 +30,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/plugin/charts/Echarts/index.vue"),
         meta: {
           title: "ECharts",
-          icon: renderIcon(PieChartSharp),
+          icon: PieChartSharp,
         },
       },
       {
@@ -39,7 +38,7 @@ const routes: Array<RouteRecordRaw> = [
         path: "copy",
         meta: {
           title: "剪贴板",
-          icon: renderIcon(CopyOutline),
+          icon: CopyOutline,
         },
         component: () => import("@/views/plugin/copy/index.vue"),
       },

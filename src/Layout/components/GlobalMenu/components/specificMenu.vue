@@ -32,13 +32,13 @@
 <script setup lang="ts">
 import type { MenuOption } from "naive-ui";
 import { useAppStore, useRouteStore, useThemeStore } from "@/stores";
-import { generatorMenu } from "@/utils/router";
 
 const app = useAppStore();
 const router = useRouter();
 const asyncRouteStore = useRouteStore();
 const theme = useThemeStore();
-const menus = ref<any[]>([]);
+const menus = computed(() => asyncRouteStore.menus as any);
+
 const currentRoute = useRoute();
 
 // 获取当前打开的子菜单
@@ -50,14 +50,6 @@ let openKeys = ref(
 );
 
 const selectedKeys = ref<string>(currentRoute.name as string);
-
-const updateMenu = () => {
-  menus.value = generatorMenu(asyncRouteStore.getMenus);
-};
-
-onMounted(() => {
-  updateMenu();
-});
 
 // 跟随页面路由变化，切换菜单选中状态
 watch(

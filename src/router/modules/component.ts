@@ -1,6 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
 import { Layout } from "@/router/routes/constant";
-import { renderIcon } from "@/utils/index";
 import {
   AppsOutline,
   RadioButtonOffOutline,
@@ -26,7 +25,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Layout,
     meta: {
       title: "组件示例",
-      icon: renderIcon(AppsOutline),
+      icon: AppsOutline,
       sort: 2,
     },
     children: [
@@ -35,7 +34,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "component_button",
         meta: {
           title: "按钮",
-          icon: renderIcon(RadioButtonOffOutline),
+          icon: RadioButtonOffOutline,
         },
         component: () => import("@/views/component/button/index.vue"),
       },
@@ -44,7 +43,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "component_table",
         meta: {
           title: "表格示例",
-          icon: renderIcon(TabletLandscapeOutline),
+          icon: TabletLandscapeOutline,
         },
         component: () => import("@/views/component/table/index.vue"),
       },
@@ -54,7 +53,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/component/card/index.vue"),
         meta: {
           title: "卡片",
-          icon: renderIcon(CardOutline),
+          icon: CardOutline,
         },
       },
     ],

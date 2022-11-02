@@ -22,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
     redirect: "/result1/success1",
     component: Layout,
     meta: {
-      title: "结果页面1",
+      title: "权限页面",
       icon: renderIcon(CheckmarkCircleOutline),
       permission: ["test"],
       sort: 4,
@@ -32,7 +32,8 @@ const routes: Array<RouteRecordRaw> = [
         path: "success1",
         name: "result-success1",
         meta: {
-          title: "成功页",
+          title: "超级管理员可见",
+          icon: "grommet-icons:user-admin",
         },
         component: () => import("@/views/result/success.vue"),
       },
@@ -40,7 +41,8 @@ const routes: Array<RouteRecordRaw> = [
         path: "fail1",
         name: "result-fail1",
         meta: {
-          title: "失败页",
+          title: "管理员可见",
+          icon: "clarity:administrator-line",
         },
         component: () => import("@/views/result/fail.vue"),
       },
@@ -48,7 +50,8 @@ const routes: Array<RouteRecordRaw> = [
         path: "info1",
         name: "result-info1",
         meta: {
-          title: "信息页",
+          title: "用户可见",
+          icon: "carbon:user-admin",
         },
         component: () => import("@/views/result/info.vue"),
       },

@@ -14,6 +14,7 @@ declare namespace AuthRoute {
 
   /** 路由描述 */
   interface RouteMeta {
+    localIcon: string;
     /** 路由标题(可用来作document.title或者菜单的名称) */
     title: string;
     /** 作为单级路由的父级路由布局组件 */

@@ -1,7 +1,6 @@
 import { RouteRecordRaw } from "vue-router";
 import { Layout } from "@/router/routes/constant";
 import { GridOutline, BarcodeOutline, CafeOutline } from "@vicons/ionicons5";
-import { renderIcon } from "@/utils/index";
 
 /**
  * @param name 路由名称, 必须设置,且不能重名
@@ -24,7 +23,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: "仪表盘",
       order: 1,
-      icon: renderIcon(GridOutline),
+      icon: GridOutline,
     },
     children: [
       {
@@ -34,7 +33,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: "分析页",
           requiresAuth: true,
-          icon: renderIcon(BarcodeOutline),
+          icon: BarcodeOutline,
         },
       },
       {
@@ -44,7 +43,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: "工作台",
           requiresAuth: true,
-          icon: renderIcon(CafeOutline),
+          icon: CafeOutline,
           permissions: ["super", "admin"],
         },
       },

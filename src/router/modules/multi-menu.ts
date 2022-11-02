@@ -1,7 +1,6 @@
 import { RouteRecordRaw } from "vue-router";
 import { Layout } from "@/router/routes/constant";
 import { MenuOutline } from "@vicons/ionicons5";
-import { renderIcon } from "@/utils/index";
 
 /**
  * @param name 路由名称, 必须设置,且不能重名
@@ -23,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Layout,
     meta: {
       title: "多级菜单",
-      icon: renderIcon(MenuOutline),
+      icon: MenuOutline,
     },
     children: [
       {
@@ -32,7 +31,7 @@ const routes: Array<RouteRecordRaw> = [
         redirect: "",
         meta: {
           title: "一级菜单",
-          icon: renderIcon(MenuOutline),
+          icon: MenuOutline,
         },
         children: [
           {
@@ -41,7 +40,7 @@ const routes: Array<RouteRecordRaw> = [
             component: () => import("@/views/multi-menu/first/second/index.vue"),
             meta: {
               title: "二级菜单",
-              icon: renderIcon(MenuOutline),
+              icon: MenuOutline,
             },
           },
           {
@@ -49,7 +48,7 @@ const routes: Array<RouteRecordRaw> = [
             path: "second-new",
             meta: {
               title: "二级菜单(有子菜单)",
-              icon: renderIcon(MenuOutline),
+              icon: MenuOutline,
             },
             children: [
               {
@@ -58,7 +57,7 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import("@/views/multi-menu/first/second-new/third/index.vue"),
                 meta: {
                   title: "三级菜单",
-                  icon: renderIcon(MenuOutline),
+                  icon: MenuOutline,
                 },
               },
               {
@@ -67,7 +66,7 @@ const routes: Array<RouteRecordRaw> = [
                 component: () => import("@/views/multi-menu/first/second-new/third/index.vue"),
                 meta: {
                   title: "三级菜单",
-                  icon: renderIcon(MenuOutline),
+                  icon: MenuOutline,
                 },
               },
             ],

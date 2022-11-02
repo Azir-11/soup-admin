@@ -1,7 +1,7 @@
 import type { RouteRecordRaw } from "vue-router";
 import { store } from "@/stores";
-import { router } from "@/router";
-import { asyncRoutes } from "@/router/index";
+import { router, asyncRoutes } from "@/router";
+import { generatorMenu } from "@/utils";
 import { useAuthStore } from "../auth";
 
 // const getConfig = (config: Partial<TreeHelperConfig>) => Object.assign({}, DEFAULT_CONFIG, config);
@@ -77,8 +77,8 @@ export const useRouteStore = defineStore({
     setRouters(routers: any) {
       this.routers = asyncRoutes.concat(routers);
     },
+    // 设置菜单
     setMenus(menus: any) {
-      // 设置动态路由
       this.menus = menus;
     },
     setKeepAliveComponents(compNames: any) {
@@ -102,7 +102,7 @@ export const useRouteStore = defineStore({
       }
       accessedRouters = accessedRouters.filter(routeFilter);
       this.setRouters(accessedRouters);
-      this.setMenus(accessedRouters);
+      this.setMenus(generatorMenu(accessedRouters));
       const routes = toRaw(accessedRouters);
       routes.forEach((item) => {
         router.addRoute(item as unknown as RouteRecordRaw);
