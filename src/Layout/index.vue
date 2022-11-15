@@ -38,5 +38,3 @@ const activemenuWidth = computed(() => {
   return app.siderCollapse ? sider.collapsedWidth : sider.width;
 });
 </script>
-
-<style></style>

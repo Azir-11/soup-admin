@@ -16,20 +16,3 @@ function goHome() {
   router.push("/");
 }
 </script>
-
-<style scoped>
-.page-container {
-  width: 100%;
-  border-radius: 4px;
-  padding: 50px 0;
-  height: 100vh;
-}
-.page-container .text-center h1 {
-  color: #666;
-  padding: 20px 0;
-}
-img {
-  width: 350px;
-  margin: 0 auto;
-}
-</style>

@@ -32,9 +32,3 @@ const handleUpdateValue = () => {
   emit("update:collapsed");
 };
 </script>
-
-<style scoped>
-.n-menu {
-  width: 100%;
-}
-</style>

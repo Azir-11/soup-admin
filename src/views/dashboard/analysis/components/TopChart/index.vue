@@ -193,5 +193,3 @@ const pieOptions = ref<ECOption>({
 });
 const { domRef: pieRef } = useEcharts(pieOptions as Ref<ECOption>);
 </script>
-
-<style scoped></style>

@@ -136,5 +136,3 @@ const tableData: TableData[] = [
   },
 ];
 </script>
-
-<style scoped></style>

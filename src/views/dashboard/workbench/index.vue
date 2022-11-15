@@ -8,5 +8,3 @@
 <script lang="ts" setup>
 import { WorkbenchHeader, WorkbenchMain } from "./components";
 </script>
-
-<style scoped></style>

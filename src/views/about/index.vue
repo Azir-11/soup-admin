@@ -10,5 +10,3 @@
 <script setup lang="ts">
 import { DevDependency, ProDependency, ProjectInfo, ProjectIntroduction } from "./components";
 </script>
-
-<style scoped></style>

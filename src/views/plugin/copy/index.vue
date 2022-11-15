@@ -30,5 +30,3 @@ function handleCopy() {
   message?.success(`复制成功：${source.value}`);
 }
 </script>
-
-<style scoped></style>

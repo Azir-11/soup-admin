@@ -47,5 +47,3 @@ const symbolId = computed(() => {
 /** 渲染本地icon */
 const renderLocalIcon = computed(() => props.localIcon || !props.icon);
 </script>
-
-<style scoped></style>

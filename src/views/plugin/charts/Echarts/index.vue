@@ -779,5 +779,3 @@ onUnmounted(() => {
   clearClock();
 });
 </script>
-
-<style scoped></style>
