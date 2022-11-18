@@ -1,7 +1,7 @@
 import type { RouteRecordRaw } from "vue-router";
 import { store } from "@/stores";
 import { router, asyncRoutes } from "@/router";
-import { generatorMenu } from "@/utils";
+import { transformAuthRouteToMenu } from "@/utils";
 import { useAuthStore } from "../auth";
 
 // const getConfig = (config: Partial<TreeHelperConfig>) => Object.assign({}, DEFAULT_CONFIG, config);
@@ -102,7 +102,7 @@ export const useRouteStore = defineStore({
       }
       accessedRouters = accessedRouters.filter(routeFilter);
       this.setRouters(accessedRouters);
-      this.setMenus(generatorMenu(accessedRouters));
+      this.setMenus(transformAuthRouteToMenu(accessedRouters));
       const routes = toRaw(accessedRouters);
       routes.forEach((item) => {
         router.addRoute(item as unknown as RouteRecordRaw);

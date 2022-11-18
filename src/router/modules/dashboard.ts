@@ -1,6 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
 import { Layout } from "@/router/routes/constant";
-import { GridOutline, BarcodeOutline, CafeOutline } from "@vicons/ionicons5";
 
 /**
  * @param name 路由名称, 必须设置,且不能重名
@@ -23,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       title: "仪表盘",
       order: 1,
-      icon: GridOutline,
+      icon: "mdi:monitor-dashboard",
     },
     children: [
       {
@@ -33,7 +32,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: "分析页",
           requiresAuth: true,
-          icon: BarcodeOutline,
+          icon: "icon-park-outline:analysis",
         },
       },
       {
@@ -43,7 +42,7 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: "工作台",
           requiresAuth: true,
-          icon: CafeOutline,
+          icon: "icon-park-outline:workbench",
           permissions: ["super", "admin"],
         },
       },

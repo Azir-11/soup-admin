@@ -1,6 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
 import { Layout } from "@/router/routes/constant";
-import { CheckmarkCircleOutline } from "@vicons/ionicons5";
 
 /**
  * @param name 路由名称, 必须设置,且不能重名
@@ -23,7 +22,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Layout,
     meta: {
       title: "结果页面",
-      icon: CheckmarkCircleOutline,
+      icon: "ant-design:check-circle-outlined",
       sort: 4,
     },
     children: [

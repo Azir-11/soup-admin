@@ -1,7 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
 import { Layout } from "@/router/routes/constant";
-import { SettingsOutline } from "@vicons/ionicons5";
-import { renderIcon } from "@/utils/index";
 
 /**
  * @param name 路由名称, 必须设置,且不能重名
@@ -23,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Layout,
     meta: {
       title: "设置页面",
-      icon: SettingsOutline,
+      icon: "grommet-icons:user-admin",
       sort: 5,
     },
     children: [

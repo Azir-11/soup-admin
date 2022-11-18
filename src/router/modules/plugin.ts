@@ -1,6 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
 import { Layout } from "@/router/routes/constant";
-import { OpenOutline, PieChartSharp, CopyOutline } from "@vicons/ionicons5";
 
 /**
  * @param name 路由名称, 必须设置,且不能重名
@@ -21,7 +20,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Layout,
     meta: {
       title: "插件",
-      icon: OpenOutline,
+      icon: "clarity:plugin-line",
     },
     children: [
       {
@@ -30,7 +29,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/plugin/charts/Echarts/index.vue"),
         meta: {
           title: "ECharts",
-          icon: PieChartSharp,
+          icon: "simple-icons:apacheecharts",
         },
       },
       {
@@ -38,9 +37,19 @@ const routes: Array<RouteRecordRaw> = [
         path: "copy",
         meta: {
           title: "剪贴板",
-          icon: CopyOutline,
+          icon: "mdi:clipboard-outline",
         },
         component: () => import("@/views/plugin/copy/index.vue"),
+      },
+      {
+        name: "plugin_icon",
+        path: "/plugin/icon",
+        meta: {
+          title: "图标",
+          requiresAuth: true,
+          localIcon: "custom-icon",
+        },
+        component: () => import("@/views/plugin/icon/index.vue"),
       },
     ],
   },

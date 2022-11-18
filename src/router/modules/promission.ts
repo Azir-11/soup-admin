@@ -1,8 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
 import { Layout } from "@/router/routes/constant";
-import { CheckmarkCircleOutline } from "@vicons/ionicons5";
-import { renderIcon } from "@/utils/index";
-
 /**
  * @param name 路由名称, 必须设置,且不能重名
  * @param meta 路由元信息（路由附带扩展信息）
@@ -23,7 +20,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Layout,
     meta: {
       title: "权限页面",
-      icon: renderIcon(CheckmarkCircleOutline),
+      icon: "grommet-icons:user-admin",
       permission: ["test"],
       sort: 4,
     },

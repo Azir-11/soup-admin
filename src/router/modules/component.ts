@@ -1,11 +1,5 @@
 import { RouteRecordRaw } from "vue-router";
 import { Layout } from "@/router/routes/constant";
-import {
-  AppsOutline,
-  RadioButtonOffOutline,
-  TabletLandscapeOutline,
-  CardOutline,
-} from "@vicons/ionicons5";
 
 /**
  * @param name 路由名称, 必须设置,且不能重名
@@ -25,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
     component: Layout,
     meta: {
       title: "组件示例",
-      icon: AppsOutline,
+      icon: "cib:app-store",
       sort: 2,
     },
     children: [
@@ -34,7 +28,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "component_button",
         meta: {
           title: "按钮",
-          icon: RadioButtonOffOutline,
+          icon: "mdi:button-cursor",
         },
         component: () => import("@/views/component/button/index.vue"),
       },
@@ -43,7 +37,7 @@ const routes: Array<RouteRecordRaw> = [
         name: "component_table",
         meta: {
           title: "表格示例",
-          icon: TabletLandscapeOutline,
+          icon: "mdi:table-large",
         },
         component: () => import("@/views/component/table/index.vue"),
       },
@@ -53,7 +47,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("@/views/component/card/index.vue"),
         meta: {
           title: "卡片",
-          icon: CardOutline,
+          icon: "mdi:card-outline",
         },
       },
     ],
