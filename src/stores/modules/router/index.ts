@@ -1,11 +1,19 @@
 import type { RouteRecordRaw } from "vue-router";
 import { store } from "@/stores";
 import { router, asyncRoutes } from "@/router";
-import { transformAuthRouteToMenu } from "@/utils";
-import { useAuthStore } from "../auth";
+import { transformAuthRouteToMenu, transformRoutePathToRouteName } from "@/utils";
+import { useTabStore } from "@/stores";
 
 // const getConfig = (config: Partial<TreeHelperConfig>) => Object.assign({}, DEFAULT_CONFIG, config);
 export interface AsyncRouteState {
+  /**
+   * 权限路由模式:
+   * - static - 前端声明的静态
+   * - dynamic - 后端返回的动态
+   */
+  authRouteMode: ImportMetaEnv["VITE_AUTH_ROUTE_MODE"];
+  /** 路由首页name(前端静态路由时生效，后端动态路由该值会被后端返回的值覆盖) */
+  routeHomeName: string;
   /** 菜单 */
   menus: RouteRecordRaw[];
   /** 路由 */
@@ -53,6 +61,8 @@ function filter<T = any>(
 export const useRouteStore = defineStore({
   id: "app-async-route",
   state: (): AsyncRouteState => ({
+    authRouteMode: import.meta.env.VITE_AUTH_ROUTE_MODE,
+    routeHomeName: transformRoutePathToRouteName(import.meta.env.VITE_ROUTE_HOME_PATH),
     menus: [],
     routers: asyncRoutes,
     keepAliveComponents: [],
@@ -110,13 +120,16 @@ export const useRouteStore = defineStore({
     },
     /** 初始化权限路由 */
     async initAuthRoute() {
-      const authStore = useAuthStore();
-      const id = authStore.getId;
-      // 如果本地储存的user被删掉了，但是token又还在，就会导致路由无限重定向，这里检测一下，没user信息直接执行退出
-      if (!id) authStore.logout();
+      const { initHomeTab } = useTabStore();
 
-      const permissions = authStore.getPermissions;
-      await this.initDynamicRoute(permissions);
+      const isDynamicRoute = this.authRouteMode === "dynamic";
+      if (isDynamicRoute) {
+        await this.initDynamicRoute();
+      } else {
+        await this.initStaticRoute();
+      }
+
+      initHomeTab(this.routeHomeName, router);
 
       this.isInitAuthRoute = true;
     },

@@ -6,7 +6,7 @@ import { PageEnum } from "@/enum";
 export const ROOT_ROUTE: RouteRecordRaw = {
   name: "root",
   path: "/",
-  redirect: PageEnum.BASE_HOME_REDIRECT,
+  redirect: import.meta.env.VITE_ROUTE_HOME_PATH,
   meta: {
     tabsHidden: true,
     title: "Root",

@@ -1,89 +1,220 @@
-import { RouteLocationNormalized } from "vue-router";
-import { PageEnum } from "@/enum/pageEnum";
+import type { RouteLocationNormalizedLoaded, Router } from "vue-router";
+import { defineStore } from "pinia";
+import { useRouterPush } from "@/composables";
+import { useThemeStore } from "../theme";
+import {
+  clearTabRoutes,
+  getIndexInTabRoutes,
+  getIndexInTabRoutesByRouteName,
+  getTabRouteByVueRoute,
+  getTabRoutes,
+  isInTabRoutes,
+  setTabRoutes,
+} from "./helpers";
 
-// 不需要出现在标签页中的路由名称
-export const tagsWhitelist = [
-  PageEnum.BASE_LOGIN_NAME,
-  PageEnum.REDIRECT_NAME,
-  PageEnum.NOT_FOUND_NAME,
-  PageEnum.INVALID_NAME,
-  PageEnum.NO_PERMISSION_NAME,
-  PageEnum.SERVICE_ERROR_NAME,
-];
+/** 多页签Tab的路由 */
+interface GlobalTabRoute
+  extends Pick<import("vue-router").RouteLocationNormalizedLoaded, "name" | "fullPath" | "meta"> {}
 
-export type RouteItem = Partial<RouteLocationNormalized> & {
-  fullPath: string;
-  path: string;
-  name: string;
-  hash: string;
-  meta: object;
-  params: object;
-  query: object;
-};
-
-export type ITabsViewState = {
-  tabsList: RouteItem[]; // 标签页
-};
-
-//保留固定路由
-function retainAffixRoute(list: any[]) {
-  return list.filter((item) => item?.meta?.affix ?? false);
+interface TabState {
+  /** 多页签数据 */
+  tabs: GlobalTabRoute[];
+  /** 多页签首页 */
+  homeTab: GlobalTabRoute;
+  /** 当前激活状态的页签(路由fullPath) */
+  activeTab: string;
 }
 
-export const useTabStore = defineStore({
-  id: "app-tabs-view",
-  state: (): ITabsViewState => ({
-    tabsList: [],
-  }),
-  getters: {},
-  actions: {
-    initTabs(routes) {
-      // 初始化标签页
-      this.tabsList = routes;
+export const useTabStore = defineStore("tab-store", {
+  state: (): TabState => ({
+    tabs: [],
+    homeTab: {
+      name: "root",
+      fullPath: "/",
+      meta: {
+        title: "Root",
+      },
     },
-    addTabs(route): boolean {
-      // 添加标签页
-      if (tagsWhitelist.includes(route.name)) return false;
-      const isExists = this.tabsList.some((item) => item.fullPath == route.fullPath);
-      if (!isExists) {
-        this.tabsList.push(route);
-      }
-      return true;
+    activeTab: "",
+  }),
+  getters: {
+    /** 当前激活状态的页签索引 */
+    activeTabIndex(state) {
+      const { tabs, activeTab } = state;
+      return tabs.findIndex((tab) => tab.fullPath === activeTab);
+    },
+  },
+  actions: {
+    /** 重置Tab状态 */
+    resetTabStore() {
+      clearTabRoutes();
+      this.$reset();
+    },
+    /** 缓存页签路由数据 */
+    cacheTabRoutes() {
+      setTabRoutes(this.tabs);
     },
     /**
-     * 关闭选中标签页的左侧标签页，不包含本身及激活的页面
-     * @param path 右键菜单的触发页的路径
-     * @param activePath 当前活跃页的路径
+     * 设置当前路由对应的页签为激活状态
+     * @param fullPath - 路由fullPath
      */
-    closeLeftTabs(path, activePath) {
-      const index = this.tabsList.findIndex((item) => item.fullPath == path);
-      this.tabsList = this.tabsList.filter(
-        (item, i) => i >= index || item.fullPath == activePath || (item?.meta?.affix ?? false),
-      );
+    setActiveTab(fullPath: string) {
+      this.activeTab = fullPath;
     },
-    closeRightTabs(path, activePath) {
-      // 关闭右侧
-      const index = this.tabsList.findIndex((item) => item.fullPath == path);
-      this.tabsList = this.tabsList.filter(
-        (item, i) => i <= index || item.fullPath == activePath || (item?.meta?.affix ?? false),
-      );
+    /**
+     * 设置当前路由对应的页签title
+     * @param title - tab名称
+     */
+    setActiveTabTitle(title: string) {
+      const item = this.tabs.find((tab) => tab.fullPath === this.activeTab);
+      if (item) {
+        item.meta.title = title;
+      }
     },
-    closeOtherTabs(path, activePath) {
-      // 关闭其他
-      this.tabsList = this.tabsList.filter(
-        (item) =>
-          item.fullPath == path || item.fullPath == activePath || (item?.meta?.affix ?? false),
-      );
+    /**
+     * 初始化首页页签路由
+     * @param routeHomeName - 路由首页的name
+     * @param router - 路由实例
+     */
+    initHomeTab(routeHomeName: string, router: Router) {
+      const routes = router.getRoutes();
+      const findHome = routes.find((item) => item.name === routeHomeName);
+      if (findHome && !findHome.children.length) {
+        // 有子路由的不能作为Tab
+        this.homeTab = getTabRouteByVueRoute(findHome);
+      }
     },
-    closeCurrentTab(route) {
-      // 关闭当前页
-      const index = this.tabsList.findIndex((item) => item.fullPath == route.fullPath);
-      this.tabsList.splice(index, 1);
+    /**
+     * 添加多页签
+     * @param route - 路由
+     */
+    addTab(route: RouteLocationNormalizedLoaded) {
+      const tab = getTabRouteByVueRoute(route);
+
+      if (isInTabRoutes(this.tabs, tab.fullPath)) {
+        return;
+      }
+
+      const index = getIndexInTabRoutesByRouteName(this.tabs, route.name as string);
+
+      if (index === -1) {
+        this.tabs.push(tab);
+        return;
+      }
+
+      const { multiTab = false } = route.meta;
+      if (!multiTab) {
+        this.tabs.splice(index, 1, tab);
+        return;
+      }
+
+      this.tabs.push(tab);
     },
-    closeAllTabs() {
-      // 关闭全部
-      console.log(retainAffixRoute(this.tabsList));
-      this.tabsList = retainAffixRoute(this.tabsList);
+    /**
+     * 删除多页签
+     * @param fullPath - 路由fullPath
+     */
+    removeTab(fullPath: string) {
+      console.log("fullPath", fullPath);
+      const { routerPush } = useRouterPush(false);
+
+      const isActive = this.activeTab === fullPath;
+      const updateTabs = this.tabs.filter((tab) => tab.fullPath !== fullPath);
+      this.tabs = updateTabs;
+      if (isActive && updateTabs.length) {
+        const activePath = updateTabs[updateTabs.length - 1].fullPath;
+        this.setActiveTab(activePath);
+        routerPush(activePath);
+      }
+    },
+    /**
+     * 清空多页签(多页签首页保留)
+     * @param excludes - 保留的多页签path
+     */
+    clearTab(excludes: string[] = []) {
+      const { routerPush } = useRouterPush(false);
+
+      const homePath = this.homeTab.fullPath;
+      const remain = [homePath, ...excludes];
+      const hasActive = remain.includes(this.activeTab);
+      const updateTabs = this.tabs.filter((tab) => remain.includes(tab.fullPath));
+      this.tabs = updateTabs;
+      if (!hasActive && updateTabs.length) {
+        const activePath = updateTabs[updateTabs.length - 1].fullPath;
+        this.setActiveTab(activePath);
+        routerPush(activePath);
+      }
+    },
+    /**
+     * 清除左边多页签
+     * @param fullPath - 路由fullPath
+     */
+    clearLeftTab(fullPath: string) {
+      const index = getIndexInTabRoutes(this.tabs, fullPath);
+      if (index > -1) {
+        const excludes = this.tabs.slice(index).map((item) => item.fullPath);
+        this.clearTab(excludes);
+      }
+    },
+    /**
+     * 清除右边多页签
+     * @param fullPath - 路由fullPath
+     */
+    clearRightTab(fullPath: string) {
+      const index = getIndexInTabRoutes(this.tabs, fullPath);
+      if (index > -1) {
+        const excludes = this.tabs.slice(0, index + 1).map((item) => item.fullPath);
+        this.clearTab(excludes);
+      }
+    },
+    /** 清除所有多页签 */
+    clearAllTab() {
+      this.clearTab();
+    },
+    /**
+     * 点击单个tab
+     * @param fullPath - 路由fullPath
+     */
+    handleClickTab(fullPath: string) {
+      const { routerPush } = useRouterPush(false);
+
+      const isActive = this.activeTab === fullPath;
+      if (!isActive) {
+        this.setActiveTab(fullPath);
+        routerPush(fullPath);
+      }
+    },
+    /** 初始化Tab状态 */
+    iniTabStore(currentRoute: RouteLocationNormalizedLoaded) {
+      const theme = useThemeStore();
+
+      const tabs: GlobalTabRoute[] = theme.tab.isCache ? getTabRoutes() : [];
+
+      const hasHome = getIndexInTabRoutesByRouteName(tabs, this.homeTab.name as string) > -1;
+      if (!hasHome && this.homeTab.name !== "root") {
+        tabs.unshift(this.homeTab);
+      }
+
+      const isHome = currentRoute.fullPath === this.homeTab.fullPath;
+      const index = getIndexInTabRoutesByRouteName(tabs, currentRoute.name as string);
+      if (!isHome) {
+        const currentTab = getTabRouteByVueRoute(currentRoute);
+        if (!currentRoute.meta.multiTab) {
+          if (index > -1) {
+            tabs.splice(index, 1, currentTab);
+          } else {
+            tabs.push(currentTab);
+          }
+        } else {
+          const hasCurrent = isInTabRoutes(tabs, currentRoute.fullPath);
+          if (!hasCurrent) {
+            tabs.push(currentTab);
+          }
+        }
+      }
+
+      this.tabs = tabs;
+      this.setActiveTab(currentRoute.fullPath);
     },
   },
 });

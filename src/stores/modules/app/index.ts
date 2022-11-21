@@ -25,21 +25,10 @@ export const useAppStore = defineStore("app-store", {
   actions: {
     /**
      * 重载页面
-     * @param duration - 重载的延迟时间(ms)
      */
-    async reloadPage(duration = 0) {
-      this.reloadFlag = false;
-      await nextTick();
-      if (duration) {
-        setTimeout(() => {
-          this.reloadFlag = true;
-        }, duration);
-      } else {
-        this.reloadFlag = true;
-      }
-      setTimeout(() => {
-        document.documentElement.scrollTo({ left: 0, top: 0 });
-      }, 100);
+    async reloadPage() {
+      // TODO: 重新加载路由
+      location.reload();
     },
     toggleMobile(flag: boolean) {
       this.isMobile = flag;

@@ -16,9 +16,11 @@
 import { AppProvider } from "@/components/Application";
 import { zhCN, dateZhCN, darkTheme } from "naive-ui";
 import { subscribeStore, useThemeStore } from "@/stores";
+import { useGlobalEvents } from "@/composables";
 
 const theme = useThemeStore();
 
 // 开始订阅
 subscribeStore();
+useGlobalEvents();
 </script>
