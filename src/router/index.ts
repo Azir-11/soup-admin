@@ -43,3 +43,6 @@ export async function setupRouter(app: App) {
 }
 
 export default router;
+
+/** 路由名称 */
+export const routeName = (key) => key;
