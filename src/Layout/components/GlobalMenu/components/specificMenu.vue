@@ -12,7 +12,7 @@
         class="flex items-center justify-center gap-3 border-b border-gray-200"
         :style="`height:${theme.header.height}px`"
       >
-        <icon-local-logo class="w-14 h-14 fill-black dark:fill-[#d5d3d0]" />
+        <svgIcon :local-icon="'logo'" class="w-14 h-14 fill-black dark:fill-[#d5d3d0]" />
       </div>
       <n-menu
         :options="menus"
