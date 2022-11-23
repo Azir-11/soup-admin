@@ -150,3 +150,9 @@ const handleRefresh = () => {
 // 初始化
 init();
 </script>
+
+<style scoped>
+.n-tabs {
+  width: 95%;
+}
+</style>
