@@ -17,6 +17,7 @@ specifiers:
   clipboard: ^2.0.11
   colord: ^2.9.3
   crypto-js: ^4.1.1
+  date-fns: ^2.29.3
   dayjs: ^1.11.6
   echarts: ^5.3.3
   element-resize-detector: ^1.2.4
@@ -31,7 +32,7 @@ specifiers:
   form-data: ^4.0.0
   lodash-es: ^4.17.21
   mockjs: ^1.1.0
-  naive-ui: ^2.33.5
+  naive-ui: ^2.34.0
   pinia: ^2.0.11
   prettier: ^2.7.1
   qs: ^6.11.0
@@ -60,6 +61,7 @@ dependencies:
   clipboard: registry.npmmirror.com/clipboard/2.0.11
   colord: registry.npmmirror.com/colord/2.9.3
   crypto-js: registry.npmmirror.com/crypto-js/4.1.1
+  date-fns: registry.npmmirror.com/date-fns/2.29.3
   dayjs: registry.npmmirror.com/dayjs/1.11.6
   echarts: registry.npmmirror.com/echarts/5.3.3
   element-resize-detector: registry.npmmirror.com/element-resize-detector/1.2.4
@@ -2055,7 +2057,7 @@ packages:
     version: 3.0.11
     dev: false
 
-  registry.npmmirror.com/date-fns-tz/1.3.4_date-fns@2.28.0:
+  registry.npmmirror.com/date-fns-tz/1.3.4_date-fns@2.29.3:
     resolution: {integrity: sha512-O47vEyz85F2ax/ZdhMBJo187RivZGjH6V0cPjPzpm/yi6YffJg4upD/8ibezO11ezZwP3QYlBHh/t4JhRNx0Ow==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/date-fns-tz/-/date-fns-tz-1.3.4.tgz}
     id: registry.npmmirror.com/date-fns-tz/1.3.4
     name: date-fns-tz
@@ -2063,13 +2065,13 @@ packages:
     peerDependencies:
       date-fns: '>=2.0.0'
     dependencies:
-      date-fns: registry.npmmirror.com/date-fns/2.28.0
+      date-fns: registry.npmmirror.com/date-fns/2.29.3
     dev: false
 
-  registry.npmmirror.com/date-fns/2.28.0:
-    resolution: {integrity: sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/date-fns/-/date-fns-2.28.0.tgz}
+  registry.npmmirror.com/date-fns/2.29.3:
+    resolution: {integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/date-fns/-/date-fns-2.29.3.tgz}
     name: date-fns
-    version: 2.28.0
+    version: 2.29.3
     engines: {node: '>=0.11'}
     dev: false
 
@@ -4371,8 +4373,8 @@ packages:
       '@types/lodash-es': registry.npmmirror.com/@types/lodash-es/4.17.6
       async-validator: registry.npmmirror.com/async-validator/4.1.1
       css-render: registry.npmmirror.com/css-render/0.15.10
-      date-fns: registry.npmmirror.com/date-fns/2.28.0
-      date-fns-tz: registry.npmmirror.com/date-fns-tz/1.3.4_date-fns@2.28.0
+      date-fns: registry.npmmirror.com/date-fns/2.29.3
+      date-fns-tz: registry.npmmirror.com/date-fns-tz/1.3.4_date-fns@2.29.3
       evtd: registry.npmmirror.com/evtd/0.2.4
       highlight.js: registry.npmmirror.com/highlight.js/11.5.1
       lodash: registry.npmmirror.com/lodash/4.17.21

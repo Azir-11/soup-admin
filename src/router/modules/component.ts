@@ -50,6 +50,15 @@ const routes: Array<RouteRecordRaw> = [
           icon: "mdi:card-outline",
         },
       },
+      {
+        path: "calendar",
+        name: "component_calendar",
+        component: () => import("@/views/component/calendar/index.vue"),
+        meta: {
+          title: "日历",
+          icon: "mdi:calendar-outline",
+        },
+      },
     ],
   },
 ];
