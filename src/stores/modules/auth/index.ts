@@ -3,6 +3,7 @@ import { storage } from "@/utils";
 import { store } from "@/stores";
 import { ACCESS_TOKEN, CURRENT_USER, TABS_ROUTES } from "@/stores/mutation-types";
 import { fetchLogin, fetchPermissions } from "@/service";
+import { Login } from "@/service/api/types";
 
 export interface IUserState {
   id: string;
@@ -11,8 +12,11 @@ export interface IUserState {
   avatar: string;
   permissions: any[];
 }
-const initUser = () => {
-  const user = storage.get(CURRENT_USER);
+
+const initUser = (user: Login = null) => {
+  if (user === null) {
+    user = storage.get(CURRENT_USER);
+  }
   if (user) {
     return {
       id: user.id,
@@ -67,11 +71,7 @@ export const useAuthStore = defineStore({
         const ex = 7 * 24 * 60 * 60 * 1000;
         storage.set(ACCESS_TOKEN, data.token, ex);
         storage.set(CURRENT_USER, data);
-        this.setId(data.id);
-        this.setToken(data.token);
-        this.setuserName(data.userName);
-        this.setRole(data.roles);
-        this.setPermissions(JSON.parse(data.permissions));
+        initUser(data);
         return Promise.resolve(data);
       } catch (e) {
         console.log("e", e);
