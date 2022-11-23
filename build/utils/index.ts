@@ -13,8 +13,8 @@ export function getRootPath() {
  * @param srcName - src目录名称(默认: "src")
  * @descrition 末尾不带斜杠
  */
-export function getSrcPath(srcName = "src") {
+export const getSrcPath = (srcName = "src") => {
   const rootPath = getRootPath();
   console.log("rootPath", rootPath);
   return `${rootPath}/${srcName}`;
-}
+};

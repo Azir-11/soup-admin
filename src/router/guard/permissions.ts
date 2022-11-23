@@ -15,11 +15,11 @@ const BASE_LOGIN_PATH = PageEnum.BASE_LOGIN_PATH;
 const NO_PERMISSION_PATH = PageEnum.NO_PERMISSION_PATH;
 
 /** 处理路由页面的权限 */
-export async function createPermissionGuard(
+export const createPermissionGuard = async (
   to: RouteLocationNormalized,
   from: RouteLocationNormalized,
   next: NavigationGuardNext,
-) {
+) => {
   const permission = await createDynamicRouteGuard(to, from, next);
   if (!permission) return;
 
@@ -99,4 +99,4 @@ export async function createPermissionGuard(
   ];
 
   exeStrategyActions(actions);
-}
+};

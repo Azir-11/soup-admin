@@ -11,11 +11,11 @@ const INVALID_PATH_NAME = PageEnum.INVALID_NAME;
 /**
  * 动态路由
  */
-export async function createDynamicRouteGuard(
+export const createDynamicRouteGuard = async (
   to: RouteLocationNormalized,
   _from: RouteLocationNormalized,
   next: NavigationGuardNext,
-) {
+) => {
   const route = useRouteStore();
   const isLogin = Boolean(storage.get(ACCESS_TOKEN));
 
@@ -49,4 +49,4 @@ export async function createDynamicRouteGuard(
     return false;
   }
   return true;
-}
+};

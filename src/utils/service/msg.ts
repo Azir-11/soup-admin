@@ -3,21 +3,21 @@ import { ERROR_MSG_DURATION, NO_ERROR_MSG_CODE } from "@/enum";
 /** 错误消息栈，防止同一错误同时出现 */
 const errorMsgStack = new Map<string | number, string>([]);
 
-function addErrorMsg(error) {
+const addErrorMsg = (error) => {
   errorMsgStack.set(error.code, error.msg);
-}
-function removeErrorMsg(error) {
+};
+const removeErrorMsg = (error) => {
   errorMsgStack.delete(error.code);
-}
-function hasErrorMsg(error) {
+};
+const hasErrorMsg = (error) => {
   return errorMsgStack.has(error.code);
-}
+};
 
 /**
  * 显示错误信息
  * @param error
  */
-export function showErrorMsg(error) {
+export const showErrorMsg = (error) => {
   if (!error.msg || NO_ERROR_MSG_CODE.includes(error.code) || hasErrorMsg(error)) return;
 
   addErrorMsg(error);
@@ -26,4 +26,4 @@ export function showErrorMsg(error) {
   setTimeout(() => {
     removeErrorMsg(error);
   }, ERROR_MSG_DURATION);
-}
+};

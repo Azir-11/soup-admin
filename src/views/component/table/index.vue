@@ -53,7 +53,7 @@ const columns: DataTableColumn[] = [
 
 const dataSource = ref<DataSource[]>([]);
 
-function createDataSource(): DataSource[] {
+const createDataSource = (): DataSource[] => {
   return Array(100)
     .fill(1)
     .map((_item, index) => {
@@ -63,25 +63,25 @@ function createDataSource(): DataSource[] {
         address: "中国",
       };
     });
-}
+};
 
-function getDataSource() {
+const getDataSource = () => {
   Loading && Loading.start();
   setTimeout(() => {
     dataSource.value = createDataSource();
     Loading && Loading.finish();
     // setEmpty(!dataSource.value.length);
   }, 1000);
-}
+};
 
-function getEmptyDataSource() {
+const getEmptyDataSource = () => {
   Loading && Loading.start();
   setTimeout(() => {
     dataSource.value = [];
     Loading && Loading.finish();
     // setEmpty(!dataSource.value.length);
   }, 1000);
-}
+};
 
 onMounted(() => {
   getDataSource();

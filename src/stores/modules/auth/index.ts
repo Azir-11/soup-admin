@@ -112,6 +112,6 @@ export const useAuthStore = defineStore({
 });
 
 // Need to be used outside the setup
-export function useAuthStoreWidthOut() {
+export const useAuthStoreWidthOut = () => {
   return useAuthStore(store);
-}
+};

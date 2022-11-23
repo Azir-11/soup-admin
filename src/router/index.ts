@@ -36,11 +36,11 @@ export const router = createRouter({
 });
 
 // 创建路由守卫
-export async function setupRouter(app: App) {
+export const setupRouter = async (app: App) => {
   app.use(router);
   createRouterGuards(router);
   await router.isReady();
-}
+};
 
 export default router;
 

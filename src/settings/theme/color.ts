@@ -12,9 +12,9 @@ interface TraditionColor {
 /** 中国传统颜色 */
 export const traditionColors = colorJson as TraditionColor[];
 
-export function isInTraditionColors(color: string) {
+export const isInTraditionColors = (color: string) => {
   return traditionColors.some((item) => {
     const flag = item.data.some((v) => v.color === color);
     return flag;
   });
-}
+};

@@ -1,5 +1,5 @@
 /** 统一失败和成功的请求结果的数据类型 */
-export async function handleServiceResult(error, data) {
+export const handleServiceResult = async (error, data) => {
   if (error) {
     const fail = {
       error,
@@ -12,10 +12,10 @@ export async function handleServiceResult(error, data) {
     data,
   };
   return success;
-}
+};
 
 /** 请求结果的适配器：用于接收适配器函数和请求结果 */
-export function adapter(adapterFun, ...args) {
+export const adapter = (adapterFun, ...args) => {
   let result;
 
   const hasError = args.some((item) => {
@@ -38,4 +38,4 @@ export function adapter(adapterFun, ...args) {
   }
 
   return result!;
-}
+};

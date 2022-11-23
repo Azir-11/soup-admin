@@ -22,10 +22,10 @@ interface RequestResult<T> {
  * @param axiosConfig - axios配置
  * @param backendConfig - 后端接口字段配置
  */
-export function createRequest(
+export const createRequest = (
   axiosConfig: AxiosRequestConfig,
   backendConfig?: Service.BackendResultConfig,
-) {
+) => {
   const customInstance = new CustomAxiosInstance(axiosConfig, backendConfig);
 
   /**
@@ -36,7 +36,7 @@ export function createRequest(
    * - data: 请求的body的data
    * - axiosConfig: axios配置
    */
-  async function asyncRequest<T>(param: RequestParam): Promise<RequestResult<T>> {
+  const asyncRequest = async <T>(param: RequestParam): Promise<RequestResult<T>> => {
     const { url } = param;
     const method = param.method || "get";
     const { instance } = customInstance;
@@ -49,16 +49,16 @@ export function createRequest(
     })) as RequestResult<T>;
 
     return res;
-  }
+  };
 
   /**
    * get请求
    * @param url - 请求地址
    * @param config - axios配置
    */
-  function get<T>(url: string, config?: AxiosRequestConfig) {
+  const get = <T>(url: string, config?: AxiosRequestConfig) => {
     return asyncRequest<T>({ url, method: "get", axiosConfig: config });
-  }
+  };
 
   /**
    * post请求
@@ -66,27 +66,27 @@ export function createRequest(
    * @param data - 请求的body的data
    * @param config - axios配置
    */
-  function post<T>(url: string, data?: any, config?: AxiosRequestConfig) {
+  const post = <T>(url: string, data?: any, config?: AxiosRequestConfig) => {
     return asyncRequest<T>({ url, method: "post", data, axiosConfig: config });
-  }
+  };
   /**
    * put请求
    * @param url - 请求地址
    * @param data - 请求的body的data
    * @param config - axios配置
    */
-  function put<T>(url: string, data?: any, config?: AxiosRequestConfig) {
+  const put = <T>(url: string, data?: any, config?: AxiosRequestConfig) => {
     return asyncRequest<T>({ url, method: "put", data, axiosConfig: config });
-  }
+  };
 
   /**
    * delete请求
    * @param url - 请求地址
    * @param config - axios配置
    */
-  function handleDelete<T>(url: string, config: AxiosRequestConfig) {
+  const handleDelete = <T>(url: string, config: AxiosRequestConfig) => {
     return asyncRequest<T>({ url, method: "delete", axiosConfig: config });
-  }
+  };
 
   return {
     get,
@@ -94,7 +94,7 @@ export function createRequest(
     put,
     delete: handleDelete,
   };
-}
+};
 
 interface RequestResultHook<T = any> {
   data: Ref<T | null>;
@@ -105,10 +105,10 @@ interface RequestResultHook<T = any> {
  * @param axiosConfig - axios配置
  * @param backendConfig - 后端接口字段配置
  */
-export function createHookRequest(
+export const createHookRequest = (
   axiosConfig: AxiosRequestConfig,
   backendConfig?: Service.BackendResultConfig,
-) {
+) => {
   const customInstance = new CustomAxiosInstance(axiosConfig, backendConfig);
 
   /**
@@ -119,13 +119,13 @@ export function createHookRequest(
    * - data: 请求的body的data
    * - axiosConfig: axios配置
    */
-  function useRequest<T>(param: RequestParam): RequestResultHook<T> {
+  const useRequest = <T>(param: RequestParam): RequestResultHook<T> => {
     const data = ref<T | null>(null) as Ref<T | null>;
 
-    function handleRequestResult(response: any) {
+    const handleRequestResult = (response: any) => {
       const res = response as RequestResult<T>;
       data.value = res.data;
-    }
+    };
 
     const { url } = param;
     const method = param.method || "get";
@@ -138,16 +138,16 @@ export function createHookRequest(
     return {
       data,
     };
-  }
+  };
 
   /**
    * get请求
    * @param url - 请求地址
    * @param config - axios配置
    */
-  function get<T>(url: string, config?: AxiosRequestConfig) {
+  const get = <T>(url: string, config?: AxiosRequestConfig) => {
     return useRequest<T>({ url, method: "get", axiosConfig: config });
-  }
+  };
 
   /**
    * post请求
@@ -155,27 +155,27 @@ export function createHookRequest(
    * @param data - 请求的body的data
    * @param config - axios配置
    */
-  function post<T>(url: string, data?: any, config?: AxiosRequestConfig) {
+  const post = <T>(url: string, data?: any, config?: AxiosRequestConfig) => {
     return useRequest<T>({ url, method: "post", data, axiosConfig: config });
-  }
+  };
   /**
    * put请求
    * @param url - 请求地址
    * @param data - 请求的body的data
    * @param config - axios配置
    */
-  function put<T>(url: string, data?: any, config?: AxiosRequestConfig) {
+  const put = <T>(url: string, data?: any, config?: AxiosRequestConfig) => {
     return useRequest<T>({ url, method: "put", data, axiosConfig: config });
-  }
+  };
 
   /**
    * delete请求
    * @param url - 请求地址
    * @param config - axios配置
    */
-  function handleDelete<T>(url: string, config: AxiosRequestConfig) {
+  const handleDelete = <T>(url: string, config: AxiosRequestConfig) => {
     return useRequest<T>({ url, method: "delete", axiosConfig: config });
-  }
+  };
 
   return {
     get,
@@ -183,15 +183,15 @@ export function createHookRequest(
     put,
     delete: handleDelete,
   };
-}
+};
 
-async function getRequestResponse(params: {
+const getRequestResponse = async (params: {
   instance: AxiosInstance;
   method: RequestMethod;
   url: string;
   data?: any;
   config?: AxiosRequestConfig;
-}) {
+}) => {
   const { instance, method, url, data, config } = params;
 
   let res: any;
@@ -201,4 +201,4 @@ async function getRequestResponse(params: {
     res = await instance[method](url, data, config);
   }
   return res;
-}
+};

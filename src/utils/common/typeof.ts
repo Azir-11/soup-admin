@@ -1,38 +1,38 @@
 import { EnumDataType } from "@/enum";
 
-export function isNumber(data: unknown) {
+export const isNumber = (data: unknown) => {
   return Object.prototype.toString.call(data) === EnumDataType.number;
-}
-export function isString(data: unknown) {
+};
+export const isString = (data: unknown) => {
   return Object.prototype.toString.call(data) === EnumDataType.string;
-}
-export function isBoolean(data: unknown) {
+};
+export const isBoolean = (data: unknown) => {
   return Object.prototype.toString.call(data) === EnumDataType.boolean;
-}
-export function isNull(data: unknown) {
+};
+export const isNull = (data: unknown) => {
   return Object.prototype.toString.call(data) === EnumDataType.null;
-}
-export function isUndefined(data: unknown) {
+};
+export const isUndefined = (data: unknown) => {
   return Object.prototype.toString.call(data) === EnumDataType.undefined;
-}
-export function isObject(data: unknown) {
+};
+export const isObject = (data: unknown) => {
   return Object.prototype.toString.call(data) === EnumDataType.object;
-}
-export function isArray(data: unknown) {
+};
+export const isArray = (data: unknown) => {
   return Object.prototype.toString.call(data) === EnumDataType.array;
-}
-export function isDate(data: unknown) {
+};
+export const isDate = (data: unknown) => {
   return Object.prototype.toString.call(data) === EnumDataType.date;
-}
-export function isRegExp(data: unknown) {
+};
+export const isRegExp = (data: unknown) => {
   return Object.prototype.toString.call(data) === EnumDataType.regexp;
-}
-export function isSet(data: unknown) {
+};
+export const isSet = (data: unknown) => {
   return Object.prototype.toString.call(data) === EnumDataType.set;
-}
-export function isMap(data: unknown) {
+};
+export const isMap = (data: unknown) => {
   return Object.prototype.toString.call(data) === EnumDataType.map;
-}
-export function isFile(data: unknown) {
+};
+export const isFile = (data: unknown) => {
   return Object.prototype.toString.call(data) === EnumDataType.file;
-}
+};

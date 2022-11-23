@@ -38,25 +38,25 @@ const DEFAULT_CONFIG: TreeHelperConfig = {
 
 const getConfig = (config: Partial<TreeHelperConfig>) => Object.assign({}, DEFAULT_CONFIG, config);
 
-function filter<T = any>(
+const filter = <T = any>(
   tree: T[],
   func: (n: T) => boolean,
   config: Partial<TreeHelperConfig> = {},
-): T[] {
+): T[] => {
   config = getConfig(config);
   const children = config.children as string;
 
-  function listFilter(list: T[]) {
+  const listFilter = (list: T[]) => {
     return list
       .map((node: any) => ({ ...node }))
       .filter((node) => {
         node[children] = node[children] && listFilter(node[children]);
         return func(node) || (node[children] && node[children].length);
       });
-  }
+  };
 
   return listFilter(tree);
-}
+};
 
 export const useRouteStore = defineStore({
   id: "app-async-route",
@@ -137,6 +137,6 @@ export const useRouteStore = defineStore({
 });
 
 // 需要在setup周期外使用
-export function useAsyncRouteStoreWidthOut() {
+export const useAsyncRouteStoreWidthOut = () => {
   return useRouteStore(store);
-}
+};

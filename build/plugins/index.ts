@@ -10,7 +10,7 @@ import { viteMockServe } from "vite-plugin-mock";
  * vite插件
  * @param viteEnv - 环境变量配置
  */
-export function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | PluginOption[])[] {
+export const setupVitePlugins = (viteEnv: ImportMetaEnv): (PluginOption | PluginOption[])[] => {
   const plugins = [
     vue(),
     ...unplugin(viteEnv),
@@ -51,4 +51,4 @@ export function setupVitePlugins(viteEnv: ImportMetaEnv): (PluginOption | Plugin
   ];
 
   return plugins;
-}
+};

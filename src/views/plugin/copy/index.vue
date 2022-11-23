@@ -17,7 +17,7 @@ const source = ref("");
 const { copy, isSupported } = useClipboard();
 const message = window["$message"];
 
-function handleCopy() {
+const handleCopy = () => {
   if (!isSupported) {
     message?.error("您的浏览器不支持Clipboard API");
     return;
@@ -28,5 +28,5 @@ function handleCopy() {
   }
   copy(source.value);
   message?.success(`复制成功：${source.value}`);
-}
+};
 </script>

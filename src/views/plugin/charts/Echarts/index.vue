@@ -291,9 +291,7 @@ const barOptions = ref<ECOption>({
 });
 const { domRef: barRef } = useEcharts(barOptions as Ref<ECOption>);
 
-const pictorialBarOption = ref<ECOption>(getPictorialBarOption());
-const { domRef: pictorialBarRef } = useEcharts(pictorialBarOption as Ref<ECOption>);
-function getPictorialBarOption(): ECOption {
+const getPictorialBarOption = (): ECOption => {
   const category: string[] = [];
   let dottedBase = +new Date();
   const lineData: number[] = [];
@@ -393,12 +391,11 @@ function getPictorialBarOption(): ECOption {
   };
 
   return options;
-}
+};
+const pictorialBarOption = ref<ECOption>(getPictorialBarOption());
+const { domRef: pictorialBarRef } = useEcharts(pictorialBarOption as Ref<ECOption>);
 
-const scatterOptions = ref<ECOption>(getScatterOption());
-const { domRef: scatterRef } = useEcharts(scatterOptions as Ref<ECOption>);
-
-function getScatterOption() {
+const getScatterOption = () => {
   // prettier-ignore
   const hours = ['12a', '1a', '2a', '3a', '4a', '5a', '6a', '7a', '8a', '9a','10a','11a', '12p', '1p', '2p', '3p', '4p', '5p', '6p', '7p', '8p', '9p', '10p', '11p'];
 
@@ -454,7 +451,10 @@ function getScatterOption() {
   };
 
   return option;
-}
+};
+
+const scatterOptions = ref<ECOption>(getScatterOption());
+const { domRef: scatterRef } = useEcharts(scatterOptions as Ref<ECOption>);
 
 const radarOptions = ref<ECOption>({
   title: {
@@ -771,9 +771,9 @@ const { domRef: gaugeRef } = useEcharts(gaugeOptions as Ref<ECOption>, (chart) =
     });
   }, 1000);
 });
-function clearClock() {
+const clearClock = () => {
   clearInterval(intervalId);
-}
+};
 
 onUnmounted(() => {
   clearClock();

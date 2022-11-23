@@ -51,9 +51,9 @@ const dropdownVisible = computed({
   },
 });
 
-function hide() {
+const hide = () => {
   dropdownVisible.value = false;
-}
+};
 
 type DropdownKey =
   | "reload-current"
@@ -140,12 +140,12 @@ const actionMap = new Map<DropdownKey, () => void>([
   ],
 ]);
 
-function handleDropdown(optionKey: string) {
+const handleDropdown = (optionKey: string) => {
   const key = optionKey as DropdownKey;
   const actionFunc = actionMap.get(key);
   if (actionFunc) {
     actionFunc();
   }
   hide();
-}
+};
 </script>

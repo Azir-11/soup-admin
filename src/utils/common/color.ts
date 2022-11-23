@@ -20,7 +20,7 @@ const darkColorCount = 4;
  * @param index - 调色板的对应的色号(6为主色号)
  * @description 算法实现从ant-design调色板算法中借鉴 https://github.com/ant-design/ant-design/blob/master/components/style/color/colorPalette.less
  */
-export function getColorPalette(color: string, index: ColorIndex) {
+export const getColorPalette = (color: string, index: ColorIndex) => {
   if (index === 6) return color;
 
   const isLight = index < 6;
@@ -34,16 +34,16 @@ export function getColorPalette(color: string, index: ColorIndex) {
   };
 
   return colord(newHsv).toHex();
-}
+};
 
 /**
  * 根据颜色获取调色板颜色所有颜色
  * @param color - 颜色
  */
-export function getAllColorPalette(color: string) {
+export const getAllColorPalette = (color: string) => {
   const indexs: ColorIndex[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   return indexs.map((index) => getColorPalette(color, index));
-}
+};
 
 /**
  * 获取色相渐变
@@ -51,7 +51,7 @@ export function getAllColorPalette(color: string) {
  * @param i - 与6的相对距离
  * @param isLight - 是否是亮颜色
  */
-function getHue(hsv: HsvColor, i: number, isLight: boolean) {
+const getHue = (hsv: HsvColor, i: number, isLight: boolean) => {
   let hue: number;
   if (hsv.h >= 60 && hsv.h <= 240) {
     // 冷色调
@@ -70,7 +70,7 @@ function getHue(hsv: HsvColor, i: number, isLight: boolean) {
     hue -= 360;
   }
   return hue;
-}
+};
 
 /**
  * 获取饱和度渐变
@@ -78,7 +78,7 @@ function getHue(hsv: HsvColor, i: number, isLight: boolean) {
  * @param i - 与6的相对距离
  * @param isLight - 是否是亮颜色
  */
-function getSaturation(hsv: HsvColor, i: number, isLight: boolean) {
+const getSaturation = (hsv: HsvColor, i: number, isLight: boolean) => {
   let saturation: number;
   if (isLight) {
     saturation = hsv.s - saturationStep * i;
@@ -97,7 +97,7 @@ function getSaturation(hsv: HsvColor, i: number, isLight: boolean) {
     saturation = 6;
   }
   return saturation;
-}
+};
 
 /**
  * 获取明度渐变
@@ -105,7 +105,7 @@ function getSaturation(hsv: HsvColor, i: number, isLight: boolean) {
  * @param i - 与6的相对距离
  * @param isLight - 是否是亮颜色
  */
-function getValue(hsv: HsvColor, i: number, isLight: boolean) {
+const getValue = (hsv: HsvColor, i: number, isLight: boolean) => {
   let value: number;
   if (isLight) {
     value = hsv.v + brightnessStep1 * i;
@@ -116,16 +116,16 @@ function getValue(hsv: HsvColor, i: number, isLight: boolean) {
     value = 100;
   }
   return value;
-}
+};
 
 /**
  * 给颜色加透明度
  * @param color - 颜色
  * @param alpha - 透明度(0 - 1)
  */
-export function addColorAlpha(color: string, alpha: number) {
+export const addColorAlpha = (color: string, alpha: number) => {
   return colord(color).alpha(alpha).toHex();
-}
+};
 
 /**
  * 颜色混合
@@ -133,14 +133,14 @@ export function addColorAlpha(color: string, alpha: number) {
  * @param secondColor - 第二个颜色
  * @param ratio - 第二个颜色占比
  */
-export function mixColor(firstColor: string, secondColor: string, ratio: number) {
+export const mixColor = (firstColor: string, secondColor: string, ratio: number) => {
   return colord(firstColor).mix(secondColor, ratio).toHex();
-}
+};
 
 /**
  * 是否是白颜色
  * @param color - 颜色
  */
-export function isWhiteColor(color: string) {
+export const isWhiteColor = (color: string) => {
   return colord(color).isEqual("#ffffff");
-}
+};

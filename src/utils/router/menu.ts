@@ -6,9 +6,9 @@ import { useIconRender } from "@/composables";
 /**
  * render 图标
  * */
-export function renderIcon(icon: Component) {
+export const renderIcon = (icon: Component) => {
   return () => h(NIcon, null, { default: () => h(icon) });
-}
+};
 
 type GlobalMenuOption = import("naive-ui").MenuOption & {
   key: string;
@@ -23,7 +23,7 @@ type GlobalMenuOption = import("naive-ui").MenuOption & {
  * 将权限路由转换成菜单
  * @param routes - 路由
  */
-export function transformAuthRouteToMenu(routes: AuthRoute.Route[]): GlobalMenuOption[] {
+export const transformAuthRouteToMenu = (routes: AuthRoute.Route[]): GlobalMenuOption[] => {
   const globalMenu: GlobalMenuOption[] = [];
   routes.forEach((route) => {
     const { name, path, meta } = route;
@@ -50,19 +50,19 @@ export function transformAuthRouteToMenu(routes: AuthRoute.Route[]): GlobalMenuO
   });
 
   return globalMenu;
-}
+};
 
 /**
  * 获取当前路由所在菜单数据的paths
  * @param activeKey - 当前路由的key
  * @param menus - 菜单数据
  */
-export function getActiveKeyPathsOfMenus(activeKey: string, menus: GlobalMenuOption[]) {
+export const getActiveKeyPathsOfMenus = (activeKey: string, menus: GlobalMenuOption[]) => {
   const keys = menus.map((menu) => getActiveKeyPathsOfMenu(activeKey, menu)).flat(1);
   return keys;
-}
+};
 
-function getActiveKeyPathsOfMenu(activeKey: string, menu: GlobalMenuOption) {
+const getActiveKeyPathsOfMenu = (activeKey: string, menu: GlobalMenuOption) => {
   const keys: string[] = [];
   if (activeKey.includes(menu.routeName)) {
     keys.push(menu.routeName);
@@ -75,20 +75,20 @@ function getActiveKeyPathsOfMenu(activeKey: string, menu: GlobalMenuOption) {
     );
   }
   return keys;
-}
+};
 
 /** 路由不转换菜单 */
-function hideInMenu(route: AuthRoute.Route) {
+const hideInMenu = (route: AuthRoute.Route) => {
   return Boolean(route.meta.hide);
-}
+};
 
 /** 给菜单添加可选属性 */
-function addPartialProps(config: {
+const addPartialProps = (config: {
   menu: GlobalMenuOption;
   icon?: string;
   localIcon?: string;
   children?: GlobalMenuOption[];
-}) {
+}) => {
   const { iconRender } = useIconRender();
 
   const item = { ...config.menu };
@@ -107,4 +107,4 @@ function addPartialProps(config: {
     Object.assign(item, { children });
   }
   return item;
-}
+};

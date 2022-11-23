@@ -18,11 +18,11 @@ if (unref(currentRoute.meta)?.frameSrc) {
   frameSrc.value = unref(currentRoute.meta)?.frameSrc as string;
 }
 
-function hideLoading() {
+const hideLoading = () => {
   loading.value = false;
-}
+};
 
-function init() {
+const init = () => {
   nextTick(() => {
     const iframe = unref(frameRef);
     if (!iframe) return;
@@ -37,7 +37,7 @@ function init() {
       };
     }
   });
-}
+};
 
 onMounted(() => {
   loading.value = true;

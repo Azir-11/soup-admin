@@ -4,7 +4,7 @@ import { setupRouter } from "./router";
 import { setupStore } from "@/stores";
 import { setupAssets } from "./plugins";
 
-async function setupApp() {
+const setupApp = async () => {
   // import assets: js、css
   setupAssets();
 
@@ -18,6 +18,6 @@ async function setupApp() {
 
   // mount app
   app.mount("#app");
-}
+};
 
 setupApp();

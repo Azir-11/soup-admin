@@ -34,7 +34,7 @@ interface Props {
 
 const props = defineProps<Props>();
 
-function handleOpenSite() {
+const handleOpenSite = () => {
   window.open(props.site, "_blank");
-}
+};
 </script>

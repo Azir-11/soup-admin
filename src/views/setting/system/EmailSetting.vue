@@ -55,7 +55,7 @@ export default defineComponent({
       },
     });
 
-    function formSubmit() {
+    const formSubmit = () => {
       formRef.value.validate((errors) => {
         if (!errors) {
           message.success("验证成功");
@@ -63,7 +63,7 @@ export default defineComponent({
           message.error("验证失败，请填写完整信息");
         }
       });
-    }
+    };
 
     return {
       formRef,

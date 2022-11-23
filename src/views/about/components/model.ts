@@ -24,13 +24,13 @@ interface PkgJson {
 
 const pkgWithType = pkg as Package;
 
-function transformVersionData(tuple: [string, string]): PkgVersionInfo {
+const transformVersionData = (tuple: [string, string]): PkgVersionInfo => {
   const [name, version] = tuple;
   return {
     name,
     version,
   };
-}
+};
 
 export const pkgJson: PkgJson = {
   name: pkgWithType.name,

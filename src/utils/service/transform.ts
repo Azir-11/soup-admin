@@ -8,7 +8,7 @@ import { isArray, isFile } from "../common";
  * @param requestData - 请求数据
  * @param contentType - 请求头的Content-Type
  */
-export async function transformRequestData(requestData: any, contentType?: string) {
+export const transformRequestData = async (requestData: any, contentType?: string) => {
   // application/json类型不处理
   let data = requestData;
   // form类型转换
@@ -21,9 +21,9 @@ export async function transformRequestData(requestData: any, contentType?: strin
   }
 
   return data;
-}
+};
 
-async function handleFormData(data: Record<string, any>) {
+const handleFormData = async (data: Record<string, any>) => {
   const formData = new FormData();
   const entries = Object.entries(data);
 
@@ -38,14 +38,14 @@ async function handleFormData(data: Record<string, any>) {
   });
 
   return formData;
-}
+};
 
 /**
  * 接口为上传文件的类型时数据转换
  * @param key - 文件的属性名
  * @param file - 单文件或多文件
  */
-async function transformFile(formData: FormData, key: string, file: File[] | File) {
+const transformFile = async (formData: FormData, key: string, file: File[] | File) => {
   if (isArray(file)) {
     // 多文件
     await Promise.all(
@@ -58,4 +58,4 @@ async function transformFile(formData: FormData, key: string, file: File[] | Fil
     // 单文件
     formData.append(key, file);
   }
-}
+};

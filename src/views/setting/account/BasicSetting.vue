@@ -56,7 +56,7 @@ const formValue = reactive({
   address: "",
 });
 
-function formSubmit() {
+const formSubmit = () => {
   formRef.value.validate((errors) => {
     if (!errors) {
       message.success("验证成功");
@@ -64,5 +64,5 @@ function formSubmit() {
       message.error("验证失败，请填写完整信息");
     }
   });
-}
+};
 </script>

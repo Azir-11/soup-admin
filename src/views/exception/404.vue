@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
 const router = useRouter();
-function goHome() {
+const goHome = () => {
   router.push("/");
-}
+};
 </script>

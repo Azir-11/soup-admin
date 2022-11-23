@@ -61,9 +61,9 @@ const searchValue = ref("");
 
 const iconsList = computed(() => props.icons.filter((v) => v.includes(searchValue.value)));
 
-function handleChange(iconItem: string) {
+const handleChange = (iconItem: string) => {
   modelValue.value = iconItem;
-}
+};
 </script>
 
 <style scoped>

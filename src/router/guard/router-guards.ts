@@ -2,7 +2,7 @@ import type { Router } from "vue-router";
 import { isNavigationFailure } from "vue-router";
 import { createPermissionGuard } from "./permissions";
 
-export function createRouterGuards(router: Router) {
+export const createRouterGuards = (router: Router) => {
   router.beforeEach(async (to, from, next) => {
     //开启loading
     const Loading = window["$loading"] || null;
@@ -31,4 +31,4 @@ export function createRouterGuards(router: Router) {
   router.onError((error) => {
     console.log(error, "路由错误");
   });
-}
+};

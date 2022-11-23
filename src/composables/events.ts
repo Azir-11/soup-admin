@@ -1,7 +1,7 @@
 import { useTabStore, useThemeStore } from "@/stores";
 
 /** 全局事件 */
-export function useGlobalEvents() {
+export const useGlobalEvents = () => {
   const theme = useThemeStore();
   const tab = useTabStore();
 
@@ -10,4 +10,4 @@ export function useGlobalEvents() {
     theme.cacheThemeSettings();
     tab.cacheTabRoutes();
   });
-}
+};

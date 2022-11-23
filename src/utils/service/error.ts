@@ -17,7 +17,7 @@ type ErrorStatus = keyof typeof ERROR_STATUS;
  * 处理axios请求失败的错误
  * @param axiosError - 错误
  */
-export function handleAxiosError(axiosError: AxiosError) {
+export const handleAxiosError = (axiosError: AxiosError) => {
   const error = {
     type: "axios",
     code: DEFAULT_REQUEST_ERROR_CODE,
@@ -55,13 +55,13 @@ export function handleAxiosError(axiosError: AxiosError) {
   showErrorMsg(error);
 
   return error;
-}
+};
 
 /**
  * 处理请求成功后的错误
  * @param response - 请求的响应
  */
-export function handleResponseError(response: AxiosResponse) {
+export const handleResponseError = (response: AxiosResponse) => {
   const error = {
     type: "axios",
     code: DEFAULT_REQUEST_ERROR_CODE,
@@ -81,13 +81,13 @@ export function handleResponseError(response: AxiosResponse) {
   showErrorMsg(error);
 
   return error;
-}
+};
 
 /**
  * 处理后端返回的错误(业务错误)
  * @param backendResult - 后端接口的响应数据
  */
-export function handleBackendError(backendResult: Record<string, any>, config) {
+export const handleBackendError = (backendResult: Record<string, any>, config) => {
   const { codeKey, msgKey } = config;
   console.log("backendResult", backendResult);
   const error = {
@@ -99,4 +99,4 @@ export function handleBackendError(backendResult: Record<string, any>, config) {
   showErrorMsg(error);
 
   return error;
-}
+};

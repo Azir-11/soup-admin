@@ -5,7 +5,7 @@ import { THEME_SETTING } from "@/stores/mutation-types";
 import { addColorAlpha, getColorPalette, storage, getThemeColor } from "@/utils";
 
 /** 初始化主题配置 */
-export function initThemeSettings() {
+export const initThemeSettings = () => {
   const isProd = import.meta.env.PROD;
   // 生产环境才缓存主题配置，本地开发实时调整配置更改配置的json
   const storageSettings = getThemeSettings();
@@ -20,7 +20,7 @@ export function initThemeSettings() {
   const otherColor = { ...themeSetting.otherColor, info };
   const setting = cloneDeep({ ...themeSetting, themeColor, otherColor });
   return setting;
-}
+};
 
 type ColorType = "primary" | "info" | "success" | "warning" | "error";
 type ColorScene = "" | "Suppl" | "Hover" | "Pressed" | "Active";
@@ -33,7 +33,7 @@ interface ColorAction {
 }
 
 /** 获取主题颜色的各种场景对应的颜色 */
-function getThemeColors(colors: [ColorType, string][]) {
+const getThemeColors = (colors: [ColorType, string][]) => {
   const colorActions: ColorAction[] = [
     { scene: "", handler: (color) => color },
     { scene: "Suppl", handler: (color) => color },
@@ -53,10 +53,10 @@ function getThemeColors(colors: [ColorType, string][]) {
   });
 
   return themeColor;
-}
+};
 
 /** 获取naive的主题颜色 */
-export function getNaiveThemeOverrides(colors: Record<ColorType, string>): GlobalThemeOverrides {
+export const getNaiveThemeOverrides = (colors: Record<ColorType, string>): GlobalThemeOverrides => {
   const { primary, success, warning, error } = colors;
 
   const info = themeSetting.isCustomizeInfoColor ? colors.info : getColorPalette(primary, 7);
@@ -79,19 +79,19 @@ export function getNaiveThemeOverrides(colors: Record<ColorType, string>): Globa
       colorLoading,
     },
   };
-}
+};
 
 /** 获取缓存中的主题配置 */
-function getThemeSettings() {
+const getThemeSettings = () => {
   return storage.get(THEME_SETTING);
-}
+};
 
 /** 获取缓存中的主题配置 */
-export function setThemeSettings(settings) {
+export const setThemeSettings = (settings) => {
   return storage.set(THEME_SETTING, settings);
-}
+};
 
 /** 清除缓存配置 */
-export function clearThemeSettings() {
+export const clearThemeSettings = () => {
   storage.remove(THEME_SETTING);
-}
+};

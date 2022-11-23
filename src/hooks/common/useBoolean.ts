@@ -5,18 +5,18 @@
 export default function useBoolean(initValue = false) {
   const bool = ref(initValue);
 
-  function setBool(value: boolean) {
+  const setBool = (value: boolean) => {
     bool.value = value;
-  }
-  function setTrue() {
+  };
+  const setTrue = () => {
     setBool(true);
-  }
-  function setFalse() {
+  };
+  const setFalse = () => {
     setBool(false);
-  }
-  function toggle() {
+  };
+  const toggle = () => {
     setBool(!bool.value);
-  }
+  };
 
   return {
     bool,

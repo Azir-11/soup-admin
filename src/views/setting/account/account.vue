@@ -44,10 +44,10 @@ const typeTabList = [
 const type = ref(1);
 const typeTitle = ref("基本设置");
 
-function switchType(e) {
+const switchType = (e) => {
   type.value = e.key;
   typeTitle.value = e.name;
-}
+};
 </script>
 <style scoped>
 .thing-cell {

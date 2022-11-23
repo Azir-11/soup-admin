@@ -1,6 +1,6 @@
 import { createProdMockServer } from "vite-plugin-mock/es/createProdMockServer";
 import api from "./api";
 
-export function setupMockServer() {
+export const setupMockServer = () => {
   createProdMockServer(api);
-}
+};

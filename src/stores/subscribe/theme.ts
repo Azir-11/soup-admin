@@ -77,25 +77,25 @@ export default function subscribeThemeStore() {
 }
 
 /** css 暗黑模式 */
-function handleCssDarkMode() {
+const handleCssDarkMode = () => {
   const DARK_CLASS = "dark";
-  function addDarkClass() {
+  const addDarkClass = () => {
     document.documentElement.classList.add(DARK_CLASS);
-  }
-  function removeDarkClass() {
+  };
+  const removeDarkClass = () => {
     document.documentElement.classList.remove(DARK_CLASS);
-  }
+  };
   return {
     addDarkClass,
     removeDarkClass,
   };
-}
+};
 
 type ThemeVars = Exclude<GlobalThemeOverrides["common"], undefined>;
 type ThemeVarsKeys = keyof ThemeVars;
 
 /** 添加css vars至html */
-function addThemeCssVarsToHtml(themeVars: ThemeVars) {
+const addThemeCssVarsToHtml = (themeVars: ThemeVars) => {
   const keys = Object.keys(themeVars) as ThemeVarsKeys[];
   const style: string[] = [];
   keys.forEach((key) => {
@@ -103,4 +103,4 @@ function addThemeCssVarsToHtml(themeVars: ThemeVars) {
   });
   const styleStr = style.join(";");
   document.documentElement.style.cssText += styleStr;
-}
+};

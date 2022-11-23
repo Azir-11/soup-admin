@@ -86,7 +86,7 @@ export default defineComponent({
       },
     });
 
-    function systemOpenChange(value) {
+    const systemOpenChange = (value) => {
       if (!value) {
         dialog.warning({
           title: "提示",
@@ -101,9 +101,9 @@ export default defineComponent({
           },
         });
       }
-    }
+    };
 
-    function formSubmit() {
+    const formSubmit = () => {
       formRef.value.validate((errors) => {
         if (!errors) {
           message.success("验证成功");
@@ -111,11 +111,11 @@ export default defineComponent({
           message.error("验证失败，请填写完整信息");
         }
       });
-    }
+    };
 
-    function resetForm() {
+    const resetForm = () => {
       formRef.value.restoreValidation();
-    }
+    };
 
     return {
       formRef,

@@ -83,10 +83,10 @@ echarts.use([
  * @param renderFun - 图表渲染函数(例如：图表监听函数)
  * @description 按需引入图表组件，没注册的组件需要先引入
  */
-export function useEcharts(
+export const useEcharts = (
   options: Ref<ECOption> | ComputedRef<ECOption>,
   renderFun?: (chartInstance: echarts.ECharts) => void,
-) {
+) => {
   const theme = useThemeStore();
 
   const domRef = ref(null);
@@ -96,21 +96,21 @@ export function useEcharts(
 
   let chart: echarts.ECharts | null = null;
 
-  function canRender() {
+  const canRender = () => {
     return initialSize.width > 0 && initialSize.height > 0;
-  }
+  };
 
-  function isRendered() {
+  const isRendered = () => {
     return Boolean(domRef.value && chart);
-  }
+  };
 
-  function update(updateOptions: ECOption) {
+  const update = (updateOptions: ECOption) => {
     if (isRendered()) {
       chart!.setOption({ ...updateOptions, backgroundColor: "transparent" });
     }
-  }
+  };
 
-  async function render() {
+  const render = async () => {
     if (domRef.value) {
       await nextTick();
       chart = echarts.init(domRef.value);
@@ -119,20 +119,20 @@ export function useEcharts(
       }
       update(options.value);
     }
-  }
+  };
 
-  function resize() {
+  const resize = () => {
     chart?.resize();
-  }
+  };
 
-  function destroy() {
+  const destroy = () => {
     chart?.dispose();
-  }
+  };
 
-  function updateTheme() {
+  const updateTheme = () => {
     destroy();
     render();
-  }
+  };
 
   const stopSizeWatch = watch([width, height], ([newWidth, newHeight]) => {
     initialSize.width = newWidth;
@@ -167,4 +167,4 @@ export function useEcharts(
   return {
     domRef,
   };
-}
+};

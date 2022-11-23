@@ -32,9 +32,9 @@ const getTableHeaderColor = computed(() => {
   return themeVars.value.tableHeaderColor;
 });
 
-function goHome() {
+const goHome = () => {
   router.push("/");
-}
+};
 </script>
 <style scoped>
 .result-box {

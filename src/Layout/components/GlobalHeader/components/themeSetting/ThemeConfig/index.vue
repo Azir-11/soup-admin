@@ -21,18 +21,18 @@ const theme = useThemeStore();
 
 const copyRef = ref<HTMLElement>();
 
+const getClipboardText = () => {
+  return JSON.stringify(theme.$state);
+};
+
 const dataClipboardText = ref(getClipboardText());
 
-function getClipboardText() {
-  return JSON.stringify(theme.$state);
-}
-
-function handleResetConfig() {
+const handleResetConfig = () => {
   theme.resetThemeStore();
   message?.success("已重置配置，请重新拷贝！");
-}
+};
 
-function clipboardEventListener() {
+const clipboardEventListener = () => {
   if (!copyRef.value) return;
   const copy = new Clipboard(copyRef.value);
   copy.on("success", () => {
@@ -42,7 +42,7 @@ function clipboardEventListener() {
       positiveText: "确定",
     });
   });
-}
+};
 
 const stopHandle = watch(
   () => theme.$state,

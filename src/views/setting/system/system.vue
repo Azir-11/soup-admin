@@ -56,10 +56,10 @@ export default defineComponent({
       typeTitle: "基本设置",
     });
 
-    function switchType(e) {
+    const switchType = (e) => {
       state.type = e.key;
       state.typeTitle = e.name;
-    }
+    };
 
     return {
       ...toRefs(state),

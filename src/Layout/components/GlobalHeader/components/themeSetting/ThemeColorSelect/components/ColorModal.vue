@@ -52,7 +52,7 @@ const emit = defineEmits<Emits>();
 
 const theme = useThemeStore();
 
-function handleClose() {
+const handleClose = () => {
   emit("close");
-}
+};
 </script>

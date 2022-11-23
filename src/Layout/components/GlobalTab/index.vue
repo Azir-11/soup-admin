@@ -59,7 +59,7 @@ const app = useAppStore();
 
 // 获取当前激活的tab的clientX
 const tabRef = ref<HTMLElement>();
-async function getActiveTabClientX() {
+const getActiveTabClientX = async () => {
   await nextTick();
   if (tabRef.value && tabRef.value.children.length && tabRef.value.children[tab.activeTabIndex]) {
     const activeTabElement = tabRef.value.children[tab.activeTabIndex];
@@ -69,7 +69,7 @@ async function getActiveTabClientX() {
       emit("scroll", clientX);
     }, 50);
   }
-}
+};
 
 const dropdown = reactive({
   visible: false,
@@ -77,26 +77,26 @@ const dropdown = reactive({
   y: 0,
   currentPath: "",
 });
-function showDropdown() {
+const showDropdown = () => {
   dropdown.visible = true;
-}
-function hideDropdown() {
+};
+const hideDropdown = () => {
   dropdown.visible = false;
-}
-function setDropdown(x: number, y: number, currentPath: string) {
+};
+const setDropdown = (x: number, y: number, currentPath: string) => {
   Object.assign(dropdown, { x, y, currentPath });
-}
+};
 
 let isClickContextMenu = false;
 
-function handleDropdownVisible(visible: boolean) {
+const handleDropdownVisible = (visible: boolean) => {
   if (!isClickContextMenu) {
     dropdown.visible = visible;
   }
-}
+};
 
 /** 点击右键菜单 */
-async function handleContextMenu(e: MouseEvent, fullPath: string) {
+const handleContextMenu = (e: MouseEvent, fullPath: string) => {
   e.preventDefault();
 
   const { clientX, clientY } = e;
@@ -112,7 +112,7 @@ async function handleContextMenu(e: MouseEvent, fullPath: string) {
     showDropdown();
     isClickContextMenu = false;
   }, DURATION);
-}
+};
 
 watch(
   () => tab.activeTabIndex,
@@ -126,9 +126,9 @@ watch(
 
 const route = useRoute();
 
-function init() {
+const init = () => {
   tab.iniTabStore(route);
-}
+};
 
 watch(
   () => route.fullPath,
@@ -140,13 +140,13 @@ watch(
 
 // 刷新按钮
 const refreshLoading = ref(false);
-function handleRefresh() {
+const handleRefresh = () => {
   refreshLoading.value = true;
   app.reloadPage();
   setTimeout(() => {
     refreshLoading.value = false;
   }, 1000);
-}
+};
 // 初始化
 init();
 </script>
