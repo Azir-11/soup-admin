@@ -8,10 +8,9 @@
         :placement="'left'"
         close-on-esc
         :native-scrollbar="true"
-        :on-mask-click="handleUpdateValue"
         :width="theme.sider.width"
       >
-        <Menu @click-menu-item="handleUpdateValue" />
+        <Menu />
       </n-drawer>
     </section>
   </aside>
@@ -23,11 +22,4 @@ import { Menu } from "./components";
 
 const app = useAppStore();
 const theme = useThemeStore();
-
-const emit = defineEmits(["update:collapsed"]);
-
-// 点击菜单
-const handleUpdateValue = () => {
-  emit("update:collapsed");
-};
 </script>

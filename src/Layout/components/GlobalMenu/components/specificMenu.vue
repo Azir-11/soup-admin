@@ -46,16 +46,12 @@ const collapsed = computed<boolean>(() => {
   return theme.layout.mode == "vertical-mix" ? true : app.siderCollapse;
 });
 
+// 获取展开的菜单
 const currentRoute = useRoute();
-
-// 获取当前打开的子菜单
-const emit = defineEmits(["clickMenuItem"]);
 const matched = currentRoute.matched;
-
 let openKeys = ref(
   (matched && matched.length ? matched.map((item) => item.name) : []) as Array<string>,
 );
-
 const selectedKeys = ref<string>(currentRoute.name as string);
 
 // 跟随页面路由变化，切换菜单选中状态
@@ -77,7 +73,10 @@ const handleUpdateValue = (key: string, _item: MenuOption) => {
   } else {
     router.push({ name: key });
   }
-  emit("clickMenuItem", key);
+  // 如果Drawer是开启状态，那么去到了目标菜单就应该关掉
+  if (app.menuDrawerVisible) {
+    app.menuDrawerVisible = false;
+  }
 };
 
 /**
