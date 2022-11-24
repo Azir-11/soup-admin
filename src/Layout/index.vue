@@ -27,7 +27,7 @@
 import { GlobalHeader, GlobalTab, GlobalMain, GlobalMenu, GlobalFooter } from "./components";
 import { useThemeStore, useAppStore } from "@/stores";
 
-const { header, tab, sider, footer } = useThemeStore();
+const { layout, header, tab, sider, footer } = useThemeStore();
 const app = useAppStore();
 
 // 当前菜单宽度
@@ -35,6 +35,10 @@ const activemenuWidth = computed(() => {
   if (app.isMobile) {
     return 0;
   }
-  return app.siderCollapse ? sider.collapsedWidth : sider.width;
+  return layout.mode == "vertical-mix"
+    ? sider.collapsedWidth
+    : app.siderCollapse
+    ? sider.collapsedWidth
+    : sider.width;
 });
 </script>

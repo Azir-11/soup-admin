@@ -1,4 +1,3 @@
-import { nextTick } from "vue";
 import { defineStore } from "pinia";
 
 interface AppState {

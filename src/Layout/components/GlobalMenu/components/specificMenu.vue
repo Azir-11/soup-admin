@@ -2,7 +2,7 @@
   <n-layout has-sider class="h-full">
     <n-layout-sider
       bordered
-      :collapsed="app.siderCollapse"
+      :collapsed="collapsed"
       :collapsed-width="theme.sider.collapsedWidth"
       collapse-mode="width"
       :inverted="theme.sider.inverted"
@@ -18,7 +18,7 @@
         :options="menus"
         :expanded-keys="openKeys"
         :value="selectedKeys"
-        :collapsed="app.siderCollapse"
+        :collapsed="collapsed"
         :collapsed-width="theme.sider.collapsedWidth"
         :collapsed-icon-size="22"
         :indent="18"
@@ -38,6 +38,13 @@ const router = useRouter();
 const asyncRouteStore = useRouteStore();
 const theme = useThemeStore();
 const menus = computed(() => asyncRouteStore.menus as any);
+const collapsed = computed<boolean>(() => {
+  // 如果是移动端，则展开菜单
+  if (app.isMobile) {
+    return false;
+  }
+  return theme.layout.mode == "vertical-mix" ? true : app.siderCollapse;
+});
 
 const currentRoute = useRoute();
 

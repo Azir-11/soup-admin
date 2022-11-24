@@ -23,7 +23,6 @@ import { Menu } from "./components";
 
 const app = useAppStore();
 const theme = useThemeStore();
-const thisShowSideDrawder = ref(false);
 
 const emit = defineEmits(["update:collapsed"]);
 
