@@ -12,7 +12,6 @@ export default function unplugin(viteEnv: ImportMetaEnv) {
 
   const srcPath = getSrcPath();
   const localIconPath = `${srcPath}/assets/svg-icon`;
-  console.log("localIconPath", localIconPath);
   /** 本地svg图标集合名称 */
   const collectionName = VITE_ICON_LOCAL_PREFFIX.replace(`${VITE_ICON_PREFFIX}-`, "");
 

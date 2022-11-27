@@ -15,6 +15,5 @@ export function getRootPath() {
  */
 export const getSrcPath = (srcName = "src") => {
   const rootPath = getRootPath();
-  console.log("rootPath", rootPath);
   return `${rootPath}/${srcName}`;
 };
