@@ -6,10 +6,11 @@ import { fetchLogin, fetchPermissions } from "@/service";
 import { Login } from "@/service/api/types";
 
 export interface IUserState {
-  id: string;
+  userId: string;
   token: string;
   userName: string;
   avatar: string;
+  userRole: string;
   permissions: any[];
 }
 
@@ -19,10 +20,11 @@ const initUser = (user: Login = null) => {
   }
   if (user) {
     return {
-      id: user.id,
+      userId: user.userId,
       token: user.token,
       userName: user.userName,
       avatar: user.avatar,
+      userRole: user.userRole,
       permissions: JSON.parse(user.permissions),
     };
   }
@@ -48,8 +50,8 @@ export const useAuthStore = defineStore({
     },
   },
   actions: {
-    setId(id) {
-      this.id = id;
+    setId(userId) {
+      this.userId = userId;
     },
     setToken(token: string) {
       this.token = token;
@@ -60,8 +62,8 @@ export const useAuthStore = defineStore({
     setPermissions(permissions) {
       this.permissions = permissions;
     },
-    setRole(role: string) {
-      this.role = role;
+    setRole(userRole: string) {
+      this.userRole = userRole;
     },
     // 登录
     async login(userInfo) {

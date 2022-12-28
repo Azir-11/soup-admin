@@ -1,6 +1,3 @@
-import { RouteRecordRaw } from "vue-router";
-import { Layout } from "@/router/routes/constant";
-
 /**
  * @param name 路由名称, 必须设置,且不能重名
  * @param meta 路由元信息（路由附带扩展信息）
@@ -14,66 +11,58 @@ import { Layout } from "@/router/routes/constant";
  * @param meta.tabsHidden 在标签页中不显示该路由
  * */
 
-const routes: Array<RouteRecordRaw> = [
-  {
-    name: "multi-menu",
-    path: "/multi-menu",
-    component: Layout,
-    meta: {
-      title: "多级菜单",
-      icon: "mdi:menu",
-    },
-    children: [
-      {
-        name: "multi-menu_first",
-        path: "first",
-        redirect: "",
-        meta: {
-          title: "一级菜单",
-          icon: "mdi:menu",
-        },
-        children: [
-          {
-            name: "multi-menu_first_second",
-            path: "second",
-            component: () => import("@/views/multi-menu/first/second/index.vue"),
-            meta: {
-              title: "二级菜单",
-              icon: "mdi:menu",
-            },
-          },
-          {
-            name: "multi-menu_first_second-new",
-            path: "second-new",
-            meta: {
-              title: "二级菜单(有子菜单)",
-              icon: "mdi:menu",
-            },
-            children: [
-              {
-                name: "multi-menu_first_second-new_third_1",
-                path: "third_1",
-                component: () => import("@/views/multi-menu/first/second-new/third/index.vue"),
-                meta: {
-                  title: "三级菜单",
-                  icon: "mdi:menu",
-                },
-              },
-              {
-                name: "multi-menu_first_second-new_third_2",
-                path: "third_2",
-                component: () => import("@/views/multi-menu/first/second-new/third/index.vue"),
-                meta: {
-                  title: "三级菜单",
-                  icon: "mdi:menu",
-                },
-              },
-            ],
-          },
-        ],
-      },
-    ],
+const multiMenu: AuthRoute.Route = {
+  name: "multi-menu",
+  path: "/multi-menu",
+  component: "basic",
+  meta: {
+    title: "多级菜单",
+    icon: "mdi:menu",
   },
-];
+  children: [
+    {
+      name: "multi-menu_first",
+      path: "/multi-menu/first",
+      component: "multi",
+      meta: {
+        title: "一级菜单",
+        icon: "mdi:menu",
+      },
+      children: [
+        {
+          name: "multi-menu_first_second",
+          path: "/multi-menu/first/second",
+          component: "self",
+          meta: {
+            title: "二级菜单",
+            requiresAuth: true,
+            icon: "mdi:menu",
+          },
+        },
+        {
+          name: "multi-menu_first_second-new",
+          path: "/multi-menu/first/second-new",
+          component: "multi",
+          meta: {
+            title: "二级菜单(有子菜单)",
+            icon: "mdi:menu",
+          },
+          children: [
+            {
+              name: "multi-menu_first_second-new_third",
+              path: "/multi-menu/first/second-new/third",
+              component: "self",
+              meta: {
+                title: "三级菜单",
+                requiresAuth: true,
+                icon: "mdi:menu",
+              },
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
 
-export default routes;
+export default multiMenu;

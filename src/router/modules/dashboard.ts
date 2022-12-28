@@ -1,6 +1,3 @@
-import { RouteRecordRaw } from "vue-router";
-import { Layout } from "@/router/routes/constant";
-
 /**
  * @param name 路由名称, 必须设置,且不能重名
  * @param meta 路由元信息（路由附带扩展信息）
@@ -14,40 +11,37 @@ import { Layout } from "@/router/routes/constant";
  * @param meta.tabsHidden 在标签页中不显示该路由
  * */
 
-const routes: Array<RouteRecordRaw> = [
-  {
-    name: "dashboard",
-    path: "/dashboard",
-    component: Layout,
-    meta: {
-      title: "仪表盘",
-      order: 1,
-      icon: "mdi:monitor-dashboard",
+const dashboard: AuthRoute.Route = {
+  name: "dashboard",
+  path: "/dashboard",
+  component: "basic",
+  children: [
+    {
+      name: "dashboard_analysis",
+      path: "/dashboard/analysis",
+      component: "self",
+      meta: {
+        title: "分析页",
+        requiresAuth: true,
+        icon: "icon-park-outline:analysis",
+      },
     },
-    children: [
-      {
-        name: "dashboard_analysis",
-        path: "/dashboard/analysis",
-        component: () => import("@/views/dashboard/analysis/index.vue"),
-        meta: {
-          title: "分析页",
-          requiresAuth: true,
-          icon: "icon-park-outline:analysis",
-        },
+    {
+      name: "dashboard_workbench",
+      path: "/dashboard/workbench",
+      component: "self",
+      meta: {
+        title: "工作台",
+        requiresAuth: true,
+        icon: "icon-park-outline:workbench",
       },
-      {
-        name: "dashboard_workbench",
-        path: "/dashboard/workbench",
-        component: () => import("@/views/dashboard/workbench/index.vue"),
-        meta: {
-          title: "工作台",
-          requiresAuth: true,
-          icon: "icon-park-outline:workbench",
-          permissions: ["super", "admin"],
-        },
-      },
-    ],
+    },
+  ],
+  meta: {
+    title: "仪表盘",
+    icon: "mdi:monitor-dashboard",
+    order: 1,
   },
-];
+};
 
-export default routes;
+export default dashboard;

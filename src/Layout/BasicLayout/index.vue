@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { GlobalHeader, GlobalTab, GlobalMain, GlobalMenu, GlobalFooter } from "./components";
+import { GlobalHeader, GlobalTab, GlobalMain, GlobalMenu, GlobalFooter } from "../components";
 import { useThemeStore, useAppStore } from "@/stores";
 
 const { layout, header, tab, sider, footer } = useThemeStore();

@@ -1,5 +1,5 @@
 import { mockRequest } from "../request";
-import { Login } from "./types";
+import { Login, Route } from "./types";
 
 /**
  * 登录
@@ -18,3 +18,12 @@ export const fetchLogin = (userName: string, password: string) => {
 export const fetchPermissions = () => {
   return mockRequest.get<string>("user/getPermissions");
 };
+
+/**
+ * 获取用户路由数据
+ * @param userId - 用户id
+ * @description 后端根据用户id查询到对应的角色类型，并将路由筛选出对应角色的路由数据返回前端
+ */
+export function fetchUserRoutes(userId: string) {
+  return mockRequest.post<Route>("/getUserRoutes", { userId });
+}

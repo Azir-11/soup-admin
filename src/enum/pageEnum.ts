@@ -10,15 +10,15 @@ export enum PageEnum {
   //首页跳转默认路由
   BASE_HOME_REDIRECT = "/dashboard/analysis",
   // 未找到页面
-  NOT_FOUND_PATH = "/abnormal/NotFound",
-  NOT_FOUND_NAME = "NotFound",
+  NOT_FOUND_PATH = "/404",
+  NOT_FOUND_NAME = "404",
   // 页面无效
-  INVALID_NAME = "InvalidPath",
-  INVALID_PATH = "/InvalidPath",
+  INVALID_NAME = "not-found",
+  INVALID_PATH = "/not-found",
   // 无权限
-  NO_PERMISSION_PATH = "/abnormal/NoPermission",
-  NO_PERMISSION_NAME = "NoPermission",
+  NO_PERMISSION_PATH = "/403",
+  NO_PERMISSION_NAME = "403",
   // 服务器错误
-  SERVICE_ERROR_NAME = "ServiceError",
-  SERVICE_ERROR_PATH = "/abnormal/ServiceError",
+  SERVICE_ERROR_PATH = "/500",
+  SERVICE_ERROR_NAME = "500",
 }

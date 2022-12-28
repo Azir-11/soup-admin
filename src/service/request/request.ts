@@ -11,12 +11,6 @@ interface RequestParam {
   axiosConfig?: AxiosRequestConfig;
 }
 
-interface RequestResult<T> {
-  code: number;
-  message: string;
-  data: T;
-}
-
 /**
  * 创建请求
  * @param axiosConfig - axios配置
@@ -36,7 +30,7 @@ export const createRequest = (
    * - data: 请求的body的data
    * - axiosConfig: axios配置
    */
-  const asyncRequest = async <T>(param: RequestParam): Promise<RequestResult<T>> => {
+  const asyncRequest = async <T>(param: RequestParam): Promise<Service.RequestResult<T>> => {
     const { url } = param;
     const method = param.method || "get";
     const { instance } = customInstance;
@@ -46,7 +40,7 @@ export const createRequest = (
       url,
       data: param.data,
       config: param.axiosConfig,
-    })) as RequestResult<T>;
+    })) as Service.RequestResult<T>;
 
     return res;
   };
@@ -123,7 +117,7 @@ export const createHookRequest = (
     const data = ref<T | null>(null) as Ref<T | null>;
 
     const handleRequestResult = (response: any) => {
-      const res = response as RequestResult<T>;
+      const res = response as Service.RequestResult<T>;
       data.value = res.data;
     };
 

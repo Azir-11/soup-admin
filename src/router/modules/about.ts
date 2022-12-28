@@ -1,6 +1,3 @@
-import { RouteRecordRaw } from "vue-router";
-import { Layout } from "@/router/routes/constant";
-
 /**
  * @param name 路由名称, 必须设置,且不能重名
  * @param meta 路由元信息（路由附带扩展信息）
@@ -12,27 +9,16 @@ import { Layout } from "@/router/routes/constant";
  * @param meta.sort 排序越小越排前
  *
  * */
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: "/about",
-    name: "about",
-    component: Layout,
-    meta: {
-      title: "关于",
-      icon: "fluent:book-information-24-regular",
-      sort: 8,
-    },
-    children: [
-      {
-        path: "index",
-        name: "about_button",
-        meta: {
-          title: "关于",
-        },
-        component: () => import("@/views/about/index.vue"),
-      },
-    ],
+const about: AuthRoute.Route = {
+  path: "/about",
+  name: "about",
+  component: "self",
+  meta: {
+    singleLayout: "basic",
+    title: "关于",
+    icon: "fluent:book-information-24-regular",
+    order: 8,
   },
-];
+};
 
-export default routes;
+export default about;

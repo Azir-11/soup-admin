@@ -10,3 +10,4 @@ export { store };
 
 export * from "./modules";
 export * from "./subscribe";
+export * from "./mutation-types";

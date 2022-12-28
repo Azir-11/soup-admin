@@ -1,6 +1,3 @@
-import { RouteRecordRaw } from "vue-router";
-import { Layout } from "@/router/routes/constant";
-
 /**
  * @param name 路由名称, 必须设置,且不能重名
  * @param meta 路由元信息（路由附带扩展信息）
@@ -12,47 +9,44 @@ import { Layout } from "@/router/routes/constant";
  * @param meta.sort 排序越小越排前
  *
  * */
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: "/plugin",
-    name: "plugin",
-    redirect: "/plugin/ECharts",
-    component: Layout,
-    meta: {
-      title: "插件",
-      icon: "clarity:plugin-line",
-    },
-    children: [
-      {
-        path: "ECharts",
-        name: "component_ECharts",
-        component: () => import("@/views/plugin/charts/Echarts/index.vue"),
-        meta: {
-          title: "ECharts",
-          icon: "simple-icons:apacheecharts",
-        },
-      },
-      {
-        name: "plugin_copy",
-        path: "copy",
-        meta: {
-          title: "剪贴板",
-          icon: "mdi:clipboard-outline",
-        },
-        component: () => import("@/views/plugin/copy/index.vue"),
-      },
-      {
-        name: "plugin_icon",
-        path: "/plugin/icon",
-        meta: {
-          title: "图标",
-          requiresAuth: true,
-          localIcon: "custom-icon",
-        },
-        component: () => import("@/views/plugin/icon/index.vue"),
-      },
-    ],
+const plugin: AuthRoute.Route = {
+  path: "/plugin",
+  name: "plugin",
+  component: "basic",
+  meta: {
+    title: "插件",
+    icon: "clarity:plugin-line",
   },
-];
+  children: [
+    {
+      path: "/plugin/echarts",
+      name: "plugin_echarts",
+      component: "self",
+      meta: {
+        title: "ECharts",
+        icon: "simple-icons:apacheecharts",
+      },
+    },
+    {
+      path: "/plugin/copy",
+      name: "plugin_copy",
+      meta: {
+        title: "剪贴板",
+        icon: "mdi:clipboard-outline",
+      },
+      component: "self",
+    },
+    {
+      name: "plugin_icon",
+      path: "/plugin/icon",
+      component: "self",
+      meta: {
+        title: "图标",
+        requiresAuth: true,
+        localIcon: "custom-icon",
+      },
+    },
+  ],
+};
 
-export default routes;
+export default plugin;

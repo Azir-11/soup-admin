@@ -36,3 +36,8 @@ export const isMap = (data: unknown) => {
 export const isFile = (data: unknown) => {
   return Object.prototype.toString.call(data) === EnumDataType.file;
 };
+export function isFunction<T extends (...args: any[]) => any | void | never>(
+  data: T | unknown,
+): data is T {
+  return Object.prototype.toString.call(data) === EnumDataType.function;
+}

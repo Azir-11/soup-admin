@@ -1,9 +1,9 @@
 interface UserModel {
   token: string;
-  id: string;
+  userId: string;
   userName: string;
   avatar: string;
-  role: string;
+  userRole: string;
   //   模拟后端返回的JSON形式的数组
   permissions: string;
   password: string;
@@ -12,28 +12,28 @@ interface UserModel {
 export const userModel: UserModel[] = [
   {
     token: "__TOKEN_SOUP_SUPER__",
-    id: "0",
+    userId: "0",
     userName: "Soup_super",
     avatar: "/icon/ms-icon-310x310.png",
-    role: "super",
+    userRole: "super",
     permissions: `["test"]`,
     password: "super",
   },
   {
     token: "__TOKEN_SOUP_ADMIN__",
-    id: "1",
+    userId: "1",
     userName: "Soup_Admin",
     avatar: "/icon/ms-icon-310x310.png",
-    role: "admin",
+    userRole: "admin",
     permissions: "[]",
     password: "admin123",
   },
   {
     token: "__TOKEN_SOUP_USER__",
-    id: "2",
+    userId: "2",
     userName: "Soup_User",
     avatar: "/icon/ms-icon-310x310.png",
-    role: "user",
+    userRole: "user",
     permissions: "[]",
     password: "user114514",
   },

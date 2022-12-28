@@ -1,6 +1,3 @@
-import { RouteRecordRaw } from "vue-router";
-import { Layout } from "@/router/routes/constant";
-
 /**
  * @param name 路由名称, 必须设置,且不能重名
  * @param meta 路由元信息（路由附带扩展信息）
@@ -14,53 +11,50 @@ import { Layout } from "@/router/routes/constant";
  * @param meta.tabsHidden 在标签页中不显示该路由
  * */
 
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: "/result",
-    name: "Result",
-    redirect: "/result/success",
-    component: Layout,
-    meta: {
-      title: "结果页面",
-      icon: "ant-design:check-circle-outlined",
-      sort: 4,
-    },
-    children: [
-      {
-        path: "success",
-        name: "result-success",
-        meta: {
-          title: "成功页",
-          icon: "ant-design:check-circle-outlined",
-          tabsHidden: true,
-          hideBreadcrumb: true,
-        },
-        component: () => import("@/views/result/success.vue"),
-      },
-      {
-        path: "fail",
-        name: "result-fail",
-        meta: {
-          title: "失败页",
-          icon: "ant-design:close-circle-outlined",
-          tabsHidden: true,
-          hideBreadcrumb: true,
-        },
-        component: () => import("@/views/result/fail.vue"),
-      },
-      {
-        path: "info",
-        name: "result-info",
-        meta: {
-          title: "信息页",
-          icon: "ant-design:exclamation-circle-outlined",
-          tabsHidden: true,
-          hideBreadcrumb: true,
-        },
-        component: () => import("@/views/result/info.vue"),
-      },
-    ],
+const result: AuthRoute.Route = {
+  path: "/result",
+  name: "result",
+  component: "basic",
+  meta: {
+    title: "结果页面",
+    icon: "ant-design:check-circle-outlined",
+    order: 4,
   },
-];
+  children: [
+    {
+      path: "/result/success",
+      name: "result_success",
+      component: "self",
+      meta: {
+        title: "成功页",
+        icon: "ant-design:check-circle-outlined",
+        tabsHidden: true,
+        hideBreadcrumb: true,
+      },
+    },
+    {
+      path: "/result/fail",
+      name: "result_fail",
+      component: "self",
+      meta: {
+        title: "失败页",
+        icon: "ant-design:close-circle-outlined",
+        tabsHidden: true,
+        hideBreadcrumb: true,
+      },
+    },
+    {
+      path: "/result/info",
+      name: "result_info",
+      component: "self",
+      meta: {
+        title: "信息页",
+        icon: "ant-design:exclamation-circle-outlined",
+        tabsHidden: true,
+        hideBreadcrumb: true,
+      },
+    },
+  ],
+};
 
-export default routes;
+export default result;

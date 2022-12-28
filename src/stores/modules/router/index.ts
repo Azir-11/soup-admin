@@ -1,142 +1,151 @@
-import type { RouteRecordRaw } from "vue-router";
-import { store } from "@/stores";
-import { router, asyncRoutes } from "@/router";
-import { transformAuthRouteToMenu, transformRoutePathToRouteName } from "@/utils";
-import { useTabStore } from "@/stores";
+import { defineStore } from "pinia";
+import { ROOT_ROUTE, constantRoutes, router, routes as staticRoutes } from "@/router";
+import { fetchUserRoutes } from "@/service";
+import {
+  storage,
+  filterAuthRoutesByUserPermission,
+  getCacheRoutes,
+  getConstantRouteNames,
+  transformAuthRouteToVueRoutes,
+  transformAuthRouteToVueRoute,
+  transformAuthRouteToMenu,
+  transformAuthRouteToSearchMenus,
+  transformRouteNameToRoutePath,
+  transformRoutePathToRouteName,
+} from "@/utils";
+import { useAuthStore } from "../auth";
+import { useTabStore } from "../tab";
+import { CURRENT_USER } from "@/stores";
 
-// const getConfig = (config: Partial<TreeHelperConfig>) => Object.assign({}, DEFAULT_CONFIG, config);
-export interface AsyncRouteState {
+interface RouteState {
   /**
    * 权限路由模式:
    * - static - 前端声明的静态
    * - dynamic - 后端返回的动态
    */
   authRouteMode: ImportMetaEnv["VITE_AUTH_ROUTE_MODE"];
-  /** 路由首页name(前端静态路由时生效，后端动态路由该值会被后端返回的值覆盖) */
-  routeHomeName: string;
-  /** 菜单 */
-  menus: RouteRecordRaw[];
-  /** 路由 */
-  routers: any[];
-  /** 缓存的路由 */
-  keepAliveComponents: string[];
   /** 是否初始化了权限路由 */
   isInitAuthRoute: boolean;
+  /** 路由首页name(前端静态路由时生效，后端动态路由该值会被后端返回的值覆盖) */
+  routeHomeName: AuthRoute.AllRouteKey;
+  /** 菜单 */
+  menus: App.GlobalMenuOption[];
+  /** 搜索的菜单 */
+  searchMenus: AuthRoute.Route[];
+  /** 缓存的路由名称 */
+  cacheRoutes: string[];
 }
 
-interface TreeHelperConfig {
-  id: string;
-  children: string;
-  pid: string;
-}
-
-const DEFAULT_CONFIG: TreeHelperConfig = {
-  id: "id",
-  children: "children",
-  pid: "pid",
-};
-
-const getConfig = (config: Partial<TreeHelperConfig>) => Object.assign({}, DEFAULT_CONFIG, config);
-
-const filter = <T = any>(
-  tree: T[],
-  func: (n: T) => boolean,
-  config: Partial<TreeHelperConfig> = {},
-): T[] => {
-  config = getConfig(config);
-  const children = config.children as string;
-
-  const listFilter = (list: T[]) => {
-    return list
-      .map((node: any) => ({ ...node }))
-      .filter((node) => {
-        node[children] = node[children] && listFilter(node[children]);
-        return func(node) || (node[children] && node[children].length);
-      });
-  };
-
-  return listFilter(tree);
-};
-
-export const useRouteStore = defineStore({
-  id: "app-async-route",
-  state: (): AsyncRouteState => ({
+export const useRouteStore = defineStore("route-store", {
+  state: (): RouteState => ({
     authRouteMode: import.meta.env.VITE_AUTH_ROUTE_MODE,
+    isInitAuthRoute: false,
     routeHomeName: transformRoutePathToRouteName(import.meta.env.VITE_ROUTE_HOME_PATH),
     menus: [],
-    routers: asyncRoutes,
-    keepAliveComponents: [],
-    isInitAuthRoute: false,
+    searchMenus: [],
+    cacheRoutes: [],
   }),
-  getters: {
-    getMenus(): RouteRecordRaw[] {
-      return this.menus;
-    },
-    getIsDynamicAddedRoute(): boolean {
-      return this.isDynamicAddedRoute;
-    },
-  },
   actions: {
-    getRouters() {
-      return toRaw(this.routers);
+    /** 重置路由的store */
+    resetRouteStore() {
+      this.resetRoutes();
+      this.$reset();
     },
-    setDynamicAddedRoute(added: boolean) {
-      this.isDynamicAddedRoute = added;
-    },
-    // 设置动态路由
-    setRouters(routers: any) {
-      this.routers = asyncRoutes.concat(routers);
-    },
-    // 设置菜单
-    setMenus(menus: any) {
-      this.menus = menus;
-    },
-    setKeepAliveComponents(compNames: any) {
-      // 设置需要缓存的组件
-      this.keepAliveComponents = compNames;
-    },
-    async initDynamicRoute(data: any) {
-      let accessedRouters;
-      const permissionsList = data || [];
-      const routeFilter = (route) => {
-        const { meta } = route;
-        const { permission } = meta || {};
-        if (!permission) return true;
-        return permissionsList.some((item) => permission.includes(item));
-      };
-      try {
-        //过滤账户是否拥有某一个权限，并将菜单从加载列表移除
-        accessedRouters = filter(asyncRoutes, routeFilter);
-      } catch (error) {
-        console.log(error);
-      }
-      accessedRouters = accessedRouters.filter(routeFilter);
-      this.setRouters(accessedRouters);
-      this.setMenus(transformAuthRouteToMenu(accessedRouters));
-      const routes = toRaw(accessedRouters);
-      routes.forEach((item) => {
-        router.addRoute(item as unknown as RouteRecordRaw);
+    /** 重置路由数据，保留固定路由 */
+    resetRoutes() {
+      const routes = router.getRoutes();
+      routes.forEach((route) => {
+        const name = (route.name || "root") as AuthRoute.AllRouteKey;
+        if (!this.isConstantRoute(name)) {
+          router.removeRoute(name);
+        }
       });
+    },
+    /**
+     * 是否是固定路由
+     * @param name 路由名称
+     */
+    isConstantRoute(name: AuthRoute.AllRouteKey) {
+      const constantRouteNames = getConstantRouteNames(constantRoutes);
+      return constantRouteNames.includes(name);
+    },
+    /**
+     * 是否是有效的固定路由
+     * @param name 路由名称
+     */
+    isValidConstantRoute(name: AuthRoute.AllRouteKey) {
+      const NOT_FOUND_PAGE_NAME: AuthRoute.NotFoundRouteKey = "not-found";
+      const constantRouteNames = getConstantRouteNames(constantRoutes);
+      return constantRouteNames.includes(name) && name !== NOT_FOUND_PAGE_NAME;
+    },
+    /**
+     * 处理权限路由
+     * @param routes - 权限路由
+     */
+    handleAuthRoute(routes: AuthRoute.Route[]) {
+      (this.menus as App.GlobalMenuOption[]) = transformAuthRouteToMenu(routes);
+      this.searchMenus = transformAuthRouteToSearchMenus(routes);
+
+      const vueRoutes = transformAuthRouteToVueRoutes(routes);
+
+      vueRoutes.forEach((route) => {
+        router.addRoute(route);
+      });
+
+      this.cacheRoutes = getCacheRoutes(vueRoutes);
+    },
+    /** 动态路由模式下：更新根路由的重定向 */
+    handleUpdateRootRedirect(routeKey: AuthRoute.AllRouteKey) {
+      if (routeKey === "root" || routeKey === "not-found") {
+        throw new Error("routeKey的值不能为root或者not-found");
+      }
+      const rootRoute: any = {
+        ...ROOT_ROUTE,
+        redirect: transformRouteNameToRoutePath(routeKey),
+      };
+      const rootRouteName: AuthRoute.AllRouteKey = "root";
+      router.removeRoute(rootRouteName);
+      const rootVueRoute = transformAuthRouteToVueRoute(rootRoute)[0];
+      router.addRoute(rootVueRoute);
+    },
+    /** 初始化动态路由 */
+    async initDynamicRoute() {
+      const { initHomeTab } = useTabStore();
+
+      const { id } = storage.get(CURRENT_USER) || {};
+
+      if (!id) {
+        throw new Error("userId 不能为空!");
+      }
+
+      const { error, data } = await fetchUserRoutes(id);
+
+      if (!error) {
+        this.routeHomeName = data.home;
+        this.handleUpdateRootRedirect(data.home);
+        this.handleAuthRoute(data.routes);
+
+        initHomeTab(data.home, router);
+
+        this.isInitAuthRoute = true;
+      }
+    },
+    /** 初始化静态路由 */
+    async initStaticRoute() {
+      const { initHomeTab } = useTabStore();
+      const auth = useAuthStore();
+      const routes = filterAuthRoutesByUserPermission(staticRoutes, auth.userRole);
+      this.handleAuthRoute(routes);
+      initHomeTab(import.meta.env.VITE_ROUTE_HOME_NAME, router);
+      this.isInitAuthRoute = true;
     },
     /** 初始化权限路由 */
     async initAuthRoute() {
-      const { initHomeTab } = useTabStore();
-
-      const isDynamicRoute = this.authRouteMode === "dynamic";
-      if (isDynamicRoute) {
+      if (this.authRouteMode === "dynamic") {
         await this.initDynamicRoute();
       } else {
         await this.initStaticRoute();
       }
-
-      initHomeTab(this.routeHomeName, router);
-
-      this.isInitAuthRoute = true;
     },
   },
 });
-
-// 需要在setup周期外使用
-export const useAsyncRouteStoreWidthOut = () => {
-  return useRouteStore(store);
-};

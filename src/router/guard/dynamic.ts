@@ -48,5 +48,6 @@ export const createDynamicRouteGuard = async (
     next({ path: NOT_FOUND_PATH, replace: true });
     return false;
   }
+
   return true;
 };

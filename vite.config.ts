@@ -10,7 +10,7 @@ const PROJECT_BUILD_TIME = dayjs().format("YYYY-MM-DD HH:mm:ss");
 // https://vitejs.dev/config/
 export default defineConfig((configEnv) => {
   const viteEnv = loadEnv(configEnv.mode, process.cwd()) as unknown as ImportMetaEnv;
-  
+
   return {
     plugins: setupVitePlugins(viteEnv),
     define: {
