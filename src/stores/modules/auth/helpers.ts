@@ -1,5 +1,5 @@
 import { storage } from "@/utils";
-import { ACCESS_TOKEN, CURRENT_USER_INFO, TABS_ROUTES } from "@/stores/mutation-types";
+import { ACCESS_TOKEN, CURRENT_USER_INFO } from "@/stores/mutation-types";
 
 /** 获取token */
 export function getToken() {
@@ -13,7 +13,6 @@ export function getUserInfo() {
     userName: "",
     userAvatar: "",
     userRole: "user",
-    userPermissions: [],
   };
   const userInfo: Auth.UserInfo = storage.get(CURRENT_USER_INFO) || emptyInfo;
 

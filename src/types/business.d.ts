@@ -19,8 +19,6 @@ declare namespace Auth {
     userAvatar: string;
     /** 用户角色类型 */
     userRole: RoleType;
-    /** 用户拥有权限 */
-    userPermissions: Array<string>;
   }
 }
 

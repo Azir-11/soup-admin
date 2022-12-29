@@ -3,7 +3,6 @@ import { createDynamicRouteGuard } from "./dynamic";
 import { storage } from "@/utils";
 import { ACCESS_TOKEN } from "@/stores/mutation-types";
 import { PageEnum } from "@/enum";
-import { useAuthStore } from "@/stores";
 import { exeStrategyActions } from "@/utils/common/pattern";
 
 type Recordable<T = any> = {
@@ -12,7 +11,6 @@ type Recordable<T = any> = {
 
 const BASE_HOME = PageEnum.BASE_HOME;
 const BASE_LOGIN_PATH = PageEnum.BASE_LOGIN_PATH;
-const NO_PERMISSION_PATH = PageEnum.NO_PERMISSION_PATH;
 
 /** 处理路由页面的权限 */
 export const createPermissionGuard = async (
@@ -30,21 +28,8 @@ export const createPermissionGuard = async (
     return;
   }
 
-  const authStore = useAuthStore();
   const isLogin = Boolean(storage.get(ACCESS_TOKEN));
-  const permissions: Array<string> = (to.meta.permission as Array<string>) || [];
-  const needLogin = Boolean(to.meta?.requiresAuth) || Boolean(permissions.length);
-  const hasPermission =
-    !permissions.length ||
-    permissions.some((routePermission) => {
-      let flag = false;
-      authStore.userInfo.userPermissions.forEach((userPermission) => {
-        if (routePermission == userPermission) {
-          flag = true;
-        }
-      });
-      return flag;
-    });
+  const needLogin = Boolean(to.meta?.requiresAuth);
 
   const actions = [
     // 已登录状态跳转登录页，跳转至首页
@@ -84,16 +69,9 @@ export const createPermissionGuard = async (
     ],
     // 登录状态进入需要登录权限的页面，有权限直接通行
     [
-      isLogin && needLogin && hasPermission,
+      isLogin && needLogin,
       () => {
         next();
-      },
-    ],
-    [
-      // 登录状态进入需要登录权限的页面，无权限，重定向到无权限页面
-      isLogin && needLogin && !hasPermission,
-      () => {
-        next({ path: NO_PERMISSION_PATH });
       },
     ],
   ];

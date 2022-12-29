@@ -91,19 +91,17 @@ const apis = [
         userName: "",
         userAvatar: "",
         userRole: "user",
-        userPermissions: [],
       };
       console.log("authorization", authorization);
       const isInUser = userModel.some((item) => {
         const flag = item.token === authorization;
         if (flag) {
-          const { userId: itemUserId, userName, userAvatar, userRole, userPermissions } = item;
+          const { userId: itemUserId, userName, userAvatar, userRole } = item;
           Object.assign(userInfo, {
             userId: itemUserId,
             userName,
             userAvatar,
             userRole,
-            userPermissions,
           });
         }
         return flag;

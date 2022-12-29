@@ -4,8 +4,6 @@ interface UserModel {
   userName: string;
   userAvatar: string;
   userRole: string;
-  //   模拟后端返回的JSON形式的数组
-  userPermissions: string;
   password: string;
 }
 
@@ -16,7 +14,6 @@ export const userModel: UserModel[] = [
     userName: "Soup_super",
     userAvatar: "/icon/ms-icon-310x310.png",
     userRole: "super",
-    userPermissions: `["test"]`,
     password: "super",
   },
   {
@@ -25,7 +22,6 @@ export const userModel: UserModel[] = [
     userName: "Soup_Admin",
     userAvatar: "/icon/ms-icon-310x310.png",
     userRole: "admin",
-    userPermissions: "[]",
     password: "admin123",
   },
   {
@@ -34,7 +30,6 @@ export const userModel: UserModel[] = [
     userName: "Soup_User",
     userAvatar: "/icon/ms-icon-310x310.png",
     userRole: "user",
-    userPermissions: "[]",
     password: "user114514",
   },
 ];
