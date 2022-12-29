@@ -1,4 +1,4 @@
-import { nextTick, onUnmounted, ref, watch } from "vue";
+import { nextTick, effectScope, onScopeDispose, ref, watch } from "vue";
 import type { ComputedRef, Ref } from "vue";
 import * as echarts from "echarts/core";
 import {
@@ -83,88 +83,100 @@ echarts.use([
  * @param renderFun - 图表渲染函数(例如：图表监听函数)
  * @description 按需引入图表组件，没注册的组件需要先引入
  */
-export const useEcharts = (
+export function useEcharts(
   options: Ref<ECOption> | ComputedRef<ECOption>,
   renderFun?: (chartInstance: echarts.ECharts) => void,
-) => {
+) {
   const theme = useThemeStore();
 
-  const domRef = ref(null);
+  const domRef = ref<HTMLElement>();
 
   const initialSize = { width: 0, height: 0 };
   const { width, height } = useElementSize(domRef, initialSize);
 
   let chart: echarts.ECharts | null = null;
 
-  const canRender = () => {
+  function canRender() {
     return initialSize.width > 0 && initialSize.height > 0;
-  };
+  }
 
-  const isRendered = () => {
+  function isRendered() {
     return Boolean(domRef.value && chart);
-  };
+  }
 
-  const update = (updateOptions: ECOption) => {
+  function update(updateOptions: ECOption) {
     if (isRendered()) {
+      chart?.clear();
       chart!.setOption({ ...updateOptions, backgroundColor: "transparent" });
     }
-  };
+  }
 
-  const render = async () => {
+  async function render() {
     if (domRef.value) {
+      const chartTheme = theme.darkMode ? "dark" : "light";
       await nextTick();
-      chart = echarts.init(domRef.value);
+      chart = echarts.init(domRef.value, chartTheme);
       if (renderFun) {
         renderFun(chart);
       }
       update(options.value);
     }
-  };
+  }
 
-  const resize = () => {
+  function resize() {
     chart?.resize();
-  };
+  }
 
-  const destroy = () => {
+  function destroy() {
     chart?.dispose();
-  };
+  }
 
-  const updateTheme = () => {
+  function updateTheme() {
     destroy();
     render();
-  };
+  }
 
-  const stopSizeWatch = watch([width, height], ([newWidth, newHeight]) => {
-    initialSize.width = newWidth;
-    initialSize.height = newHeight;
-    if (canRender()) {
-      if (!isRendered()) {
-        render();
-      } else {
-        resize();
+  const scope = effectScope();
+
+  scope.run(() => {
+    watch([width, height], ([newWidth, newHeight]) => {
+      initialSize.width = newWidth;
+      initialSize.height = newHeight;
+      if (newWidth === 0 && newHeight === 0) {
+        // 节点被删除 将chart置为空
+        chart = null;
       }
-    }
+      if (canRender()) {
+        if (!isRendered()) {
+          render();
+        } else {
+          resize();
+        }
+      }
+    });
+
+    watch(
+      options,
+      (newValue) => {
+        update(newValue);
+      },
+      { deep: true },
+    );
+
+    watch(
+      () => theme.darkMode,
+      () => {
+        updateTheme();
+      },
+    );
   });
 
-  const stopOptionWatch = watch(options, (newValue) => {
-    update(newValue);
-  });
-
-  const stopDarkModeWatch = watch(
-    () => theme.darkMode,
-    () => {
-      updateTheme();
-    },
-  );
-
-  // 销毁之前删除该实例
-  onUnmounted(() => {
+  onScopeDispose(() => {
     destroy();
-    stopSizeWatch();
-    stopOptionWatch();
+    scope.stop();
   });
 
   return {
     domRef,
   };
-};
+}
