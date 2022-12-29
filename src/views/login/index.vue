@@ -140,7 +140,6 @@ const handleSubmit = (e: { preventDefault: () => void }) => {
         .login(loginForm.userName, loginForm.password)
         .then(() => {
           message.success("登录成功，即将进入系统");
-          handleSuccess();
         })
         .catch((err) => {
           message.warning(err.message);
@@ -150,17 +149,5 @@ const handleSubmit = (e: { preventDefault: () => void }) => {
       return;
     }
   });
-};
-
-/**
- * 登录成功后跳转
- */
-const handleSuccess = () => {
-  const toPath = decodeURIComponent((route.query?.redirect || "/") as string);
-  if (route.name === LOGIN_NAME) {
-    router.replace("/");
-  } else {
-    router.replace(toPath);
-  }
 };
 </script>
