@@ -28,7 +28,7 @@
                   round
                   bordered
                   :size="48"
-                  :src="authStore?.avatar || '/icon/ms-icon-310x310.png'"
+                  :src="authStore.userInfo?.userAvatar || '/icon/ms-icon-310x310.png'"
                 />
               </template>
               <n-thing :title="item.content" :description="item.time" />

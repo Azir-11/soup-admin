@@ -1,115 +1,122 @@
+import { unref, nextTick } from "vue";
 import { defineStore } from "pinia";
+import { router } from "@/router";
+import { ACCESS_TOKEN, CURRENT_USER_INFO, TABS_ROUTES } from "@/stores/mutation-types";
+import { fetchLogin, fetchUserInfo } from "@/service";
+import { useRouterPush } from "@/composables";
 import { storage } from "@/utils";
-import { store } from "@/stores";
-import { ACCESS_TOKEN, CURRENT_USER, TABS_ROUTES } from "@/stores/mutation-types";
-import { fetchLogin, fetchPermissions } from "@/service";
-import { Login } from "@/service/api/types";
+import { useTabStore } from "../tab";
 import { useRouteStore } from "../router";
+import { getToken, getUserInfo, clearAuthStorage } from "./helpers";
 
-export interface IUserState {
-  userId: string;
+interface AuthState {
+  /** 用户信息 */
+  userInfo: Auth.UserInfo;
+  /** 用户token */
   token: string;
-  userName: string;
-  avatar: string;
-  userRole: Auth.RoleType;
-  permissions: any[];
+  /** 登录的加载状态 */
+  loginLoading: boolean;
 }
 
-const initUser = (user: Login = null) => {
-  if (user === null) {
-    user = storage.get(CURRENT_USER);
-  }
-  if (user) {
-    return {
-      userId: user.userId,
-      token: user.token,
-      userName: user.userName,
-      avatar: user.avatar,
-      userRole: user.userRole,
-      permissions: JSON.parse(user.permissions),
-    };
-  }
-};
-
-export const useAuthStore = defineStore({
-  id: "app-auth",
-  state: (): IUserState => ({
-    ...initUser(),
+export const useAuthStore = defineStore("auth-store", {
+  state: (): AuthState => ({
+    userInfo: getUserInfo(),
+    token: getToken(),
+    loginLoading: false,
   }),
   getters: {
-    getId() {
-      return this.id;
-    },
-    getToken(): string {
-      return this.token;
-    },
-    getNickname(): string {
-      return this.userName;
-    },
-    getPermissions(): Array<string> {
-      return this.permissions;
+    /** 是否登录 */
+    isLogin(state) {
+      return Boolean(state.token);
     },
   },
   actions: {
-    setId(userId) {
-      this.userId = userId;
-    },
-    setToken(token: string) {
-      this.token = token;
-    },
-    setuserName(userName: string) {
-      this.userName = userName;
-    },
-    setPermissions(permissions) {
-      this.permissions = permissions;
-    },
-    setRole(userRole: string) {
-      this.userRole = userRole;
-    },
-    // 登录
-    async login(userInfo) {
-      try {
-        const response: any = await fetchLogin(userInfo.userName, userInfo.password);
-        const { data } = response;
-        const ex = 7 * 24 * 60 * 60 * 1000;
-        storage.set(ACCESS_TOKEN, data.token, ex);
-        storage.set(CURRENT_USER, data);
-        initUser(data);
-        return Promise.resolve(data);
-      } catch (e) {
-        console.log("e", e);
-        return Promise.reject(e);
-      }
-    },
+    /** 重置auth状态 */
+    resetAuthStore() {
+      const { toLogin } = useRouterPush(false);
+      const { resetTabStore } = useTabStore();
+      const { resetRouteStore } = useRouteStore();
+      const route = unref(router.currentRoute);
 
-    // 获取用户信息
-    GetPermissions() {
-      const that = this;
-      return new Promise((resolve, reject) => {
-        fetchPermissions()
-          .then((res) => {
-            const permissionsList = res.data;
-            if (permissionsList && permissionsList.length) {
-              that.setPermissions(permissionsList);
-            } else {
-              reject(new Error("getInfo: permissionsList must be a non-null array !"));
-            }
-            resolve(res);
-          })
-          .catch((error) => {
-            reject(error);
-          });
+      clearAuthStorage();
+      this.$reset();
+
+      if (route.meta.requiresAuth) {
+        toLogin();
+      }
+
+      nextTick(() => {
+        resetTabStore();
+        resetRouteStore();
       });
     },
+    /**
+     * 处理登录后成功或失败的逻辑
+     * @param backendToken - 返回的token
+     */
+    async handleActionAfterLogin(backendToken: string) {
+      const route = useRouteStore();
+      const { toLoginRedirect } = useRouterPush(false);
 
-    // 登出
-    async logout() {
-      this.setPermissions([]);
-      storage.remove(CURRENT_USER);
-      storage.remove(ACCESS_TOKEN);
-      storage.remove(TABS_ROUTES);
-      location.reload();
-      return Promise.resolve("");
+      const loginSuccess = await this.loginByToken(backendToken);
+
+      if (loginSuccess) {
+        await route.initAuthRoute();
+
+        // 跳转登录后的地址
+        toLoginRedirect();
+
+        // 登录成功弹出欢迎提示
+        if (route.isInitAuthRoute) {
+          window["$notification"]?.success({
+            title: "登录成功!",
+            content: `欢迎回来，${this.userInfo.userName}!`,
+            duration: 3000,
+          });
+        }
+
+        return;
+      }
+
+      // 不成功则重置状态
+      this.resetAuthStore();
+    },
+    /**
+     * 根据token进行登录
+     * @param backendToken - 返回的token
+     */
+    async loginByToken(backendToken: string) {
+      let successFlag = false;
+
+      // 先把token存储到缓存中(后面接口的请求头需要token)
+      storage.set(ACCESS_TOKEN, backendToken);
+
+      // 获取用户信息
+      const { data } = await fetchUserInfo();
+      if (data) {
+        // 成功后把用户信息存储到缓存中
+        storage.set(CURRENT_USER_INFO, data);
+
+        // 更新状态
+        this.userInfo = data;
+        this.token = backendToken;
+
+        successFlag = true;
+      }
+
+      return successFlag;
+    },
+    /**
+     * 登录
+     * @param userName - 用户名
+     * @param password - 密码
+     */
+    async login(userName: string, password: string) {
+      const { data } = await fetchLogin(userName, password);
+      if (data) {
+        storage.set(ACCESS_TOKEN, data);
+        await this.handleActionAfterLogin(data);
+      }
     },
     /**
      * 更换用户权限(切换账号)
@@ -120,16 +127,16 @@ export const useAuthStore = defineStore({
 
       const accounts: Record<Auth.RoleType, { userName: string; password: string }> = {
         super: {
-          userName: "Super",
-          password: "super123",
+          userName: "Soup_super",
+          password: "super",
         },
         admin: {
-          userName: "Admin",
+          userName: "Soup_Admin",
           password: "admin123",
         },
         user: {
-          userName: "User01",
-          password: "user01123",
+          userName: "Soup_User",
+          password: "user114514",
         },
       };
       const { userName, password } = accounts[userRole];
@@ -142,8 +149,3 @@ export const useAuthStore = defineStore({
     },
   },
 });
-
-// Need to be used outside the setup
-export const useAuthStoreWidthOut = () => {
-  return useAuthStore(store);
-};

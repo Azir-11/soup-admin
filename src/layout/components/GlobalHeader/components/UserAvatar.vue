@@ -3,7 +3,7 @@
     <n-dropdown :options="options" @select="handleDropdown">
       <div class="flex items-center justify-center w-[150px] h-full">
         <icon-local-avatar class="text-32px" />
-        <span class="pl-8px text-16px">{{ auth.userName }}</span>
+        <span class="pl-8px text-16px">{{ auth.userInfo.userName }}</span>
       </div>
     </n-dropdown>
   </hover-container>
@@ -46,7 +46,7 @@ function handleDropdown(optionKey: string) {
       positiveText: "确定",
       negativeText: "取消",
       onPositiveClick: () => {
-        auth.logout();
+        auth.resetAuthStore();
       },
     });
   }

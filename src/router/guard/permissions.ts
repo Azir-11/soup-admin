@@ -38,7 +38,7 @@ export const createPermissionGuard = async (
     !permissions.length ||
     permissions.some((routePermission) => {
       let flag = false;
-      authStore.getPermissions.forEach((userPermission) => {
+      authStore.userInfo.userPermissions.forEach((userPermission) => {
         if (routePermission == userPermission) {
           flag = true;
         }

@@ -10,6 +10,11 @@ export const fetchLogin = (userName: string, password: string) => {
   return mockRequest.post<Login>("/user/login", { userName, password });
 };
 
+/** 获取用户信息 */
+export function fetchUserInfo() {
+  return mockRequest.get<Auth.UserInfo>("/getUserInfo");
+}
+
 /**
  * 获取权限
  * @param userName - 用户名

@@ -42,16 +42,14 @@ export const useRouterPush = (inSetup = true) => {
    * @param loginModule - 展示的登录模块
    * @param redirectUrl - 重定向地址(登录成功后跳转的地址),默认undefined表示取当前地址为重定向地址
    */
-  const toLogin = (loginModule, redirectUrl?: string) => {
-    const module = loginModule || "pwd-login";
+  function toLogin(redirectUrl?: string) {
     const routeLocation: RouteLocationRaw = {
       name: routeName("login"),
-      params: { module },
     };
     const redirect = redirectUrl || route.value.fullPath;
     Object.assign(routeLocation, { query: { redirect } });
     routerPush(routeLocation);
-  };
+  }
 
   /**
    * 登录页切换其他模块

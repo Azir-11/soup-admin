@@ -12,7 +12,6 @@ const apis = [
     method: "post",
     response: (options) => {
       const { userName = undefined, password = undefined } = options.body;
-      console.log("userName", userName);
 
       if (!userName || !password) {
         return {
@@ -29,7 +28,7 @@ const apis = [
         return {
           code: 200,
           message: "success",
-          data: findItem,
+          data: findItem.token,
         };
       }
       return {
@@ -68,6 +67,59 @@ const apis = [
       return {
         code: 403,
         message: "Token错误,请重新登录",
+        data: null,
+      };
+    },
+  },
+  // 获取用户信息(请求头携带token, 根据token获取用户信息)
+  {
+    url: "/mock/getUserInfo",
+    method: "get",
+    response: (options: Service.MockOption): Service.MockServiceResult<Auth.UserInfo | null> => {
+      // 这里的mock插件得到的字段是authorization, 前端传递的是Authorization字段
+      const { authorization = "" } = options.headers;
+
+      if (!authorization) {
+        return {
+          code: 400,
+          message: "用户已失效或不存在！",
+          data: null,
+        };
+      }
+      const userInfo: Auth.UserInfo = {
+        userId: "",
+        userName: "",
+        userAvatar: "",
+        userRole: "user",
+        userPermissions: [],
+      };
+      console.log("authorization", authorization);
+      const isInUser = userModel.some((item) => {
+        const flag = item.token === authorization;
+        if (flag) {
+          const { userId: itemUserId, userName, userAvatar, userRole, userPermissions } = item;
+          Object.assign(userInfo, {
+            userId: itemUserId,
+            userName,
+            userAvatar,
+            userRole,
+            userPermissions,
+          });
+        }
+        return flag;
+      });
+
+      if (isInUser) {
+        return {
+          code: 200,
+          message: "ok",
+          data: userInfo,
+        };
+      }
+
+      return {
+        code: 400,
+        message: "用户信息异常！",
         data: null,
       };
     },

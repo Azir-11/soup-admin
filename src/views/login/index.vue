@@ -137,7 +137,7 @@ const handleSubmit = (e: { preventDefault: () => void }) => {
       loading.value = true;
 
       authStore
-        .login(loginForm)
+        .login(loginForm.userName, loginForm.password)
         .then(() => {
           message.success("登录成功，即将进入系统");
           handleSuccess();

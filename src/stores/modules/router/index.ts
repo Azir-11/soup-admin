@@ -15,7 +15,7 @@ import {
 } from "@/utils";
 import { useAuthStore } from "../auth";
 import { useTabStore } from "../tab";
-import { CURRENT_USER } from "@/stores";
+import { CURRENT_USER_INFO } from "@/stores";
 
 interface RouteState {
   /**
@@ -48,18 +48,7 @@ export const useRouteStore = defineStore("route-store", {
   actions: {
     /** 重置路由的store */
     resetRouteStore() {
-      this.resetRoutes();
       this.$reset();
-    },
-    /** 重置路由数据，保留固定路由 */
-    resetRoutes() {
-      const routes = router.getRoutes();
-      routes.forEach((route) => {
-        const name = (route.name || "root") as AuthRoute.AllRouteKey;
-        if (!this.isConstantRoute(name)) {
-          router.removeRoute(name);
-        }
-      });
     },
     /**
      * 是否是固定路由
@@ -112,7 +101,7 @@ export const useRouteStore = defineStore("route-store", {
     async initDynamicRoute() {
       const { initHomeTab } = useTabStore();
 
-      const { userId } = storage.get(CURRENT_USER) || {};
+      const { userId } = storage.get(CURRENT_USER_INFO) || {};
 
       if (!userId) {
         throw new Error("userId 不能为空!");
@@ -134,7 +123,7 @@ export const useRouteStore = defineStore("route-store", {
     async initStaticRoute() {
       const { initHomeTab } = useTabStore();
       const auth = useAuthStore();
-      const routes = filterAuthRoutesByUserPermission(staticRoutes, auth.userRole);
+      const routes = filterAuthRoutesByUserPermission(staticRoutes, auth.userInfo.userRole);
       this.handleAuthRoute(routes);
       initHomeTab(import.meta.env.VITE_ROUTE_HOME_NAME, router);
       this.isInitAuthRoute = true;

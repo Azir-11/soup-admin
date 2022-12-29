@@ -3,11 +3,11 @@
     <n-card title="权限切换" class="h-full shadow-sm rounded-16px">
       <div class="pb-12px">
         <n-gradient-text type="primary" :size="20"
-          >当前用户的权限：{{ auth.userRole }}</n-gradient-text
+          >当前用户的权限：{{ auth.userInfo.userRole }}</n-gradient-text
         >
       </div>
       <n-select
-        :value="auth.userRole"
+        :value="auth.userInfo.userRole"
         class="w-120px"
         size="small"
         :options="options"

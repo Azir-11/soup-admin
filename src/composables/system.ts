@@ -26,7 +26,7 @@ export const usePermission = () => {
   const auth = useAuthStore();
 
   const hasPermission = (permission: Auth.RoleType | Auth.RoleType[]) => {
-    const { userRole } = auth;
+    const { userRole } = auth.userInfo;
 
     let has = userRole === "super";
     if (!has) {

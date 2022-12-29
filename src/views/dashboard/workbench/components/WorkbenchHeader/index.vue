@@ -6,11 +6,11 @@
           round
           bordered
           :size="78"
-          :src="authStore?.avatar || '/icon/ms-icon-310x310.png'"
+          :src="authStore.userInfo?.userAvatar || '/icon/ms-icon-310x310.png'"
         />
         <div class="pl-12px">
           <h3 class="text-18px font-semibold">
-            早安，{{ authStore.userName }}, 今天又是充满活力的一天！
+            早安，{{ authStore.userInfo.userName }}, 今天又是充满活力的一天！
           </h3>
           <p class="leading-30px text-[#999]">今日多云转晴,20℃ - 25℃!</p>
         </div>
