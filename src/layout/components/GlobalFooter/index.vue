@@ -1,11 +1,8 @@
 <template>
   <footer class="h-20 py-2 flex flex-col justify-center">
-    <a v-for="(item, index) in data" :key="index" class="block text-center"> {{ item }} </a>
+    <a class="block text-center"> MIT Licensed | Copyright © 2022-present 青菜白玉汤 </a>
+    <a class="block text-center"> 粤备案xxx号 </a>
   </footer>
 </template>
 
-<script setup lang="ts">
-import { ProjectEnum } from "@/enum/projectEnums";
-
-const data = [ProjectEnum.COPYRIGHT_INFORMATION, ProjectEnum.RECORD_INFORMATION];
-</script>
+<script setup lang="ts"></script>

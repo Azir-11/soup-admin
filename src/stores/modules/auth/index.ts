@@ -4,13 +4,14 @@ import { store } from "@/stores";
 import { ACCESS_TOKEN, CURRENT_USER, TABS_ROUTES } from "@/stores/mutation-types";
 import { fetchLogin, fetchPermissions } from "@/service";
 import { Login } from "@/service/api/types";
+import { useRouteStore } from "../router";
 
 export interface IUserState {
   userId: string;
   token: string;
   userName: string;
   avatar: string;
-  userRole: string;
+  userRole: Auth.RoleType;
   permissions: any[];
 }
 
@@ -109,6 +110,35 @@ export const useAuthStore = defineStore({
       storage.remove(TABS_ROUTES);
       location.reload();
       return Promise.resolve("");
+    },
+    /**
+     * 更换用户权限(切换账号)
+     * @param userRole
+     */
+    async updateUserRole(userRole: Auth.RoleType) {
+      const { resetRouteStore, initAuthRoute } = useRouteStore();
+
+      const accounts: Record<Auth.RoleType, { userName: string; password: string }> = {
+        super: {
+          userName: "Super",
+          password: "super123",
+        },
+        admin: {
+          userName: "Admin",
+          password: "admin123",
+        },
+        user: {
+          userName: "User01",
+          password: "user01123",
+        },
+      };
+      const { userName, password } = accounts[userRole];
+      const { data } = await fetchLogin(userName, password);
+      if (data) {
+        await this.loginByToken(data);
+        resetRouteStore();
+        initAuthRoute();
+      }
     },
   },
 });

@@ -3,7 +3,7 @@ export interface Login {
   userName: string;
   avatar: string;
   token: string;
-  userRole: string;
+  userRole: Auth.RoleType;
   permissions: string;
 }
 
