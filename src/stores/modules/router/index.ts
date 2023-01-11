@@ -16,6 +16,7 @@ import {
 import { useAuthStore } from "../auth";
 import { useTabStore } from "../tab";
 import { CURRENT_USER_INFO } from "@/stores";
+import { sortRoutes } from "@/utils";
 
 interface RouteState {
   /**
@@ -112,7 +113,8 @@ export const useRouteStore = defineStore("route-store", {
       if (!error) {
         this.routeHomeName = data.home;
         this.handleUpdateRootRedirect(data.home);
-        this.handleAuthRoute(data.routes);
+        // 做一下排序
+        this.handleAuthRoute(sortRoutes(data.routes));
 
         initHomeTab(data.home, router);
 
