@@ -32,7 +32,7 @@ specifiers:
   form-data: ^4.0.0
   lodash-es: ^4.17.21
   mockjs: ^1.1.0
-  naive-ui: ^2.34.0
+  naive-ui: ^2.34.3
   pinia: ^2.0.11
   prettier: ^2.7.1
   qs: ^6.11.0
@@ -68,7 +68,7 @@ dependencies:
   form-data: registry.npmmirror.com/form-data/4.0.0
   lodash-es: registry.npmmirror.com/lodash-es/4.17.21
   mockjs: registry.npmmirror.com/mockjs/1.1.0
-  naive-ui: registry.npmmirror.com/naive-ui/2.34.0_vue@3.2.37
+  naive-ui: registry.npmmirror.com/naive-ui/2.34.3_vue@3.2.37
   pinia: registry.npmmirror.com/pinia/2.0.14_sdd75jdcfpnnetb7lau6jf3vqq
   qs: registry.npmmirror.com/qs/6.11.0
   unocss: registry.npmmirror.com/unocss/0.45.25_vite@3.0.8
@@ -4359,11 +4359,11 @@ packages:
     version: 0.1.0
     dev: true
 
-  registry.npmmirror.com/naive-ui/2.34.0_vue@3.2.37:
-    resolution: {integrity: sha512-WJtGRc0BHMbCBYCbTYGlEtG3TC3yTyAK5rTQdsIAm6ZYGFbnA6KVDtNXx2Ucd5dyH9V+iwaBXTO3oPRs7PiPoQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/naive-ui/-/naive-ui-2.34.0.tgz}
-    id: registry.npmmirror.com/naive-ui/2.34.0
+  registry.npmmirror.com/naive-ui/2.34.3_vue@3.2.37:
+    resolution: {integrity: sha512-fUMr0dzb/iGsOTWgoblPVobY5X5dihQ1eam5dA+H74oyLYAvgX4pL96xQFPBLIYqvyRFBAsN85kHN5pLqdtpxA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/naive-ui/-/naive-ui-2.34.3.tgz}
+    id: registry.npmmirror.com/naive-ui/2.34.3
     name: naive-ui
-    version: 2.34.0
+    version: 2.34.3
     peerDependencies:
       vue: ^3.0.0
     dependencies:
