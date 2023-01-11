@@ -1,9 +1,11 @@
 <template>
   <main>
     <div class="p-6 h-full">
-      <RouterView v-slot="{ Component }">
+      <RouterView v-slot="{ Component, route }">
         <transition :name="theme.pageAnimateMode" mode="out-in" :appear="true">
-          <component :is="Component" />
+          <keep-alive :include="routeStore.cacheRoutes">
+            <component :is="Component" :key="route.fullPath" />
+          </keep-alive>
         </transition>
       </RouterView>
     </div>
@@ -11,7 +13,9 @@
 </template>
 
 <script setup lang="ts">
-import { useThemeStore } from "@/stores";
+import { useThemeStore, useRouteStore } from "@/stores";
 
 const theme = useThemeStore();
+
+const routeStore = useRouteStore();
 </script>
