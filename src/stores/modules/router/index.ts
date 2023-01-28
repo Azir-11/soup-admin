@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { ROOT_ROUTE, constantRoutes, router, routes as staticRoutes } from "@/router";
+import { ROOT_ROUTE, constantRoutes, router, routes as staticRoutes, routeName } from "@/router";
 import { fetchUserRoutes } from "@/service";
 import {
   storage,
@@ -17,6 +17,7 @@ import { useAuthStore } from "../auth";
 import { useTabStore } from "../tab";
 import { CURRENT_USER_INFO } from "@/stores";
 import { sortRoutes } from "@/utils";
+import { useRouterPush } from "@/composables";
 
 interface RouteState {
   /**
@@ -105,6 +106,9 @@ export const useRouteStore = defineStore("route-store", {
       const { userId } = storage.get(CURRENT_USER_INFO) || {};
 
       if (!userId) {
+        router.push({
+          name: routeName("login"),
+        });
         throw new Error("userId 不能为空!");
       }
 
