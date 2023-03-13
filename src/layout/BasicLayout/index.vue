@@ -1,7 +1,7 @@
 <template>
   <section class="flex flex-col wh-full">
     <GlobalHeader
-      class="z-1002 globalComponents w-full left-0 top-0 border-b border-gray-200 bg-white dark:bg-black"
+      class="z-1002 globalComponents w-full left-0 top-0 border-b border-gray-200 bg-white dark:bg-[#18181c]"
       :style="`padding-left:${activemenuWidth}px;height:${header.height}px`"
     />
     <GlobalTab
@@ -11,7 +11,6 @@
     />
     <GlobalMenu class="z-1003 globalComponents h-screen left-0 top-0 bg-white dark:bg-[#18181c]" />
     <GlobalMain
-      class="z-999 w-full flex-grow transition-all duration-300 bg-gray-100 dark:bg-black"
       :style="`padding-left:${activemenuWidth}px;padding-top:${
         header.height + (tab.visible ? tab.height : 0)
       }px`"
