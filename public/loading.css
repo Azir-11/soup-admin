@@ -1,128 +1,97 @@
-.loading-container {
+body{
+    padding: 0;
+    margin: 0;
+}
+
+.FSL {
+    background-color: #585858;
+    display: grid;
     height: 100vh;
+    place-content: center;
+    width: 100vw;
     overflow: hidden;
+    margin: 0;
 }
 
-.loading_animation {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.FSLFinny {
+    width: 35vw;
+    height: 15vh;
+    display: block;
 }
 
-.appLoadingText{
-    margin-top: 38px;
+.FSLFbottom,
+.FSLll {
+    fill: none;
 }
 
-.sk-folding-cube {
-    margin: 20px auto;
-    width: 40px;
-    height: 40px;
-    position: relative;
-    -webkit-transform: rotateZ(45deg);
-    transform: rotateZ(45deg) scale(1.5);
+.FSLFbottom {
+    stroke-width: inherit;
+    stroke: #87AEAF;
+    stroke-opacity: 0.3;
 }
 
-.sk-folding-cube .sk-cube {
-    float: left;
-    width: 50%;
-    height: 50%;
-    position: relative;
-    -webkit-transform: scale(1.1);
-    -ms-transform: scale(1.1);
-    transform: scale(1.1);
+.FSLll {
+    stroke: #3DBABA;
+    animation: FSLLoop 3s linear infinite;
+    stroke-width: 0.35;
+    stroke-dasharray: 3 24.5;
+    stroke-linecap: round;
 }
 
-.sk-folding-cube .sk-cube:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: #54abe2;
-    -webkit-animation: sk-foldCubeAngle 2.4s infinite linear both;
-    animation: sk-foldCubeAngle 2.4s infinite linear both;
-    -webkit-transform-origin: 100% 100%;
-    -ms-transform-origin: 100% 100%;
-    transform-origin: 100% 100%;
+.FSLFinny {
+    stroke-width: 1.43;
+    animation: rot 36s linear infinite;
+    perspective: 500px;
 }
 
-.sk-folding-cube .sk-cube2 {
-    -webkit-transform: scale(1.1) rotateZ(90deg);
-    transform: scale(1.1) rotateZ(90deg);
+.FSLShad {
+    animation: FSLRaise 3s linear infinite;
 }
 
-.sk-folding-cube .sk-cube3 {
-    -webkit-transform: scale(1.1) rotateZ(180deg);
-    transform: scale(1.1) rotateZ(180deg);
+.FSLShad.FSLOdd {
+    animation-delay: -1.5s;
 }
 
-.sk-folding-cube .sk-cube4 {
-    -webkit-transform: scale(1.1) rotateZ(270deg);
-    transform: scale(1.1) rotateZ(270deg);
-}
-
-.sk-folding-cube .sk-cube2:before {
-    -webkit-animation-delay: 0.3s;
-    animation-delay: 0.3s;
-}
-
-.sk-folding-cube .sk-cube3:before {
-    -webkit-animation-delay: 0.6s;
-    animation-delay: 0.6s;
-}
-
-.sk-folding-cube .sk-cube4:before {
-    -webkit-animation-delay: 0.9s;
-    animation-delay: 0.9s;
-}
-
-@-webkit-keyframes sk-foldCubeAngle {
-
+@keyframes FSLRaise {
     0%,
-    10% {
-        -webkit-transform: perspective(140px) rotateX(-180deg);
-        transform: perspective(140px) rotateX(-180deg);
-        opacity: 0;
-    }
-
-    25%,
-    75% {
-        -webkit-transform: perspective(140px) rotateX(0deg);
-        transform: perspective(140px) rotateX(0deg);
+    20% {
         opacity: 1;
     }
-
-    90%,
-    100% {
-        -webkit-transform: perspective(140px) rotateY(180deg);
-        transform: perspective(140px) rotateY(180deg);
+    30%,
+    70% {
         opacity: 0;
+    }
+    80%,
+    100% {
+        opacity: 1;
     }
 }
 
-@keyframes sk-foldCubeAngle {
+.FSLll {
+    animation-delay: -1.5s;
+}
 
-    0%,
-    10% {
-        -webkit-transform: perspective(140px) rotateX(-180deg);
-        transform: perspective(140px) rotateX(-180deg);
-        opacity: 0;
+@keyframes FSLLoop {
+    0% {
+        stroke-dashoffset: 0.5;
     }
 
-    25%,
-    75% {
-        -webkit-transform: perspective(140px) rotateX(0deg);
-        transform: perspective(140px) rotateX(0deg);
-        opacity: 1;
-    }
-
-    90%,
     100% {
-        -webkit-transform: perspective(140px) rotateY(180deg);
-        transform: perspective(140px) rotateY(180deg);
-        opacity: 0;
+        stroke-dashoffset: 28;
+    }
+}
+
+.FSLClip-shadow {
+    stroke-linecap: butt;
+    fill: none;
+    opacity: 0.3;
+    stroke-width: inherit;
+    stroke: url(#sgrad);
+}
+
+
+@media (prefers-color-scheme: light) {
+    #sgrad stop {
+        stop-color: #2345;
     }
 }
