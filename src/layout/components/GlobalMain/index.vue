@@ -6,7 +6,7 @@
       <RouterView v-slot="{ Component, route }">
         <transition :name="theme.pageAnimateMode" mode="out-in" :appear="true">
           <keep-alive :include="routeStore.cacheRoutes">
-            <component :is="Component" :key="route.fullPath" />
+            <component :is="Component" v-if="app.reloadFlag" :key="route.fullPath" />
           </keep-alive>
         </transition>
       </RouterView>
@@ -15,9 +15,10 @@
 </template>
 
 <script setup lang="ts">
-import { useThemeStore, useRouteStore } from "@/stores";
+import { useThemeStore, useRouteStore, useAppStore } from "@/stores";
 
 const theme = useThemeStore();
+const app = useAppStore();
 
 const routeStore = useRouteStore();
 </script>

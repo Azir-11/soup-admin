@@ -1,6 +1,8 @@
 import { defineStore } from "pinia";
 
 interface AppState {
+  /** 重载页面(控制页面的显示) */
+  reloadFlag: boolean;
   /** 当前是否为移动端模式 */
   isMobile: boolean;
   /** 菜单抽屉的可见状态 */
@@ -15,6 +17,7 @@ interface AppState {
 
 export const useAppStore = defineStore("app-store", {
   state: (): AppState => ({
+    reloadFlag: true,
     isMobile: false,
     menuDrawerVisible: false,
     settingDrawerVisible: false,
@@ -24,10 +27,18 @@ export const useAppStore = defineStore("app-store", {
   actions: {
     /**
      * 重载页面
+     * @param duration - 重载的延迟时间(ms)
      */
-    async reloadPage() {
-      // TODO: 重新加载路由
-      location.reload();
+    async reloadPage(duration = 0) {
+      this.reloadFlag = false;
+      await nextTick();
+      if (duration) {
+        setTimeout(() => {
+          this.reloadFlag = true;
+        }, duration);
+      } else {
+        this.reloadFlag = true;
+      }
     },
     toggleMobile(flag: boolean) {
       this.isMobile = flag;

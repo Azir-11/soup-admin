@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { useTabStore, useThemeStore, useAppStore } from "@/stores";
+import { useTabStore, useThemeStore, useAppStore, useRouteStore } from "@/stores";
 import { ContextMenu } from "./components";
 
 interface Emits {
@@ -56,6 +56,7 @@ const emit = defineEmits<Emits>();
 const theme = useThemeStore();
 const tab = useTabStore();
 const app = useAppStore();
+const routeStore = useRouteStore();
 
 // 获取当前激活的tab的clientX
 const tabRef = ref<HTMLElement>();
@@ -140,13 +141,18 @@ watch(
 
 // 刷新按钮
 const refreshLoading = ref(false);
-const handleRefresh = () => {
-  refreshLoading.value = true;
+function handleRefresh() {
+  const isCached = routeStore.cacheRoutes.includes(String(route.name));
+  if (isCached) {
+    routeStore.removeCacheRoute(route.name as AuthRoute.AllRouteKey);
+  }
   app.reloadPage();
   setTimeout(() => {
-    refreshLoading.value = false;
+    if (isCached) {
+      routeStore.addCacheRoute(route.name as AuthRoute.AllRouteKey);
+    }
   }, 1000);
-};
+}
 // 初始化
 init();
 </script>
